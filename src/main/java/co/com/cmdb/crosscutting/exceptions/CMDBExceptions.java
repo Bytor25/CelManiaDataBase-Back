@@ -15,13 +15,20 @@ public class CMDBExceptions extends RuntimeException{
 		setMensajeUsuario(mensajeUsuario);
 		setLugar(lugar);
 	}
-	public CMDBExceptions(final String mensajeUsuario, final Lugar lugar) {
-		super(mensajeUsuario, new Exception());
 	
+	public CMDBExceptions(String mensajeUsuario, Lugar lugar) {
+		super(mensajeUsuario);
+		setMensajeUsuario(mensajeUsuario);
+		setLugar(lugar);
 	}
 	
+	public CMDBExceptions(String mensajeTecnico, String mensajeUsuario, Lugar lugar) {
+		super(mensajeUsuario);
+		setMensajeUsuario(mensajeUsuario);
+		setLugar(lugar);
+	}
 	private void setMensajeUsuario(String mensajeUsuario) {
-		this.mensajeUsuario = TextHelper.apllyTrim(mensajeUsuario);
+		this.mensajeUsuario = TextHelper.applyTrim(mensajeUsuario);
 	}
 	
 	private void setLugar(Lugar lugar) {

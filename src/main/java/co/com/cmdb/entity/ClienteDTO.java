@@ -1,12 +1,15 @@
-package co.com.cmdb.dto;
+package co.com.cmdb.entity;
 
 import java.util.UUID;
+
+import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 
 public final class ClienteDTO {
 	
 	private UUID id;
 	private int identificador;
-	private TipoDocumentoDTO tipoDocumento;
+	private TipoDocumentoEntity tipoDocumento;
 	private String nombre;
 	private String apellido;
 	private String correo;
@@ -17,7 +20,7 @@ public final class ClienteDTO {
 		super();
 	}
 
-	private ClienteDTO(final UUID id, final int identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellido, final String correo,
+	private ClienteDTO(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido, final String correo,
 			final int telefono) {
 		
 		setId (id);
@@ -44,7 +47,7 @@ public final class ClienteDTO {
 		return identificador;
 	}
 	
-	public final TipoDocumentoDTO getTipoDocumento() {
+	public final TipoDocumentoEntity getTipoDocumento() {
 		return tipoDocumento;
 	}
 	
@@ -79,12 +82,12 @@ public final class ClienteDTO {
 		this.identificador = identificador;
 	}
 
-	public final void setTipoDocumento(final TipoDocumentoDTO tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
+	public final void setTipoDocumento(final TipoDocumentoEntity tipoDocumento) {
+		this.tipoDocumento = ObjectHelper.getObjectHelper().getDefaultValue(tipoDocumento, new TipoDocumentoEntity());
 	}
 
 	public final void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = TextHelper.applyTrim(nombre);
 	}
 
 	public final void setApellido(String apellido) {
