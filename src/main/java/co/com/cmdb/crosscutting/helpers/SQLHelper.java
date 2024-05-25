@@ -7,34 +7,44 @@ import co.com.cmdb.crosscutting.exceptions.custom.CrosscuttingCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 
-
-
 public final class SQLHelper {
-
+	
 	private SQLHelper() {
+		
 		super();
+		
 	}
-
+	
 	public static final boolean isNull(final Connection connection) {
-		return ObjectHelper.getObjectHelper().isNull(connection);
-	}
+		
+		return ObjectHelper.getObjectHelper().isNull(connection);	
 
+	}
+	
 	public static final boolean isOpen(final Connection connection) {
+		
 		try {
+			
 			return !isNull(connection) && !connection.isClosed();
-		} catch (final SQLException exception) {
+			
+		} catch (final SQLException excepcion) {
+			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);
 			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00007);
-
-			throw new CrosscuttingCMDBxception(mensajeTecnico, mensajeUsuario, exception);
-		} catch (final Exception exception) {
+			
+			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, excepcion);
+			
+		} catch (final Exception excepcion) {
+			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);
 			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00008);
-
-			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeTecnico, exception);
+			
+			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, excepcion);
+			
 		}
+		
 	}
-
+	
 	public static final void close(final Connection connection) {
 		try {
 			if (!isOpen(connection)) {
@@ -59,7 +69,7 @@ public final class SQLHelper {
 			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, exception);
 		}
 	}
-
+	
 	public static final void commit(final Connection connection) {
 		try {
 			if (!isOpen(connection)) {
@@ -91,7 +101,7 @@ public final class SQLHelper {
 			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, exception);
 		}
 	}
-
+	
 	public static final void rollback(final Connection connection) {
 		try {
 			if (!isOpen(connection)) {
@@ -123,7 +133,7 @@ public final class SQLHelper {
 			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, exception);
 		}
 	}
-
+	
 	public static final void initTransaction(final Connection connection) {
 		try {
 			if (!isOpen(connection)) {
@@ -148,5 +158,7 @@ public final class SQLHelper {
 			throw new CrosscuttingCMDBException(mensajeTecnico, mensajeUsuario, exception);
 		}
 	}
+	
+	
 }
 

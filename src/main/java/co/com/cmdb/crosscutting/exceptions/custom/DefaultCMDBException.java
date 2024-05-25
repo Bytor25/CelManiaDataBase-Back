@@ -10,6 +10,12 @@ public final class DefaultCMDBException extends CMDBExceptions {
 	public DefaultCMDBException(final String mensajeUsuario) {
 		super(mensajeUsuario, Lugar.DEFAULT);
 	}
+	
+	public DefaultCMDBException(final String mensajeUsuario, final String mensajeTecnico) {
+		super(mensajeUsuario, Lugar.DEFAULT);
+	}
+	
+	
 	public DefaultCMDBException(final String mensajeTecnico, final String mensajeUsuario, Throwable excepcionRaiz) {
 		super(mensajeTecnico, mensajeUsuario, Lugar.DEFAULT, excepcionRaiz);
 	}

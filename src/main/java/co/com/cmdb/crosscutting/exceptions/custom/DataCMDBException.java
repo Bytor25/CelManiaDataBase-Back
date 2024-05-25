@@ -10,6 +10,11 @@ public final class DataCMDBException extends CMDBExceptions {
 	public DataCMDBException(final String mensajeUsuario) {
 		super(mensajeUsuario, Lugar.DATA);
 	}
+	
+	public DataCMDBException(final String mensajeUsuario, final String mensajeTecnico) {
+		super(mensajeUsuario, Lugar.DATA);
+	}
+	
 	public DataCMDBException(final String mensajeTecnico, final String mensajeUsuario, Throwable excepcionRaiz) {
 		super(mensajeTecnico, mensajeUsuario, Lugar.DATA, excepcionRaiz);
 	}

@@ -10,6 +10,12 @@ public final class ControllerCMDBException extends CMDBExceptions {
 	public ControllerCMDBException(final String mensajeUsuario) {
 		super(mensajeUsuario, Lugar.CONTROLLER);
 	}
+	
+	public ControllerCMDBException(final String mensajeUsuario, final String mensajeTecnico) {
+		super(mensajeUsuario, Lugar.CONTROLLER);
+	}
+	
+	
 	public ControllerCMDBException(final String mensajeTecnico, final String mensajeUsuario, Throwable excepcionRaiz) {
 		super(mensajeTecnico, mensajeUsuario, Lugar.CONTROLLER, excepcionRaiz);
 	}

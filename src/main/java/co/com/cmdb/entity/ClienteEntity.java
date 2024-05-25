@@ -5,7 +5,7 @@ import java.util.UUID;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 
-public final class ClienteDTO {
+public final class ClienteEntity {
 	
 	private UUID id;
 	private int identificador;
@@ -16,11 +16,11 @@ public final class ClienteDTO {
 	private int telefono;
 	private boolean estado;
 	
-	private ClienteDTO() {
+	private ClienteEntity() {
 		super();
 	}
 
-	private ClienteDTO(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido, final String correo,
+	private ClienteEntity(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido, final String correo,
 			final int telefono) {
 		
 		setId (id);
@@ -33,8 +33,8 @@ public final class ClienteDTO {
 		setEstado(estado);
 	}
 	
-	public static final ClienteDTO build() {
-		return new ClienteDTO();
+	public static final ClienteEntity build() {
+		return new ClienteEntity();
 	}
 	
 	//Getters
@@ -106,3 +106,4 @@ public final class ClienteDTO {
 		this.estado = estado;
 	}
 }
+
