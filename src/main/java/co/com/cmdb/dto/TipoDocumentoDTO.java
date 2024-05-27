@@ -33,12 +33,14 @@ public final class TipoDocumentoDTO {
 
 	//Setters
 	
-	public final void setId(UUID id) {
+	public final TipoDocumentoDTO setId(UUID id) {
 		this.id = id;
+		return this;
 	}
 
-	public final void setNombre(String nombre) {
+	public final TipoDocumentoDTO setNombre(String nombre) {
 		this.nombre = nombre;
+		return this;
 	}
 	
 	

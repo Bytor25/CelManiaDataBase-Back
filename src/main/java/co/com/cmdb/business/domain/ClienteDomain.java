@@ -50,7 +50,6 @@ public static final ClienteDomain build(final UUID id) {
 }
 
 public static final ClienteDomain build() {
-	
 	return new ClienteDomain(UUIDHelper.getDefault(), TextHelper.EMPTY, TipoDocumentoDomain.build());
 	
 }

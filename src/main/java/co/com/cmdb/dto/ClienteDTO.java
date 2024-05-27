@@ -71,32 +71,39 @@ public final class ClienteDTO {
 
 	//Setters
 	
-	public final void setId(UUID id) {
+	public final ClienteDTO setId(UUID id) {
 		this.id = id;
+		return this;
 	}
 
-	public final void setIdentificador(int identificador) {
+	public final ClienteDTO setIdentificador(int identificador) {
 		this.identificador = identificador;
+		return this;
 	}
 
-	public final void setTipoDocumento(final TipoDocumentoDTO tipoDocumento) {
+	public final ClienteDTO setTipoDocumento(final TipoDocumentoDTO tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+		return this;
 	}
 
-	public final void setNombre(String nombre) {
+	public final ClienteDTO setNombre(final String nombre) {
 		this.nombre = nombre;
+		return this;
 	}
 
-	public final void setApellido(String apellido) {
+	public final ClienteDTO setApellido(String apellido) {
 		this.apellido = apellido;
+		return this;
 	}
 
-	public final void setCorreo(String correo) {
+	public final ClienteDTO setCorreo(String correo) {
 		this.correo = correo;
+		return this;
 	}
 
-	public final void setTelefono(int telefono) {
+	public final ClienteDTO setTelefono(int telefono) {
 		this.telefono = telefono;
+		return this;
 	}
 
 	public void setEstado(boolean estado) {
