@@ -22,8 +22,8 @@ import co.com.cmdb.dto.ClienteDTO;
 public class ClienteController {
 	
 	@RestController
-	@RequestMapping("/api/v1/ciudades")
-	public class CiudadController {
+	@RequestMapping("/api/v1/clientes")
+	public class ClientesController {
 		
 		@GetMapping
 		public ClienteDTO dummy() {
@@ -41,7 +41,7 @@ public class ClienteController {
 				var facade = new ConsultarClientesFacade();
 				
 				clienteResponse.setDatos(facade.excute(clienteDto));
-				clienteResponse.getMensajes().add("Cliente consultadas exitosamente");
+				clienteResponse.getMensajes().add("Clientes consultados exitosamente");
 				
 			}catch (final CMDBExceptions excepcion) {
 				httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -59,7 +59,7 @@ public class ClienteController {
 		}
 		
 		@PostMapping
-		public ResponseEntity<ClienteResponse> crear(@RequestBody ClienteDTO cliente){
+		public ResponseEntity<ClienteResponse> registrar(@RequestBody ClienteDTO cliente){
 			var httpStatusCode = HttpStatus.ACCEPTED;
 			var clienteResponse = new ClienteResponse();
 			try {
@@ -67,7 +67,7 @@ public class ClienteController {
 				var facade = new RegistrarClientesFacade();
 				
 				facade.execute(cliente);
-				clienteResponse.getMensajes().add("Cliente creado exitosamente");
+				clienteResponse.getMensajes().add("Cliente registrado exitosamente");
 				
 			
 			}catch (final CMDBExceptions excepcion) {
@@ -114,7 +114,7 @@ public class ClienteController {
 		}
 		
 		@PutMapping("/{id}")
-		public ResponseEntity<ClienteResponse> Modificar(@PathVariable UUID id, @RequestBody ClienteDTO clienteDto){
+		public ResponseEntity<ClienteResponse> actualizar(@PathVariable UUID id, @RequestBody ClienteDTO clienteDto){
 			var httpStatusCode = HttpStatus.ACCEPTED;
 			var clienteResponse = new ClienteResponse();
 			try {
@@ -122,7 +122,7 @@ public class ClienteController {
 				//var facade = new RegistrarCiudadesFacade();
 				
 				//facade.execute(id);
-				clienteResponse.getMensajes().add("Clientes modificada exitosamente");
+				clienteResponse.getMensajes().add("Cliente actualizado exitosamente");
 				
 			}catch (final CMDBExceptions excepcion) {
 				httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -130,7 +130,7 @@ public class ClienteController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de modificar la informacion de la ciudades...";
+				var mensajeUsuario = "Se ha presentado un problema tratando de actulizar la informacion de la ciudades...";
 				clienteResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();
