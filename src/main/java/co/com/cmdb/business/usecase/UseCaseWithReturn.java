@@ -1,7 +1,7 @@
 package co.com.cmdb.business.usecase;
 
-public interface UseCaseWithReturn <T> {
+public interface UseCaseWithReturn <T,R>{
 	
-	void execute (T data);
+	R execute (T data);
 
 }

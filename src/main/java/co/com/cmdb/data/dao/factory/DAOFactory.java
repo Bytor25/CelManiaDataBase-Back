@@ -6,7 +6,7 @@ import co.com.cmdb.data.dao.factory.concrete.AzureSQLDAOFactory;
 
 public interface DAOFactory {
 	
-	default DAOFactory getFactory() {
+	static DAOFactory getFactory() {
 		
 		return new AzureSQLDAOFactory();
 		

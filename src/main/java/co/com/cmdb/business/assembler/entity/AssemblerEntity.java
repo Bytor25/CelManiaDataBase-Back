@@ -6,4 +6,5 @@ public interface AssemblerEntity <D, K> extends Assembler <D, K> {
 	
 	K toEntity (D domain);
 
+
 }

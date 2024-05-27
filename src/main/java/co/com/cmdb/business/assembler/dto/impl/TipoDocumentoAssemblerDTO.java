@@ -1,11 +1,14 @@
 package co.com.cmdb.business.assembler.dto.impl;
 
 import co.com.cmdb.business.assembler.dto.AssemblerDTO;
+import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import static co.com.cmdb.crosscutting.helpers.ObjectHelper.getObjectHelper;
 import java.util.ArrayList;
 import java.util.List;
+
+import co.com.cmdb.dto.ClienteDTO;
 import co.com.cmdb.dto.TipoDocumentoDTO;
 
 
@@ -37,6 +40,19 @@ public class TipoDocumentoAssemblerDTO implements AssemblerDTO <TipoDocumentoDom
 		// TODO Auto-generated method stub
 		return TipoDocumentoDTO.build().setId(tipoDocumentoDomainTmp.getId()).setNombre(tipoDocumentoDomainTmp.getNombre());
 	}
+	
+	@Override
+	public List<TipoDocumentoDomain> toDomainCollection(List<TipoDocumentoDTO> dtoCollection) {
+		// TODO Auto-generated method stub
+		var dtoCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(dtoCollection, new ArrayList<TipoDocumentoDTO>());
+		var resultadosDomain = new ArrayList<TipoDocumentoDomain>();
+		for (TipoDocumentoDTO tipoDocumentoDTO : dtoCollectionTmp) {
+			var tipoDocumentoDomainTmp = toDomain(tipoDocumentoDTO);
+			resultadosDomain.add(tipoDocumentoDomainTmp);
+		}
+		
+		return resultadosDomain;
+	}
 
 	@Override
 	public final List<TipoDocumentoDTO> toDTOCollection(final List<TipoDocumentoDomain>  domainCollection) {
@@ -44,6 +60,8 @@ public class TipoDocumentoAssemblerDTO implements AssemblerDTO <TipoDocumentoDom
 		
 		return domainCollectionTmp.stream().map(this::toDTO).toList();
 	}
+
+	
 	
 	
 

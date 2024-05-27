@@ -11,6 +11,8 @@ import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.dto.ClienteDTO;
 import co.com.cmdb.dto.TipoDocumentoDTO;
+import co.edu.uco.pch.business.domain.CiudadDomain;
+import co.edu.uco.pch.dto.CiudadDTO;
 
 
 
@@ -35,7 +37,8 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 	@Override
 	public ClienteDomain toDomain(ClienteDTO data) {
 		var clienteDtoTmp = getObjectHelper().getDefaultValue(data, ClienteDTO.build());
-		return ClienteDomain.build(clienteDtoTmp.getId());
+		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(clienteDtoTmp.getTipoDocumento());
+		return ClienteDomain.build(clienteDtoTmp.getId(),clienteDtoTmp.getNombre(),tipoDocumentoDomain);
 	}
 
 	@Override
@@ -47,6 +50,17 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 	
 
 }
+	@Override
+	public List<ClienteDomain> toDomainCollection(List<ClienteDTO> dtoCollection) {
+		var dtoCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(dtoCollection, new ArrayList<ClienteDTO>());
+		var resultadosDomain = new ArrayList<ClienteDomain>();
+		for (ClienteDTO clienteDTO : dtoCollectionTmp) {
+			var clienteDomainTmp = toDomain(clienteDTO);
+			resultadosDomain.add(clienteDomainTmp);
+		}
+		
+		return resultadosDomain;
+	}
 
 	@Override
 	public final List<ClienteDTO> toDTOCollection(final List<ClienteDomain>  domainCollection) {
@@ -54,4 +68,6 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 		
 		return domainCollectionTmp.stream().map(this::toDTO).toList();
 	}
+
+	
 	}

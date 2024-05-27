@@ -48,8 +48,9 @@ public final class TipoDocumentoEntity {
 		return this;
 	}
 
-	public final void setNombre(String nombre) {
+	public final TipoDocumentoEntity setNombre(final String nombre) {
 		this.nombre = TextHelper.applyTrim(nombre);
+		return this;
 	}
 	
 	

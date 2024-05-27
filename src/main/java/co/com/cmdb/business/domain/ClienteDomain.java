@@ -43,7 +43,7 @@ public static final ClienteDomain build(final UUID id, final TipoDocumentoDomain
 	
 }
 
-public static final ClienteDomain build(final UUID id) {
+public static final ClienteDomain build(final UUID id, final String nombre, TipoDocumentoDomain tipoDocumento) {
 	
 	return new ClienteDomain(id, TextHelper.EMPTY, TipoDocumentoDomain.build());
 	
