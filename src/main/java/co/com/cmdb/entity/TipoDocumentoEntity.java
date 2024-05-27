@@ -3,6 +3,8 @@ package co.com.cmdb.entity;
 import java.util.UUID;
 
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
+
 
 public final class TipoDocumentoEntity {
 	
@@ -10,14 +12,20 @@ public final class TipoDocumentoEntity {
 	private String nombre;
 	
 	public TipoDocumentoEntity() {
-		super();
-	}
-
-	private TipoDocumentoEntity(final UUID id, final String nombre) {
-		setId (id);
-		setNombre (nombre);
+		setId(UUIDHelper.getDefault());
+		setNombre(TextHelper.EMPTY);
 	}
 	
+	
+
+	public TipoDocumentoEntity(final UUID id, final String nombre) {
+		setId(id);
+		setNombre(nombre);
+	
+	}
+
+
+
 	public static final TipoDocumentoEntity build() {
 		return new TipoDocumentoEntity();
 	}
@@ -35,8 +43,9 @@ public final class TipoDocumentoEntity {
 
 	//Setters
 	
-	public final void setId(UUID id) {
+	public final TipoDocumentoEntity setId(UUID id) {
 		this.id = id;
+		return this;
 	}
 
 	public final void setNombre(String nombre) {

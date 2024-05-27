@@ -1,6 +1,6 @@
 package co.com.cmdb.data.dao.entity;
 
-public interface CreateDAO<SW> {
+ interface CreateDAO<SW> {
 	
 	void crear(SW data);
 

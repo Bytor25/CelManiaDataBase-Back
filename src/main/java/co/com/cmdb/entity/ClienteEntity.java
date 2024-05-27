@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
+
+
 
 public final class ClienteEntity {
 	
@@ -16,23 +19,32 @@ public final class ClienteEntity {
 	private int telefono;
 	private boolean estado;
 	
-	private ClienteEntity() {
-		super();
+	public ClienteEntity() {
+		setId(UUIDHelper.getDefault());
+		setNombre(TextHelper.EMPTY);
+		setTipoDocumento(TipoDocumentoEntity.build());
 	}
 
-	private ClienteEntity(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido, final String correo,
-			final int telefono) {
-		
-		setId (id);
-		setIdentificador (identificador);
-		setTipoDocumento (tipoDocumento);
-		setNombre (nombre);
-		setApellido (apellido);
-		setCorreo (correo);
-		setTelefono (telefono);
-		setEstado(estado);
-	}
+
 	
+	
+	public ClienteEntity(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido,
+			String correo, int telefono, boolean estado) {
+		
+		setId(id);
+		setIdentificador(identificador);
+		setTipoDocumento(tipoDocumento);
+		setNombre(nombre);
+		setApellido(apellido);
+		setCorreo(correo);
+		setTelefono(telefono);
+		setEstado(estado);
+		
+	}
+
+
+
+
 	public static final ClienteEntity build() {
 		return new ClienteEntity();
 	}
@@ -74,36 +86,48 @@ public final class ClienteEntity {
 
 	//Setters
 	
-	public final void setId(UUID id) {
+	public final ClienteEntity setId(final UUID id) {
 		this.id = id;
+		return this;
 	}
 
-	public final void setIdentificador(int identificador) {
+	public final ClienteEntity setIdentificador(final int identificador) {
 		this.identificador = identificador;
+		return this;
 	}
 
-	public final void setTipoDocumento(final TipoDocumentoEntity tipoDocumento) {
+	public final ClienteEntity setTipoDocumento(final TipoDocumentoEntity tipoDocumento) {
 		this.tipoDocumento = ObjectHelper.getObjectHelper().getDefaultValue(tipoDocumento, new TipoDocumentoEntity());
+		return this;
+		
+	
 	}
 
-	public final void setNombre(String nombre) {
+	public final ClienteEntity setNombre(final String nombre) {
 		this.nombre = TextHelper.applyTrim(nombre);
+		return this;
 	}
 
-	public final void setApellido(String apellido) {
+	public final ClienteEntity setApellido(String apellido) {
 		this.apellido = apellido;
+		return this;
 	}
 
-	public final void setCorreo(String correo) {
+	public final ClienteEntity setCorreo(String correo) {
 		this.correo = correo;
+		return this;
 	}
 
-	public final void setTelefono(int telefono) {
+	public final ClienteEntity setTelefono(int telefono) {
 		this.telefono = telefono;
+		return this;
 	}
 
-	public void setEstado(boolean estado) {
+	public ClienteEntity setEstado(final boolean estado) {
 		this.estado = estado;
+		return this;
 	}
+
+
 }
 
