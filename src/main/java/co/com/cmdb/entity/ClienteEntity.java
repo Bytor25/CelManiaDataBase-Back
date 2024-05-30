@@ -11,12 +11,12 @@ import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 public final class ClienteEntity {
 	
 	private UUID id;
-	private int identificador;
+	private String identificador;
 	private TipoDocumentoEntity tipoDocumento;
 	private String nombre;
 	private String apellido;
 	private String correo;
-	private int telefono;
+	private long telefono;
 	private boolean estado;
 	
 	public ClienteEntity() {
@@ -28,8 +28,8 @@ public final class ClienteEntity {
 
 	
 	
-	public ClienteEntity(final UUID id, final int identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido,
-			String correo, int telefono, boolean estado) {
+	public ClienteEntity(final UUID id, final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido,
+			String correo, long telefono, boolean estado) {
 		
 		setId(id);
 		setIdentificador(identificador);
@@ -55,7 +55,7 @@ public final class ClienteEntity {
 		return id;
 	}
 	
-	public final int getIdentificador() {
+	public final String getIdentificador() {
 		return identificador;
 	}
 	
@@ -75,7 +75,7 @@ public final class ClienteEntity {
 		return correo;
 	}
 
-	public final int getTelefono() {
+	public final long getTelefono() {
 		return telefono;
 	}
 	
@@ -87,11 +87,11 @@ public final class ClienteEntity {
 	//Setters
 	
 	public final ClienteEntity setId(final UUID id) {
-		this.id = id;
+		this.id = UUIDHelper.getDefault(id, UUIDHelper.getDefault());
 		return this;
 	}
 
-	public final ClienteEntity setIdentificador(final int identificador) {
+	public final ClienteEntity setIdentificador(final String identificador) {
 		this.identificador = identificador;
 		return this;
 	}
@@ -118,7 +118,7 @@ public final class ClienteEntity {
 		return this;
 	}
 
-	public final ClienteEntity setTelefono(int telefono) {
+	public final ClienteEntity setTelefono(long telefono) {
 		this.telefono = telefono;
 		return this;
 	}

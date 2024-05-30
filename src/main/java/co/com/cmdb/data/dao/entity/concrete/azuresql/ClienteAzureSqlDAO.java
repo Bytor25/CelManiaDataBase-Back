@@ -22,14 +22,20 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 		  
 		final StringBuilder sentenciaSql = new StringBuilder();
 		
-		sentenciaSql.append("INSERT INTO Cliente (identificador, TipoDocumento, Nombre, Apellido, Correo, NumeroTelefono)");
-		sentenciaSql.append("SELECT ?, ?, ?, ?, ?, ?)");
+		sentenciaSql.append("INSERT INTO Cliente (id,numero_documento, tipo_documento, nombre, apellido, correo, telefono, estado)");
+		sentenciaSql.append("SELECT ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		try(final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())){
 			
 			sentenciaSqlPreparada.setObject(1, data.getId());
-			sentenciaSqlPreparada.setString(2,data.getNombre());
-			sentenciaSqlPreparada.setObject(3, data.getApellido());
+			sentenciaSqlPreparada.setObject(2, data.getTipoDocumento().getId());
+			sentenciaSqlPreparada.setString(3, data.getIdentificador());
+			sentenciaSqlPreparada.setString(4,data.getNombre());
+			sentenciaSqlPreparada.setString(5, data.getApellido());
+			sentenciaSqlPreparada.setString(6, data.getCorreo());
+			sentenciaSqlPreparada.setLong(7, data.getTelefono());
+			sentenciaSqlPreparada.setBoolean(8, data.isEstado());
+			
 			
 			sentenciaSqlPreparada.executeUpdate();
 			

@@ -1,5 +1,6 @@
 package co.com.cmdb.data.dao.factory.concrete;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -28,11 +29,12 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 	
 	public void abrirConexion() {
 		
-		final String connectionUrl = "jdbc:postgresql://postgres:SYamDPlVmZDbqznixMqCkVZUHKGDQFyz@roundhouse.proxy.rlwy.net:52404/railway";
-		
+        String url = "jdbc:postgresql://roundhouse.proxy.rlwy.net:52404/railway";
+        String user = "postgres";
+        String password = "SYamDPlVmZDbqznixMqCkVZUHKGDQFyz";
 		try {
 			
-			setConexion(DriverManager.getConnection(connectionUrl));
+			setConexion(DriverManager.getConnection(url,user,password));
 			
 		} catch (final CMDBExceptions excepcion) {
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);
@@ -100,11 +102,11 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 					System.out.println("Iniciando transacción...");
 					factory.iniciarTransaccion();
 
-					System.out.println("Creando ciudad aleatoriamente");
+					System.out.println("Creando cliente aleatoriamente");
 					TipoDocumentoEntity TipoDocumento = TipoDocumentoEntity.build()
 							.setId(UUIDHelper.convertToUUID("3c2ee3e7-783a-4d8a-a3bc-323b3d36fb61"));
-					ClienteEntity Cliente = ClienteEntity.build().setId(UUIDHelper.generate()).setIdentificador(1041440078).setTipoDocumento(TipoDocumento)
-							.setNombre("Juan Pablo").setApellido("Hincapie Torres").setCorreo("JuanPHT1234@gmail.com").setTelefono(300123432).setEstado(true);
+					ClienteEntity Cliente = ClienteEntity.build().setId(UUIDHelper.generate()).setIdentificador("1041440078").setTipoDocumento(TipoDocumento)
+							.setNombre("Juan Pablo").setApellido("Hincapie Torres").setCorreo("JuanPHT1234@gmail.com").setTelefono(300000000).setEstado(true);
 
 					factory.getClienteDAO().crear(Cliente);
 
