@@ -9,6 +9,7 @@ import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 public final class TipoDocumentoEntity {
 	
 	private UUID id;
+	private int identificador;
 	private String nombre;
 	
 	public TipoDocumentoEntity() {
@@ -19,12 +20,15 @@ public final class TipoDocumentoEntity {
 	
 
 	public TipoDocumentoEntity(final UUID id, final String nombre) {
+		
 		setId(id);
 		setNombre(nombre);
 	
 	}
-
-
+	
+	public int getIdentificador() {
+		return identificador;
+	}
 
 	public static final TipoDocumentoEntity build() {
 		return new TipoDocumentoEntity();
@@ -53,9 +57,8 @@ public final class TipoDocumentoEntity {
 		return this;
 	}
 	
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 	
-	
-	
-	
-
 }
