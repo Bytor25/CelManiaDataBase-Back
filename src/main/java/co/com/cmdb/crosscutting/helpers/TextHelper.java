@@ -22,7 +22,7 @@ public final class TextHelper {
 	}
 	
 	public static final String getDefaultValue(final String string) {
-		return getDefaultValue(string);
+		return getDefaultValue(string,EMPTY);
 	}
 	
 	public static final String applyTrim(final String string) {

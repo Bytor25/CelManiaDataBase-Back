@@ -31,4 +31,5 @@ public final class UUIDHelper {
 	public static final boolean isDefault(final UUID value) {
 		return getDefault(value, getDefault()).equals(getDefault());
 	}
+	
 }

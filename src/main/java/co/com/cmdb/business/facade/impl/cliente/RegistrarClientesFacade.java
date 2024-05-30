@@ -5,8 +5,9 @@ import co.com.cmdb.business.facade.FacadeWithoutReturn;
 import co.com.cmdb.business.usecase.impl.cliente.RegistrarCliente;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.dto.ClienteDTO;
-import co.edu.uco.pch.crosscutting.exceptions.PCHException;
-import co.edu.uco.pch.crosscutting.exceptions.customs.BusinessPCHException;
+import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
+import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+
 
 
 
@@ -30,7 +31,7 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 			
 			daoFactory.confirmarTransaccion();
 			
-		}catch(final PCHException excepcion) {
+		}catch(final CMDBExceptions excepcion) {
 			daoFactory.cancelarTransaccion();
 			
 		}catch(final Exception excepcion) {
@@ -38,7 +39,7 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 			
 			var mensajeUsuario = "Sea precentado un problema tratando de registra la informacion del cliente...";
 			var mensajeTecnico = "Sea precentado un problema INESPERADO tratando de registrar el cliente..";
-			throw new BusinessPCHException(mensajeTecnico,mensajeUsuario,excepcion);
+			throw new BusinessCMDBException(mensajeTecnico,mensajeUsuario,excepcion);
 			
 		} finally {
 			daoFactory.cerrarConexion();

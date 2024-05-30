@@ -82,11 +82,4 @@ public enum CodigoMensaje {
 		this.base = base;
 	}
 	
-	public static void main(String[] args) {
-		
-		System.out.println(M00001.getIdentificador());
-		
-	}
-	
-	
 }

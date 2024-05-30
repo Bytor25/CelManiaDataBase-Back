@@ -18,5 +18,5 @@ public final class BusinessCMDBException extends CMDBExceptions {
 	public BusinessCMDBException(final String mensajeTecnico, final String mensajeUsuario, Throwable excepcionRaiz) {
 		super(mensajeTecnico, mensajeUsuario, Lugar.BUSINESS, excepcionRaiz);
 	}
-
+	
 }

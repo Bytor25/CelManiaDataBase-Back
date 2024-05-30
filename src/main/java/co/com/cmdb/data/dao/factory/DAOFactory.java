@@ -12,8 +12,6 @@ public interface DAOFactory {
 		
 	}
 	
-	void abrirConexion();
-	
 	void cerrarConexion();
 	
 	void iniciarTransaccion();

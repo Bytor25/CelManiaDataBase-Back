@@ -27,11 +27,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
-			<groupId>co.edu.uco.pch</groupId>
-			<artifactId>pch-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+		  <groupId>org.postgresql</groupId>
+		  <artifactId>postgresql</artifactId>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

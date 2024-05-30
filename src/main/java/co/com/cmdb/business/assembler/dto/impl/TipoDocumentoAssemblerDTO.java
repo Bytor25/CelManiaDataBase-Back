@@ -1,14 +1,12 @@
 package co.com.cmdb.business.assembler.dto.impl;
 
 import co.com.cmdb.business.assembler.dto.AssemblerDTO;
-import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import static co.com.cmdb.crosscutting.helpers.ObjectHelper.getObjectHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.cmdb.dto.ClienteDTO;
 import co.com.cmdb.dto.TipoDocumentoDTO;
 
 

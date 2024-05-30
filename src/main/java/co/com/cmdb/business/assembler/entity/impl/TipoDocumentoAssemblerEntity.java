@@ -1,15 +1,14 @@
 package co.com.cmdb.business.assembler.entity.impl;
 
-import static co.edu.uco.pch.crosscutting.helpers.ObjectHelper.getObjectHelper;
+import static co.com.cmdb.crosscutting.helpers.ObjectHelper.getObjectHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import co.com.cmdb.business.assembler.entity.AssemblerEntity;
 import co.com.cmdb.business.domain.TipoDocumentoDomain;
+import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.entity.TipoDocumentoEntity;
-import co.edu.uco.pch.crosscutting.helpers.ObjectHelper;
-
 
 public final class TipoDocumentoAssemblerEntity implements AssemblerEntity<TipoDocumentoDomain, TipoDocumentoEntity> {
 

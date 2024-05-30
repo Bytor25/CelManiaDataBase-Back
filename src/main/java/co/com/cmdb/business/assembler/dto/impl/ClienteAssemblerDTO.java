@@ -11,11 +11,6 @@ import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.dto.ClienteDTO;
 import co.com.cmdb.dto.TipoDocumentoDTO;
-import co.edu.uco.pch.business.domain.CiudadDomain;
-import co.edu.uco.pch.dto.CiudadDTO;
-
-
-
 
 public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, ClienteDTO> {
 	
