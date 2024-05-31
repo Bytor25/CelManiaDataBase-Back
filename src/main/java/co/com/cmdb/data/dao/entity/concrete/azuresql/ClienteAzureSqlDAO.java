@@ -39,6 +39,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 		
 		try(final PreparedStatement sentenciaSqlSqlPreparada = getConexion().prepareStatement(sentenciaSqlSql.toString())){
 			
+
 			sentenciaSqlSqlPreparada.setObject(1, data.getIdentificador());
 
 
@@ -52,6 +53,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 			
 
 			sentenciaSqlSqlPreparada.executeUpdate();
+
 			
 		} catch (final SQLException excepcion) {
 			
@@ -72,6 +74,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 	
 	/*@Override
 	public List<ClienteEntity> consultar(ClienteEntity data) {
+<<<<<<< HEAD
 		final StringBuilder sentenciaSql = new StringBuilder();
 		sentenciaSql.append("SLECT C.numero_documento, TD.nombre, C.nombre, C.apellidos,C.correo, C.telefono");
 		sentenciaSql.append("FROM clientes C");
@@ -139,6 +142,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 	}*/
 
 
+
 	@Override
 	public void mofidicar(ClienteEntity data) {
 		// TODO Auto-generated method stub
@@ -151,7 +155,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 		
 	}
 	@Override
-	public Optional<ClienteEntity> consultarPorId(final UUID id) {
+	public Optional<ClienteEntity> consultarPorId(final String identificador) {
 		final StringBuilder sentenciaSql = new StringBuilder();
 		
 		sentenciaSql.append("SELECT C.numero_documento, C.nombre, C.apellidos,C.correo, C.telefono");
@@ -161,7 +165,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 		Optional<ClienteEntity> resultado = Optional.empty();
 		
 		try(final var sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())){
-			sentenciaSqlPreparada.setObject(1,id);
+			sentenciaSqlPreparada.setObject(1,identificador);
 			resultado = ejecutarConsultaPorId(sentenciaSqlPreparada);
 			
 		} catch (final DataCMDBException excepcion) {

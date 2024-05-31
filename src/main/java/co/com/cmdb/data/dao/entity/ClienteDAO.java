@@ -7,5 +7,5 @@ import co.com.cmdb.entity.ClienteEntity;
 
 public interface ClienteDAO extends CreateDAO<ClienteEntity>, RetrieveDAO<ClienteEntity>, UpdateDAO<ClienteEntity>, DeleteDAO<UUID> {
 	
-		Optional<ClienteEntity> consultarPorId(UUID id);
+		Optional<ClienteEntity> consultarPorId(String identificador);
 }
