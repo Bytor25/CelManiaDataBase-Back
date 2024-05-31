@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +24,7 @@ public class ClienteController {
 	@RequestMapping("/api/v1/clientes")
 	public class ClientesController {
 		
-		@GetMapping
+		@GetMapping("/dummy")
 		public ClienteDTO dummy() {
 			return ClienteDTO.build();
 		}
@@ -85,7 +84,7 @@ public class ClienteController {
 			return new ResponseEntity<>(clienteResponse, httpStatusCode);
 		}
 		
-		@DeleteMapping("/{id}")
+		/*@DeleteMapping("/{id}")
 		public ResponseEntity<ClienteResponse> eliminar(@PathVariable UUID id){
 			var httpStatusCode = HttpStatus.ACCEPTED;
 			var clienteResponse = new ClienteResponse();
@@ -111,7 +110,7 @@ public class ClienteController {
 			}
 			
 			return new ResponseEntity<>(clienteResponse, httpStatusCode);
-		}
+		}*/
 		
 		@PutMapping("/{id}")
 		public ResponseEntity<ClienteResponse> actualizar(@PathVariable UUID id, @RequestBody ClienteDTO clienteDto){

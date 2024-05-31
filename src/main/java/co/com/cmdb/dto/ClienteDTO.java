@@ -2,6 +2,8 @@ package co.com.cmdb.dto;
 
 import java.util.UUID;
 
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
+
 public final class ClienteDTO {
 	
 	private UUID id;
@@ -13,11 +15,11 @@ public final class ClienteDTO {
 	private int telefono;
 	private boolean estado;
 	
-	private ClienteDTO() {
+	public ClienteDTO() {
 		super();
 	}
 
-	private ClienteDTO(final UUID id, final int identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellido, final String correo,
+	public ClienteDTO(final UUID id, final int identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellido, final String correo,
 			final int telefono) {
 		
 		setId (id);
@@ -33,6 +35,7 @@ public final class ClienteDTO {
 	public static final ClienteDTO build() {
 		return new ClienteDTO();
 	}
+	
 	
 	//Getters
 
@@ -72,7 +75,7 @@ public final class ClienteDTO {
 	//Setters
 	
 	public final ClienteDTO setId(UUID id) {
-		this.id = id;
+		this.id = UUIDHelper.getDefault(id, UUIDHelper.getDefault());
 		return this;
 	}
 

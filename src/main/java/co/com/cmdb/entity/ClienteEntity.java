@@ -26,8 +26,6 @@ public final class ClienteEntity {
 	}
 
 
-	
-	
 	public ClienteEntity(final UUID id, final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido,
 			String correo, long telefono, boolean estado) {
 		
@@ -41,9 +39,6 @@ public final class ClienteEntity {
 		setEstado(estado);
 		
 	}
-
-
-
 
 	public static final ClienteEntity build() {
 		return new ClienteEntity();
