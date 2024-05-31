@@ -2,15 +2,17 @@ package co.com.cmdb.dto;
 
 import java.util.UUID;
 
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
+
 
 public final class ClienteDTO {
 	
-	private UUID id;
-	private int identificador;
+
+	private String identificador;
 	private TipoDocumentoDTO tipoDocumento;
 	private String nombre;
-	private String apellido;
+	private String apellidos;
 	private String correo;
 	private int telefono;
 	private boolean estado;
@@ -19,14 +21,14 @@ public final class ClienteDTO {
 		super();
 	}
 
-	public ClienteDTO(final UUID id, final int identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellido, final String correo,
-			final int telefono) {
+	public ClienteDTO( final String identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellidos, final String correo,
+			final int telefono, final boolean estado) {
 		
-		setId (id);
+	
 		setIdentificador (identificador);
 		setTipoDocumento (tipoDocumento);
 		setNombre (nombre);
-		setApellido (apellido);
+		setApellido (apellidos);
 		setCorreo (correo);
 		setTelefono (telefono);
 		setEstado(estado);
@@ -36,14 +38,15 @@ public final class ClienteDTO {
 		return new ClienteDTO();
 	}
 	
+	public static final ClienteDTO build( final String identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellidos, final String correo, final int telefono, final boolean estado) {
+		return new ClienteDTO( identificador, tipoDocumento, nombre, apellidos, correo, telefono , estado);
+	}
 	
 	//Getters
 
-	public final UUID getId() {
-		return id;
-	}
+
 	
-	public final int getIdentificador() {
+	public final String getIdentificador() {
 		return identificador;
 	}
 	
@@ -56,7 +59,7 @@ public final class ClienteDTO {
 	}
 	
 	public final String getApellido() {
-		return apellido;
+		return apellidos;
 	}
 	
 	public final String getCorreo() {
@@ -74,12 +77,9 @@ public final class ClienteDTO {
 
 	//Setters
 	
-	public final ClienteDTO setId(UUID id) {
-		this.id = UUIDHelper.getDefault(id, UUIDHelper.getDefault());
-		return this;
-	}
 
-	public final ClienteDTO setIdentificador(int identificador) {
+
+	public final ClienteDTO setIdentificador(String identificador) {
 		this.identificador = identificador;
 		return this;
 	}
@@ -90,12 +90,12 @@ public final class ClienteDTO {
 	}
 
 	public final ClienteDTO setNombre(final String nombre) {
-		this.nombre = nombre;
+		this.nombre = TextHelper.applyTrim(nombre);
 		return this;
 	}
 
-	public final ClienteDTO setApellido(String apellido) {
-		this.apellido = apellido;
+	public final ClienteDTO setApellido(String apellidos) {
+		this.apellidos = TextHelper.applyTrim(apellidos);
 		return this;
 	}
 

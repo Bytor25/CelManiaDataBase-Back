@@ -2,13 +2,13 @@ package co.com.cmdb.business.domain;
 
 import java.util.UUID;
 
-import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 
 public class ClienteDomain {
 	
-	private UUID id;
+	private String identificador;
 	private TipoDocumentoDomain tipoDocumento;
 	private String nombre;
 	private String apellido;
@@ -16,11 +16,11 @@ public class ClienteDomain {
 	private int telefono;
 
 
-private ClienteDomain(final UUID id, final TipoDocumentoDomain tipoDocumento, 
+private ClienteDomain(final String iddentificador, final TipoDocumentoDomain tipoDocumento, 
 										final String nombre, final String apellido, final String correo,
 										final int telefono) {
 	
-	setId(id);
+	setIdentificador(identificador);
 	setTipoDocumento(tipoDocumento);
 	setNombre(nombre);
 	setApellido(apellido);
@@ -30,32 +30,32 @@ private ClienteDomain(final UUID id, final TipoDocumentoDomain tipoDocumento,
 }
 
 
-public ClienteDomain(UUID id2, String empty, TipoDocumentoDomain tipoDocumentoDomain) { //Eliminar
+public ClienteDomain(String identificador, String empty, TipoDocumentoDomain tipoDocumentoDomain) { //Eliminar
 	// TODO Auto-generated constructor stub
 }
 
 
-public static final ClienteDomain build(final UUID id, final TipoDocumentoDomain tipoDocumento, 
+public static final ClienteDomain build(final String identificador, final TipoDocumentoDomain tipoDocumento, 
 										final String nombre, final String apellido, final String correo,
 										final int telefono) {
 	
-	return new ClienteDomain(id, tipoDocumento, nombre, apellido, correo, telefono);
+	return new ClienteDomain(identificador, tipoDocumento, nombre, apellido, correo, telefono);
 	
 }
 
-public static final ClienteDomain build(final UUID id, final String nombre, TipoDocumentoDomain tipoDocumento) {
+public static final ClienteDomain build(final String identificador, final String nombre, TipoDocumentoDomain tipoDocumento) {
 	
-	return new ClienteDomain(id, TextHelper.EMPTY, TipoDocumentoDomain.build());
+	return new ClienteDomain(identificador, TextHelper.EMPTY, TipoDocumentoDomain.build());
 	
 }
 
 public static final ClienteDomain build() {
-	return new ClienteDomain(UUIDHelper.getDefault(), TextHelper.EMPTY, TipoDocumentoDomain.build());
+	return new ClienteDomain(TextHelper.EMPTY, TextHelper.EMPTY, TipoDocumentoDomain.build());
 	
 }
 
-	public UUID getId() {
-		return id;
+	public String getIdentificador() {
+		return identificador;
 	}
 	
 	public TipoDocumentoDomain getTipoDocumento() {
@@ -78,8 +78,8 @@ public static final ClienteDomain build() {
 		return telefono;
 	}
 	
-	private void setId(UUID id) {
-		this.id = id;
+	private void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 	
 	private void setTipoDocumento(TipoDocumentoDomain tipoDocumento) {

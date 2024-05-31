@@ -7,6 +7,8 @@ import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.dto.ClienteDTO;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 
 
 
@@ -37,8 +39,9 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 		}catch(final Exception excepcion) {
 			daoFactory.cancelarTransaccion();
 			
-			var mensajeUsuario = "Sea precentado un problema tratando de registra la informacion del cliente...";
-			var mensajeTecnico = "Sea precentado un problema INESPERADO tratando de registrar el cliente..";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00007);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00008);
+			
 			throw new BusinessCMDBException(mensajeTecnico,mensajeUsuario,excepcion);
 			
 		} finally {

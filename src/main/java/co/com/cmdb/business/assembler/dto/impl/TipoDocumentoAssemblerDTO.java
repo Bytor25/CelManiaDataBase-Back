@@ -29,14 +29,14 @@ public class TipoDocumentoAssemblerDTO implements AssemblerDTO <TipoDocumentoDom
 	@Override
 	public TipoDocumentoDomain toDomain(TipoDocumentoDTO data) {
 		var tipoDocumentoDtoTmp = getObjectHelper().getDefaultValue(data, TipoDocumentoDTO.build());
-		return TipoDocumentoDomain.build(tipoDocumentoDtoTmp.getId());
+		return TipoDocumentoDomain.build(tipoDocumentoDtoTmp.getIdentificador());
 	}
 
 	@Override
 	public TipoDocumentoDTO toDTO(TipoDocumentoDomain domain) {
 		var tipoDocumentoDomainTmp = getObjectHelper().getDefaultValue(domain, TipoDocumentoDomain.build());
 		// TODO Auto-generated method stub
-		return TipoDocumentoDTO.build().setId(tipoDocumentoDomainTmp.getId()).setNombre(tipoDocumentoDomainTmp.getNombre());
+		return TipoDocumentoDTO.build().setIdentificador(tipoDocumentoDomainTmp.getIdentificador()).setNombre(tipoDocumentoDomainTmp.getNombre());
 	}
 	
 	@Override

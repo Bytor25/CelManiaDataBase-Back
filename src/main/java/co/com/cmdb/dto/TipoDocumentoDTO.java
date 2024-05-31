@@ -1,18 +1,18 @@
 package co.com.cmdb.dto;
 
-import java.util.UUID;
+
 
 public final class TipoDocumentoDTO {
 	
-	private UUID id;
+	private int identificador;
 	private String nombre;
 	
 	private TipoDocumentoDTO() {
 		super();
 	}
 
-	private TipoDocumentoDTO(final UUID id, final String nombre) {
-		setId (id);
+	private TipoDocumentoDTO(final int identificador, final String nombre) {
+		setIdentificador(identificador);
 		setNombre (nombre);
 	}
 	
@@ -22,8 +22,8 @@ public final class TipoDocumentoDTO {
 
 	//Getters 
 	
-	public final UUID getId() {
-		return id;
+	public final int getIdentificador() {
+		return identificador;
 	}
 	
 	public final String getNombre() {
@@ -33,8 +33,8 @@ public final class TipoDocumentoDTO {
 
 	//Setters
 	
-	public final TipoDocumentoDTO setId(UUID id) {
-		this.id = id;
+	public final TipoDocumentoDTO setIdentificador(int identificador) {
+		this.identificador = identificador;
 		return this;
 	}
 

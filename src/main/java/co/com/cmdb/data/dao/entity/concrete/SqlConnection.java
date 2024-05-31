@@ -33,7 +33,7 @@ public class SqlConnection {
 		if(!SQLHelper.isOpen(conexion)) {
 			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);
-			var mensajeTecnico = "No es posible crear el DAO deseado con una conexión cerrada";
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00016);
 			
 			throw new DataCMDBException(mensajeUsuario, mensajeTecnico);
 	

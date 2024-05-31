@@ -7,38 +7,37 @@ import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 
 
 public final class TipoDocumentoEntity {
-	
-	private UUID id;
+
 	private int identificador;
 	private String nombre;
 	
 	public TipoDocumentoEntity() {
-		setId(UUIDHelper.getDefault());
+		setIdentificador(identificador);
 		setNombre(TextHelper.EMPTY);
 	}
 	
 	
 
-	public TipoDocumentoEntity(final UUID id, final String nombre) {
-		
-		setId(id);
+	public TipoDocumentoEntity(final int identificador,final String nombre) {
+		setIdentificador(identificador);
 		setNombre(nombre);
 	
 	}
+	
+	public static final TipoDocumentoEntity build() {
+		return new TipoDocumentoEntity();
+	}
+	
+	public static final TipoDocumentoEntity build( final int identificador, final String nombre) {
+		return new TipoDocumentoEntity( identificador, nombre);
+	}
+
+	//Getters
 	
 	public int getIdentificador() {
 		return identificador;
 	}
 
-	public static final TipoDocumentoEntity build() {
-		return new TipoDocumentoEntity();
-	}
-
-	//Getters 
-	
-	public final UUID getId() {
-		return id;
-	}
 	
 	public final String getNombre() {
 		return nombre;
@@ -47,11 +46,6 @@ public final class TipoDocumentoEntity {
 
 	//Setters
 	
-	public final TipoDocumentoEntity setId(UUID id) {
-		this.id = id;
-		return this;
-	}
-
 	public final TipoDocumentoEntity setNombre(final String nombre) {
 		this.nombre = TextHelper.applyTrim(nombre);
 		return this;

@@ -4,51 +4,51 @@ import java.util.UUID;
 
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
-import co.com.cmdb.crosscutting.helpers.UUIDHelper;
-
 
 
 public final class ClienteEntity {
 	
-	private UUID id;
 	private String identificador;
 	private TipoDocumentoEntity tipoDocumento;
 	private String nombre;
-	private String apellido;
+	private String apellidos;
 	private String correo;
-	private long telefono;
+	private int telefono;
 	private boolean estado;
 	
 	public ClienteEntity() {
-		setId(UUIDHelper.getDefault());
+		
 		setNombre(TextHelper.EMPTY);
 		setTipoDocumento(TipoDocumentoEntity.build());
 	}
 
 
-	public ClienteEntity(final UUID id, final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellido,
-			String correo, long telefono, boolean estado) {
+	public ClienteEntity( final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellidos,
+			String correo, int telefono, boolean estado) {
 		
-		setId(id);
+
 		setIdentificador(identificador);
 		setTipoDocumento(tipoDocumento);
 		setNombre(nombre);
-		setApellido(apellido);
+		setapellidos(apellidos);
 		setCorreo(correo);
 		setTelefono(telefono);
 		setEstado(estado);
 		
-	}
-
+	}	
+	
 	public static final ClienteEntity build() {
 		return new ClienteEntity();
 	}
 	
+	public static final ClienteEntity build( final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellidoss, final String correo, final int telefono, final boolean estado) {
+		return new ClienteEntity( identificador, tipoDocumento, nombre, apellidoss,correo,telefono, estado);
+	}
+
+	
 	//Getters
 
-	public final UUID getId() {
-		return id;
-	}
+
 	
 	public final String getIdentificador() {
 		return identificador;
@@ -63,7 +63,7 @@ public final class ClienteEntity {
 	}
 	
 	public final String getApellido() {
-		return apellido;
+		return apellidos;
 	}
 	
 	public final String getCorreo() {
@@ -81,10 +81,7 @@ public final class ClienteEntity {
 
 	//Setters
 	
-	public final ClienteEntity setId(final UUID id) {
-		this.id = UUIDHelper.getDefault(id, UUIDHelper.getDefault());
-		return this;
-	}
+
 
 	public final ClienteEntity setIdentificador(final String identificador) {
 		this.identificador = identificador;
@@ -103,8 +100,8 @@ public final class ClienteEntity {
 		return this;
 	}
 
-	public final ClienteEntity setApellido(String apellido) {
-		this.apellido = apellido;
+	public final ClienteEntity setapellidos(String apellidos) {
+		this.apellidos = apellidos;
 		return this;
 	}
 
@@ -113,7 +110,7 @@ public final class ClienteEntity {
 		return this;
 	}
 
-	public final ClienteEntity setTelefono(long telefono) {
+	public final ClienteEntity setTelefono(int telefono) {
 		this.telefono = telefono;
 		return this;
 	}

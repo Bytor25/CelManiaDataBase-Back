@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.cmdb.controller.response.TipoDocumentoResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.TipoDocumentoDTO;
 
 public class TipoDocumentoController {
@@ -24,8 +26,6 @@ public class TipoDocumentoController {
 		public TipoDocumentoDTO dummy() {
 			return TipoDocumentoDTO.build();
 		}
-		
-		
 		
 		@DeleteMapping("/{id}")
 		public ResponseEntity<TipoDocumentoResponse> eliminar(@PathVariable UUID id){
@@ -41,7 +41,7 @@ public class TipoDocumentoController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de eliminar la informacion del cliente...";
+				var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00015);
 				tipoDocumentoResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();

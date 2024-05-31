@@ -8,6 +8,7 @@ import java.util.List;
 import co.com.cmdb.business.assembler.entity.AssemblerEntity;
 import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
 public final class TipoDocumentoAssemblerEntity implements AssemblerEntity<TipoDocumentoDomain, TipoDocumentoEntity> {
@@ -24,14 +25,13 @@ private final static AssemblerEntity<TipoDocumentoDomain, TipoDocumentoEntity> i
 	@Override
 	public TipoDocumentoDomain toDomain(TipoDocumentoEntity data) {
 		var tipoDocumentoEntityTmp = getObjectHelper().getDefaultValue(data, TipoDocumentoEntity.build());
-		return TipoDocumentoDomain.build(data.getId(), tipoDocumentoEntityTmp.getNombre());
+		return TipoDocumentoDomain.build(data.getIdentificador(), tipoDocumentoEntityTmp.getNombre());
 	}
 
 	@Override
 	public TipoDocumentoEntity toEntity(TipoDocumentoDomain domain) {
 		var tipoDocumentoDomainTmp = getObjectHelper().getDefaultValue(domain, TipoDocumentoDomain.build());
-		// TODO Auto-generated method stub
-		return TipoDocumentoEntity.build().setId(tipoDocumentoDomainTmp.getId()).setNombre(tipoDocumentoDomainTmp.getNombre());
+		return  TipoDocumentoEntity.build(tipoDocumentoDomainTmp.getIdentificador(), tipoDocumentoDomainTmp.getNombre());
 	}
 
 	@Override
