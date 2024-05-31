@@ -6,6 +6,8 @@ import co.com.cmdb.business.assembler.entity.impl.TipoDocumentoAssemblerEntity;
 import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
@@ -21,8 +23,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		
 		if(ObjectHelper.getObjectHelper().isNull(factory)) {
 			
-			var mensajeUsuario = "Se ha producido un problema tratando de llevar a cabo el registro del cliente";
-			var mensajeTecnico = "El dao factory para registrar el cliente llegó nulo";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00010);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00011);
 			
 			throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
 		}
@@ -70,7 +72,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		
 		if(!resultados.isEmpty()) {
 			
-			var mensajeUsuario = "Ya existe un cliente con el nombre ... asociada con el tipo de documento";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00012);
 			throw new BusinessCMDBException(mensajeUsuario);
 			
 		}

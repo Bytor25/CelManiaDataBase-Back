@@ -7,6 +7,8 @@ import co.com.cmdb.business.facade.FacadeWithReturn;
 import co.com.cmdb.business.usecase.impl.cliente.ConsultarCliente;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.dto.ClienteDTO;
 
@@ -36,8 +38,8 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 		}catch(final Exception excepcion) {
 			
 		
-			var mensajeUsuario = "Sea precentado un problema tratando de consultar la informacion de la ciudad...";
-			var mensajeTecnico = "Sea precentado un problema INESPERADO tratando de registrar la ciudad..";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00005);
 			throw new BusinessCMDBException(mensajeTecnico,mensajeUsuario,excepcion);
 			
 		} finally {

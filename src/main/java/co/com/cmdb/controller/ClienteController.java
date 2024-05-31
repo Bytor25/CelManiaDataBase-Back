@@ -16,6 +16,8 @@ import co.com.cmdb.business.facade.impl.cliente.ConsultarClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.RegistrarClientesFacade;
 import co.com.cmdb.controller.response.ClienteResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.ClienteDTO;
 
 
@@ -49,7 +51,8 @@ public class ClienteController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de consultar la informacion del cliente...";
+				var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
+				
 				clienteResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();
@@ -76,7 +79,7 @@ public class ClienteController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de registrar la informacion de la ciudades...";
+				var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00007);
 				clienteResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();
@@ -96,7 +99,7 @@ public class ClienteController {
 				//var facade = new RegistrarCiudadesFacade();
 				
 				//facade.execute(id);
-				clienteResponse.getMensajes().add("Cliente eliminada exitosamente");
+				clienteResponse.getMensajes().add("Cliente eliminado exitosamente");
 				
 			}catch (final CMDBExceptions excepcion) {
 				httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -104,7 +107,7 @@ public class ClienteController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de eliminar la informacion del cliente...";
+				var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00013);
 				clienteResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();
@@ -130,7 +133,7 @@ public class ClienteController {
 			}catch ( final Exception excepcion) {
 				httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 				
-				var mensajeUsuario = "Se ha presentado un problema tratando de actulizar la informacion de la ciudades...";
+				var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00014);
 				clienteResponse.getMensajes().add(mensajeUsuario);
 				
 				excepcion.printStackTrace();

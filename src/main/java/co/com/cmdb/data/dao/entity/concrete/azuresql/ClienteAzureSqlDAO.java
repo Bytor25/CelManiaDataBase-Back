@@ -3,10 +3,16 @@ package co.com.cmdb.data.dao.entity.concrete.azuresql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.entity.ClienteDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.entity.ClienteEntity;
@@ -28,27 +34,26 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 		try(final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())){
 			
 			sentenciaSqlPreparada.setObject(1, data.getId());
-			sentenciaSqlPreparada.setObject(2,  data.getTipoDocumento());
+			sentenciaSqlPreparada.setObject(2, data.getTipoDocumento());
 			sentenciaSqlPreparada.setObject(3, data.getIdentificador());
 			sentenciaSqlPreparada.setString(4, data.getNombre());
 			sentenciaSqlPreparada.setString(5, data.getApellido());
 			sentenciaSqlPreparada.setObject(6, data.getCorreo());
 			sentenciaSqlPreparada.setObject(7, data.getTelefono());
 	
-	
 			sentenciaSqlPreparada.executeUpdate();
 			
 		} catch (final SQLException excepcion) {
 			
-			var mensajeUsuario = "Se ha presentado un problema tratando de registrar un cliente, Si el problema persiste contacte al administrador";
-			var mensajeTecnico = "Se ha presentado una excepción tipo SQLException tratando de realizar el insert del cliente ... en la tabla de Cliente de la base de datos Azure SQL. Para más detalles, revise de forma completa la excepción raíz presentada";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00017);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00018);
 			
 			throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 			
 		} catch (final Exception excepcion) {
 			
-			var mensajeUsuario = "Se ha presentado un problema tratando de registrar un cliente, Si el problema persiste contacte al administrador";
-			var mensajeTecnico = "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar el insert del cliente ... en la tabla cliente de la base de datos Azure SQL. Para más detalles, revise de forma completa la excepción raíz presentada";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00017);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00019);
 			
 			throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 		}
@@ -57,8 +62,9 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 
 	@Override
 	public List<ClienteEntity> consultar(ClienteEntity data) {
-		// TODO Auto-generated method stub
+		
 		return null;
+		
 	}
 
 	@Override

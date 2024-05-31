@@ -10,25 +10,23 @@ public enum CodigoMensaje {
 	M00003(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00003", true),
 	M00004(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00004", true),
 	M00005(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00005", true),
-	M00006(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00006", true),
-	M00007(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00007", true),
+	M00006(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00006", true),
+	M00007(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00007", true),
 	M00008(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00008", true),
 	M00009(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00009", true),
-	M00010(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00010", true),
+	M00010(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00010", true),
 	M00011(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00011", true),
-	M00012(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00012", true),
-	M00013(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00013", true),
-	M00014(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00014", true),
-	M00015(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00015", true),
+	M00012(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00012", true),
+	M00013(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00013", true),
+	M00014(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00014", true),
+	M00015(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00015", true),
 	M00016(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00016", true),
-	M00017(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00017", true),
+	M00017(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00017", true),
 	M00018(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00018", true),
 	M00019(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00019", true),
 	M00020(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00020", true),
 	M00021(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00021", true),
 	M00022(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00022", true);
-	
-
 	
 	private TipoMensaje tipo;
 	private CategoriaMensaje categoria;
