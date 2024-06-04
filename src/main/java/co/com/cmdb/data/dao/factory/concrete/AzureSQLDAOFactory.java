@@ -14,6 +14,8 @@ import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.data.dao.entity.concrete.azuresql.ClienteAzureSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.azuresql.TipoDocumentoAzureSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
+import co.com.cmdb.entity.ClienteEntity;
+import co.com.cmdb.entity.TipoDocumentoEntity;
 
 
 public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactory {
@@ -24,16 +26,19 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 		abrirConexion();
 	}
 	
-	public void abrirConexion() {
+	private void abrirConexion() {
 		
 
         String url = "jdbc:postgresql://roundhouse.proxy.rlwy.net:52404/railway";
         String user = "postgres";
         String password = "SYamDPlVmZDbqznixMqCkVZUHKGDQFyz";
+		//final String connectionUrl = "jdbc:postgresql://host:5432/CMDB-DOO?user=postgres&password=Catalan1425";
+		
 
 		try {
 			
 			setConexion(DriverManager.getConnection(url,user,password));
+			//setConexion(DriverManager.getConnection(connectionUrl));
 			
 		} catch (final CMDBExceptions excepcion) {
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);
@@ -96,39 +101,37 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 		}
 		
 		
-		/*public static void main(String[] args) {
-			try {
-				DAOFactory factory = DAOFactory.getFactory();
-
-				System.out.println("Iniciando transacción...");
-				factory.iniciarTransaccion();
-
-//				System.out.println("Creando ciudad aleatoriamente");
-//				DepartamentoEntity departamento = DepartamentoEntity.build()
-//						.setId(UUIDHelper.convertToUUID("7827155D-0A6B-4D6E-9807-C5B7097D94F0"));
-//				CiudadEntity ciudad = CiudadEntity.build().setId(UUIDHelper.generate())
-//						.setNombre("Rionegro-" + UUIDHelper.generate()).setDepartamento(departamento);
+//		public static void main(String[] args) {
+//			try {
+//				DAOFactory factory = DAOFactory.getFactory();
 //
-//				factory.getCiudadDAO().crear(ciudad);
-
-				System.out.println("Consultamos cli: ");
-				var resultados = factory.getClienteDAO().consultar(ClienteEntity.build());
-
-				for (ClienteEntity ciudadEntity : resultados) {
-					System.out.print("idCliente: " + ciudadEntity.getIdentificador() + " --- " );
-					System.out.println("nombre: " + ciudadEntity.getNombre());
-				}
-
-				System.out.println("Confirmando transacción...");
-				factory.confirmarTransaccion();
-				System.out.println("Cerrando conexión...");
-				factory.cerrarConexion();
-			} catch (final Exception excepcion) {
-				excepcion.printStackTrace();
-			}
-		}*/
-		  
-
+//				System.out.println("Iniciando transacción...");
+//				factory.iniciarTransaccion();
+//
+//				System.out.println("Creando cliente aleatoriamente");
+//				TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build().setIdentificador(1);
+//				ClienteEntity cliente = ClienteEntity.build().setIdentificador("104144007").setTipoDocumento(tipoDocumento)
+//						.setNombre("Juan Pablo").setApellidos("Hincapie Torres").setCorreo("Juanpht2004@gmail.com")
+//						.setTelefono(3216945654L).setEstado(true);
+//
+//				factory.getClienteDAO().crear(cliente);
+//
+//				/*System.out.println("Consultamos cli: ");
+//				var resultados = factory.getClienteDAO().consultar(ClienteEntity.build());
+//
+//				for (ClienteEntity ciudadEntity : resultados) {
+//					System.out.print("idCliente: " + ciudadEntity.getIdentificador() + " --- " );
+//					System.out.println("nombre: " + ciudadEntity.getNombre());
+//				}*/
+//
+//				System.out.println("Confirmando transacción...");
+//				factory.confirmarTransaccion();
+//				System.out.println("Cerrando conexión...");
+//				factory.cerrarConexion();
+//			} catch (final Exception excepcion) {
+//				excepcion.printStackTrace();
+//			}
+//		}
 }
 
 

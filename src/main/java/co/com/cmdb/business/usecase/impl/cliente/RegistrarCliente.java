@@ -1,5 +1,7 @@
 package co.com.cmdb.business.usecase.impl.cliente;
 
+import java.util.regex.Pattern;
+
 import co.com.cmdb.business.assembler.entity.impl.TipoDocumentoAssemblerEntity;
 import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
@@ -15,7 +17,8 @@ import co.com.cmdb.entity.ClienteEntity;
 
 public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomain> {
 	
-	private DAOFactory factory;
+	private final DAOFactory factory;
+	private static final Pattern NOMBRE_PATTERN = Pattern.compile("^[a-zA-Z\\\\s]+$");
 	
 	public RegistrarCliente(final DAOFactory factory) {
 		
@@ -34,7 +37,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	public void execute(final ClienteDomain data) {
 		 
 		//1. 
-		
+		validarDatosCiudad(data);
 		//2. 
 		
 		validarClienteMismoNumeroDocumentoMismoNombre(data.getNombre(), data.getIdentificador());
@@ -65,4 +68,18 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		}
 		
 	}
+	
+    private void validarDatosCiudad(final ClienteDomain data) {
+
+        if (ObjectHelper.getObjectHelper().isNull(data.getNombre()) || data.getNombre().trim().isEmpty()) {
+            throw new BusinessCMDBException("El nombre de la ciudad está vacío.", "Debe proporcionar un nombre válido para la ciudad.");
+        }
+        if (!NOMBRE_PATTERN.matcher(data.getNombre()).matches()) {
+            throw new BusinessCMDBException("El nombre de la ciudad contiene caracteres inválidos.", "El nombre de la ciudad solo puede contener letras y espacios.");
+        }
+        if (ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) || ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador())) {
+            throw new BusinessCMDBException("El departamento de la ciudad es nulo.", "Debe proporcionar un departamento válido para la ciudad.");
+        }
+    }
+
 }

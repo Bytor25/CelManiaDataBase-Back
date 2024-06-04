@@ -39,4 +39,13 @@ public final class TextHelper {
 		return sb.toString();
 	}
 	
+    public static String reemplazarParametro(String mensaje, String... parametros) {
+        String mensajeReemplazado = mensaje;
+        for(int i = 0; i< parametros.length; i++) {
+            String marcador = "$[" + (i+1) + "}";
+            mensajeReemplazado = mensajeReemplazado.replace(marcador, parametros[i]);
+        }
+        return mensajeReemplazado;
+    }
+	
 }

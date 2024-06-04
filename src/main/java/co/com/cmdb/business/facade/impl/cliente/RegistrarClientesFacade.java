@@ -10,24 +10,21 @@ import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 
-
-
-
 public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> {
 	
 	public DAOFactory daoFactory;
+	
 	public RegistrarClientesFacade() {
 		daoFactory = DAOFactory.getFactory();
 		}
 
 	@Override
-	public void execute(final ClienteDTO dto) {
-		// TODO Auto-generated method stub
+	public void execute(final ClienteDTO dsto) {
 		daoFactory.iniciarTransaccion();
 		
 		try {
             var useCase = new RegistrarCliente(daoFactory);
-			var clienteDomain = ClienteAssemblerDTO.getInstance().toDomain(dto);
+			var clienteDomain = ClienteAssemblerDTO.getInstance().toDomain(dsto);
 			
 			useCase.execute(clienteDomain);
 			
@@ -48,6 +45,6 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 			daoFactory.cerrarConexion();
 		}
 	}
-	}
+}
 	
 

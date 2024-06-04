@@ -43,7 +43,7 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 	}
 	
 	@Override
-	public List<ClienteDomain> toDomainCollection(List<ClienteDTO> dtoCollection) {
+	public List<ClienteDomain> toDomainCollection(final List<ClienteDTO> dtoCollection) {
 		var dtoCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(dtoCollection, new ArrayList<ClienteDTO>());
 		var resultadosDomain = new ArrayList<ClienteDomain>();
 		
@@ -54,6 +54,8 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 		
 		return resultadosDomain;
 	}
+	
+	
 
 	@Override
 	public final List<ClienteDTO> toDTOCollection(final List<ClienteDomain>  domainCollection) {

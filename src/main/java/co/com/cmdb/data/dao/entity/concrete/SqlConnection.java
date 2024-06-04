@@ -11,10 +11,9 @@ public class SqlConnection {
 	
 	private Connection conexion;
 	
-	protected SqlConnection(Connection conexion) {
+	protected SqlConnection(final Connection conexion) {
 		
 		setConexion(conexion);
-		
 		
 	}
 	
@@ -28,7 +27,7 @@ public class SqlConnection {
 		return conexion;
 	}
 	
-	protected final void setConexion(Connection conexion) {
+	protected final void setConexion(final Connection conexion) {
 		
 		if(!SQLHelper.isOpen(conexion)) {
 			

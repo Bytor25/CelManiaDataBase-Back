@@ -21,11 +21,9 @@ public class TipoDocumentoAssemblerDTO implements AssemblerDTO <TipoDocumentoDom
 	}
 	
 	public static final AssemblerDTO<TipoDocumentoDomain, TipoDocumentoDTO> getInstance(){
-		
 		return instance;
-		
-		
 	}
+	
 	@Override
 	public TipoDocumentoDomain toDomain(TipoDocumentoDTO data) {
 		var tipoDocumentoDtoTmp = getObjectHelper().getDefaultValue(data, TipoDocumentoDTO.build());
@@ -35,32 +33,23 @@ public class TipoDocumentoAssemblerDTO implements AssemblerDTO <TipoDocumentoDom
 	@Override
 	public TipoDocumentoDTO toDTO(TipoDocumentoDomain domain) {
 		var tipoDocumentoDomainTmp = getObjectHelper().getDefaultValue(domain, TipoDocumentoDomain.build());
-		// TODO Auto-generated method stub
 		return TipoDocumentoDTO.build().setIdentificador(tipoDocumentoDomainTmp.getIdentificador()).setNombre(tipoDocumentoDomainTmp.getNombre());
 	}
 	
 	@Override
 	public List<TipoDocumentoDomain> toDomainCollection(List<TipoDocumentoDTO> dtoCollection) {
-		// TODO Auto-generated method stub
 		var dtoCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(dtoCollection, new ArrayList<TipoDocumentoDTO>());
 		var resultadosDomain = new ArrayList<TipoDocumentoDomain>();
 		for (TipoDocumentoDTO tipoDocumentoDTO : dtoCollectionTmp) {
 			var tipoDocumentoDomainTmp = toDomain(tipoDocumentoDTO);
 			resultadosDomain.add(tipoDocumentoDomainTmp);
 		}
-		
 		return resultadosDomain;
 	}
 
 	@Override
 	public final List<TipoDocumentoDTO> toDTOCollection(final List<TipoDocumentoDomain>  domainCollection) {
 		var domainCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(domainCollection, new ArrayList<TipoDocumentoDomain>());
-		
 		return domainCollectionTmp.stream().map(this::toDTO).toList();
-	}
-
-	
-	
-	
-
+	}	
 }

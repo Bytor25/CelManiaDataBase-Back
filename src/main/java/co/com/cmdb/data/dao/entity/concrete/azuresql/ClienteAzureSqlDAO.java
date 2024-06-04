@@ -6,52 +6,48 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
-
-
+import co.com.cmdb.crosscutting.helpers.LongHelper;
+import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.data.dao.entity.ClienteDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.entity.ClienteEntity;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
-public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
+public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 
 	public ClienteAzureSqlDAO(final Connection conexion) { 
 		
 		super(conexion);
 	}
 	@Override
-	public void crear(ClienteEntity data) {
+	public void crear(final ClienteEntity data) {
 		  
-		final StringBuilder sentenciaSqlSqlSql = new StringBuilder();
+		final StringBuilder sentenciaSql = new StringBuilder();
 		
 
-		sentenciaSqlSqlSql.append("INSERT INTO Cliente (id,numero_documento, tipo_documento, nombre, apellido, correo, telefono, estado)");
-		sentenciaSqlSqlSql.append("SELECT ?, ?, ?, ?, ?, ?, ?, ?)");
+		sentenciaSql.append("INSERT INTO clientes(numero_documento, tipo_documento, nombre, apellidos, correo, telefono, estado)");
+		sentenciaSql.append("SELECT ?, ?, ?, ?, ?, ?, ?");
 
 
 		
-		try(final PreparedStatement sentenciaSqlSqlSqlPreparada = getConexion().prepareStatement(sentenciaSqlSqlSql.toString())){
+		try(final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())){
 			
 
-			sentenciaSqlSqlSqlPreparada.setObject(1, data.getIdentificador());
-
-
-			sentenciaSqlSqlSqlPreparada.setObject(2, data.getTipoDocumento().getIdentificador());
-			sentenciaSqlSqlSqlPreparada.setString(3, data.getIdentificador());
-			sentenciaSqlSqlSqlPreparada.setString(4,data.getNombre());
-			sentenciaSqlSqlSqlPreparada.setString(5, data.getApellidos());
-			sentenciaSqlSqlSqlPreparada.setString(6, data.getCorreo());
-			sentenciaSqlSqlSqlPreparada.setLong(7, data.getTelefono());
-			sentenciaSqlSqlSqlPreparada.setBoolean(8, data.isEstado());
+			sentenciaSqlPreparada.setObject(1, data.getIdentificador());
+			sentenciaSqlPreparada.setObject(2, data.getTipoDocumento().getIdentificador());
+			sentenciaSqlPreparada.setString(3,data.getNombre());
+			sentenciaSqlPreparada.setString(4, data.getApellidos());
+			sentenciaSqlPreparada.setString(5, data.getCorreo());
+			sentenciaSqlPreparada.setLong(6, data.getTelefono());
+			sentenciaSqlPreparada.setBoolean(7, data.isEstado());
 			
 
-			sentenciaSqlSqlSqlPreparada.executeUpdate();
+			sentenciaSqlPreparada.executeUpdate();
 
 			
 		} catch (final SQLException excepcion) {
@@ -80,69 +76,51 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 	}
 
 	@Override
-	public void eliminar(UUID data) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public Optional<ClienteEntity> consultarPorId(final String identificador) {
-		final StringBuilder sentenciaSqlSql = new StringBuilder();
-		
-		sentenciaSqlSql.append("SELECT C.numero_documento, C.nombre, C.apellidos,C.correo, C.telefono");
-		sentenciaSqlSql.append("FROM clientes C");
-		sentenciaSqlSql.append("WHERE C.numero_documento = ?");
-		
-		Optional<ClienteEntity> resultado = Optional.empty();
-		
-		try(final var sentenciaSqlSqlPreparada = getConexion().prepareStatement(sentenciaSqlSql.toString())){
-			sentenciaSqlSqlPreparada.setObject(1,identificador);
-			resultado = ejecutarConsultaPorId(sentenciaSqlSqlPreparada);
-			
-		} catch (final DataCMDBException excepcion) {
-			throw excepcion;
-		} catch (final SQLException excepcion) {
-			var mensajeUsuario = "";
-			var mensajeTecnico = "";
-			throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
-			
-		} catch (final Exception excepcion) {
-			var mensajeUsuario = "";
-			var mensajeTecnico = "";
-			throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
-		}
-		return resultado;
-	}
-	
-	private final Optional<ClienteEntity> ejecutarConsultaPorId(final PreparedStatement sentenciaSqlSqlPreparada){
-		
-		Optional<ClienteEntity> resultado = Optional.empty();
-		try(final var resultados = sentenciaSqlSqlPreparada.executeQuery()){
-			if(resultados.next()) {
-				
-				var clienteEntity = ClienteEntity.build( resultados.getString("numero_documento"),null , resultados.getString("nombre"), resultados.getString("apellidos"), resultados.getString("correo"), resultados.getInt("telefono"),resultados.getBoolean("estado"));
-				resultado = Optional.of(clienteEntity);
-			}
-		}catch(final SQLException excepcion) {
-			
-		}catch(final Exception excepcion) {
-			
-		}
-		return resultado;
-	}
-	@Override
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
         sentenciaSql.append("SELECT C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
         sentenciaSql.append("FROM clientes C ");
-        sentenciaSql.append("JOIN tipos_documentos TD ");
+        sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
+        sentenciaSql.append(" WHERE 1=1");
+        
+	    final List<Object> parametros = new ArrayList<>();
+
+	    if (!TextHelper.isNullOrEmpty(data.getIdentificador())) {
+	        sentenciaSql.append(" AND C.numero_documento = ?");
+	        parametros.add(data.getIdentificador());
+	    }
+	    if (!TextHelper.isNullOrEmpty(data.getNombre())) {
+	        sentenciaSql.append(" AND C.nombre = ?");
+	        parametros.add(data.getNombre());
+	    }
+	    if (!TextHelper.isNullOrEmpty(data.getApellidos())) {
+	        sentenciaSql.append(" AND C.apellidos = ?");
+	        parametros.add(data.getApellidos());
+	    }
+	    if (!TextHelper.isNullOrEmpty(data.getCorreo())) {
+	        sentenciaSql.append(" AND C.correo = ?");
+	        parametros.add(data.getCorreo());
+	    }
+	    if (LongHelper.isNull(data.getTelefono())) {
+	        sentenciaSql.append(" AND C.telefono = ?");
+	        parametros.add(data.getTelefono());
+	    }
+	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && !ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getNombre()) && !data.getTipoDocumento().getNombre().equals(TextHelper.EMPTY)) {
+	        sentenciaSql.append(" AND TD.nombre = ?");
+	        parametros.add(data.getTipoDocumento().getNombre());
+	    }
+
 
         final List<ClienteEntity> clientes = new ArrayList<>();
+        
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        for (int i = 0; i < parametros.size(); i++) {
+	            sentenciaSqlPreparada.setObject(i + 1, parametros.get(i));
+	        }
 
-        try (final Connection conexion = getConexion();
-             final PreparedStatement sentenciaSqlPreparada = conexion.prepareStatement(sentenciaSql.toString());
-             final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 
             while (resultado.next()) {
                 ClienteEntity cliente = ClienteEntity.build();
@@ -157,6 +135,7 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
 
                 clientes.add(cliente);
             }
+        }
 
         } catch (final SQLException excepcion) {
             var mensajeUsuario = "Error al consultar los datos.";
@@ -168,8 +147,12 @@ public class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
             var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
+        
+	    
 
         return clientes;
+	
 	}
+
 
 }

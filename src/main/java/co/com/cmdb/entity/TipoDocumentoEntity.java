@@ -16,8 +16,6 @@ public final class TipoDocumentoEntity {
 		setNombre(TextHelper.EMPTY);
 	}
 	
-	
-
 	public TipoDocumentoEntity(final int identificador,final String nombre) {
 		setIdentificador(identificador);
 		setNombre(nombre);
@@ -50,9 +48,11 @@ public final class TipoDocumentoEntity {
 		this.nombre = TextHelper.applyTrim(nombre);
 		return this;
 	}
-	
-	public void setIdentificador(int identificador) {
+
+	public final TipoDocumentoEntity setIdentificador(final int identificador) {
 		this.identificador = identificador;
+		return this;
 	}
+	
 	
 }

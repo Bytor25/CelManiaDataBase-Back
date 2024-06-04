@@ -1,7 +1,5 @@
 package co.com.cmdb.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +23,7 @@ import co.com.cmdb.dto.ClienteDTO;
 public class ClienteController {
 
 	@GetMapping("/dummy")
-	public ClienteDTO  Dummy() {	
+	public ClienteDTO dummy() {	
 		return ClienteDTO.build();
 	}
 
@@ -33,15 +31,11 @@ public class ClienteController {
 	public ResponseEntity<ClienteResponse> consultar() {
 		var httpStatusCode = HttpStatus.ACCEPTED;
 		var clienteResponse = new ClienteResponse();
+		
 		try {
 			var clienteDto = ClienteDTO.build();
 			var facade = new ConsultarClientesFacade();
 			
-			var ClienteRetorno = new ArrayList<ClienteDTO>();
-			ClienteRetorno.add(ClienteDTO.build());
-			ClienteRetorno.add(ClienteDTO.build());
-			ClienteRetorno.add(ClienteDTO.build());
-			ClienteRetorno.add(ClienteDTO.build());
 			clienteResponse.setDatos(facade.excute(clienteDto));
 			clienteResponse.getMensajes().add("Clientes consultados exitosamente");
 
@@ -63,8 +57,8 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteResponse, httpStatusCode);
 	}
 
-	@PostMapping
-	public ResponseEntity<ClienteResponse> registrar(@RequestBody ClienteDTO cliente) {
+	@PostMapping("/p")
+	public ResponseEntity<ClienteResponse> crear(@RequestBody ClienteDTO cliente) {
 		var httpStatusCode = HttpStatus.ACCEPTED;
 		var clienteResponse = new ClienteResponse();
 		try {

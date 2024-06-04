@@ -17,7 +17,6 @@ public final class TipoDocumentoDomain {
 	}
 	
 	private TipoDocumentoDomain(final int identificador, final String nombre) {
-		
 		setIdentificador(identificador);
 		setNombre(nombre);
 		

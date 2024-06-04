@@ -6,7 +6,7 @@ public class BooleanHelper {
         super();
     }
 
-    public static final boolean DEFAULT_BOOLEAN = false;
+    public static final boolean DEFAULT_BOOLEAN = true;
 
 
     public static final boolean isNull(final Boolean valor) {

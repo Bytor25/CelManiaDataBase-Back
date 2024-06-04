@@ -47,7 +47,7 @@ public final class ClienteEntity {
 		return new ClienteEntity();
 	}
 	
-	public static final ClienteEntity build( final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellidoss, final String correo, final int telefono, final boolean estado) {
+	public static final ClienteEntity build( final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellidoss, final String correo, final long telefono, final boolean estado) {
 		return new ClienteEntity( identificador, tipoDocumento, nombre, apellidoss,correo,telefono, estado);
 	}
 
