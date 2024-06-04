@@ -17,13 +17,14 @@ import co.com.cmdb.dto.ClienteDTO;
 public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, List<ClienteDTO>> {
 	
 	private DAOFactory daoFactory;
+	
 	public ConsultarClientesFacade() {
 		daoFactory = DAOFactory.getFactory();
 	}
 
 	@Override
 	public List<ClienteDTO> excute(ClienteDTO dto) {
-		// TODO Auto-generated method stub
+		daoFactory.iniciarTransaccion();
 		try {
             
 			var useCase = new ConsultarCliente(daoFactory);
@@ -32,12 +33,12 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 			return ClienteAssemblerDTO.getInstance().toDTOCollection(resultadosDomain);
 		
 		}catch(final CMDBExceptions excepcion) {
-			
+			daoFactory.cancelarTransaccion();
 			throw excepcion;
 			
 		}catch(final Exception excepcion) {
 			
-		
+			daoFactory.cancelarTransaccion();
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
 			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00005);
 			throw new BusinessCMDBException(mensajeTecnico,mensajeUsuario,excepcion);

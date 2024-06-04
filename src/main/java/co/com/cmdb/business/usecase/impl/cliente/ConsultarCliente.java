@@ -36,10 +36,6 @@ public class ConsultarCliente implements UseCaseWithReturn<ClienteDomain, List<C
 		
 		return ClienteAssemblerEntity.getInstance().toDomainCollection(resultadosEntity);
 		
-	}
-    
-	
-	
-	
+	}	
 
 }

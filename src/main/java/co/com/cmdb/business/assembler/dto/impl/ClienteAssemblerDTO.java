@@ -19,9 +19,7 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 
 	
 	private ClienteAssemblerDTO() {
-		
 		super();
-		
 	}
 	
 	public static final AssemblerDTO <ClienteDomain, ClienteDTO> getInstance() {
@@ -29,26 +27,26 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 		return instance;
 		
 	}
+	
 	@Override
-	public ClienteDomain toDomain(ClienteDTO data) {
+	public final ClienteDomain toDomain(final ClienteDTO data) {
 		var clienteDtoTmp = getObjectHelper().getDefaultValue(data, ClienteDTO.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(clienteDtoTmp.getTipoDocumento());
-		return ClienteDomain.build(clienteDtoTmp.getIdentificador(),clienteDtoTmp.getNombre(),tipoDocumentoDomain);
+		return ClienteDomain.build(clienteDtoTmp.getIdentificador(),tipoDocumentoDomain,clienteDtoTmp.getNombre(),clienteDtoTmp.getApellido(),clienteDtoTmp.getCorreo(),clienteDtoTmp.getTelefono(),clienteDtoTmp.isEstado());
 	}
 
 	@Override
-	public ClienteDTO toDTO(ClienteDomain domain) {
+	public ClienteDTO toDTO(final ClienteDomain domain) {
 		var clienteDomainTmp = getObjectHelper().getDefaultValue(domain, ClienteDomain.build());
 		var tipoDocumentoDTO = tipoDocumentoAssembler.toDTO(clienteDomainTmp.getTipoDocumento());
-		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNombre(clienteDomainTmp.getNombre()).setTipoDocumento(tipoDocumentoDTO);
+		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setTipoDocumento(tipoDocumentoDTO).setNombre(clienteDomainTmp.getNombre()).setApellido(clienteDomainTmp.getApellido()).setCorreo(clienteDomainTmp.getCorreo()).setTelefono(clienteDomainTmp.getTelefono());
+	}
 	
-	
-
-}
 	@Override
 	public List<ClienteDomain> toDomainCollection(List<ClienteDTO> dtoCollection) {
 		var dtoCollectionTmp = ObjectHelper.getObjectHelper().getDefaultValue(dtoCollection, new ArrayList<ClienteDTO>());
 		var resultadosDomain = new ArrayList<ClienteDomain>();
+		
 		for (ClienteDTO clienteDTO : dtoCollectionTmp) {
 			var clienteDomainTmp = toDomain(clienteDTO);
 			resultadosDomain.add(clienteDomainTmp);
@@ -63,6 +61,7 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 		
 		return domainCollectionTmp.stream().map(this::toDTO).toList();
 	}
+
 
 	
 	}

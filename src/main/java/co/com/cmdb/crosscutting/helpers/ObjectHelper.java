@@ -19,5 +19,6 @@ public final class ObjectHelper {
 	public <any> any getDefaultValue(any object, any defaultValue) {
 		return this.isNull(object) ? defaultValue : object;
 	}
+
 	
 }

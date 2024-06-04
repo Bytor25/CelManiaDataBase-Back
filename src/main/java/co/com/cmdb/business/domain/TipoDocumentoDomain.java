@@ -9,6 +9,13 @@ public final class TipoDocumentoDomain {
 	private int identificador;
 	private String nombre;
 	
+	
+	private TipoDocumentoDomain() {
+		super();
+		setIdentificador(identificador=0);
+		setNombre(TextHelper.EMPTY);
+	}
+	
 	private TipoDocumentoDomain(final int identificador, final String nombre) {
 		
 		setIdentificador(identificador);

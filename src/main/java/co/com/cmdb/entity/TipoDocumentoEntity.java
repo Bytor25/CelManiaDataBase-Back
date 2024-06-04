@@ -1,9 +1,8 @@
 package co.com.cmdb.entity;
 
-import java.util.UUID;
 
 import co.com.cmdb.crosscutting.helpers.TextHelper;
-import co.com.cmdb.crosscutting.helpers.UUIDHelper;
+
 
 
 public final class TipoDocumentoEntity {
@@ -12,7 +11,8 @@ public final class TipoDocumentoEntity {
 	private String nombre;
 	
 	public TipoDocumentoEntity() {
-		setIdentificador(identificador);
+		super();
+		setIdentificador(identificador = 0);
 		setNombre(TextHelper.EMPTY);
 	}
 	

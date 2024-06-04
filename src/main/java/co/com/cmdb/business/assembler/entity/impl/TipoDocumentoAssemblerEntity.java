@@ -8,7 +8,6 @@ import java.util.List;
 import co.com.cmdb.business.assembler.entity.AssemblerEntity;
 import co.com.cmdb.business.domain.TipoDocumentoDomain;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
-import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
 public final class TipoDocumentoAssemblerEntity implements AssemblerEntity<TipoDocumentoDomain, TipoDocumentoEntity> {

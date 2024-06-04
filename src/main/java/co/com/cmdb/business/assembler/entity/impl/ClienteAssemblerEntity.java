@@ -30,7 +30,7 @@ public class ClienteAssemblerEntity implements AssemblerEntity<ClienteDomain, Cl
 	public ClienteDomain toDomain(ClienteEntity data) {
 		var clienteEntityTmp = getObjectHelper().getDefaultValue(data, ClienteEntity.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(clienteEntityTmp.getTipoDocumento());
-		return ClienteDomain.build(clienteEntityTmp.getIdentificador(),clienteEntityTmp.getNombre(),tipoDocumentoDomain);
+		return ClienteDomain.build(clienteEntityTmp.getIdentificador(),tipoDocumentoDomain,clienteEntityTmp.getNombre(),clienteEntityTmp.getApellidos(),clienteEntityTmp.getCorreo(),clienteEntityTmp.getTelefono(),clienteEntityTmp.isEstado());
 	}
 
 	@Override

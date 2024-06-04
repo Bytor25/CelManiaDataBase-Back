@@ -2,11 +2,10 @@
 package co.com.cmdb.data.dao.entity.concrete.azuresql;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.List;
 
-import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
+
 import co.com.cmdb.data.dao.entity.TipoDocumentoDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.entity.TipoDocumentoEntity;

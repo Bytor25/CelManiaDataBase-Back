@@ -15,6 +15,7 @@ import co.com.cmdb.data.dao.entity.concrete.azuresql.ClienteAzureSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.azuresql.TipoDocumentoAzureSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
+
 public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactory {
 	
 	public AzureSQLDAOFactory() {
@@ -93,6 +94,39 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 			return new TipoDocumentoAzureSqlDAO(getConexion());
 			
 		}
+		
+		
+		/*public static void main(String[] args) {
+			try {
+				DAOFactory factory = DAOFactory.getFactory();
+
+				System.out.println("Iniciando transacción...");
+				factory.iniciarTransaccion();
+
+//				System.out.println("Creando ciudad aleatoriamente");
+//				DepartamentoEntity departamento = DepartamentoEntity.build()
+//						.setId(UUIDHelper.convertToUUID("7827155D-0A6B-4D6E-9807-C5B7097D94F0"));
+//				CiudadEntity ciudad = CiudadEntity.build().setId(UUIDHelper.generate())
+//						.setNombre("Rionegro-" + UUIDHelper.generate()).setDepartamento(departamento);
+//
+//				factory.getCiudadDAO().crear(ciudad);
+
+				System.out.println("Consultamos cli: ");
+				var resultados = factory.getClienteDAO().consultar(ClienteEntity.build());
+
+				for (ClienteEntity ciudadEntity : resultados) {
+					System.out.print("idCliente: " + ciudadEntity.getIdentificador() + " --- " );
+					System.out.println("nombre: " + ciudadEntity.getNombre());
+				}
+
+				System.out.println("Confirmando transacción...");
+				factory.confirmarTransaccion();
+				System.out.println("Cerrando conexión...");
+				factory.cerrarConexion();
+			} catch (final Exception excepcion) {
+				excepcion.printStackTrace();
+			}
+		}*/
 		  
 
 }

@@ -1,17 +1,19 @@
 package co.com.cmdb.dto;
 
-
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 
 public final class TipoDocumentoDTO {
 	
 	private int identificador;
 	private String nombre;
 	
-	private TipoDocumentoDTO() {
+	public TipoDocumentoDTO() {
 		super();
+		setIdentificador(identificador = 0);
+		setNombre (TextHelper.EMPTY);
 	}
 
-	private TipoDocumentoDTO(final int identificador, final String nombre) {
+	public TipoDocumentoDTO(final int identificador, final String nombre) {
 		setIdentificador(identificador);
 		setNombre (nombre);
 	}
@@ -33,13 +35,13 @@ public final class TipoDocumentoDTO {
 
 	//Setters
 	
-	public final TipoDocumentoDTO setIdentificador(int identificador) {
+	public final TipoDocumentoDTO setIdentificador(final int identificador) {
 		this.identificador = identificador;
 		return this;
 	}
 
-	public final TipoDocumentoDTO setNombre(String nombre) {
-		this.nombre = nombre;
+	public final TipoDocumentoDTO setNombre(final String nombre) {
+		this.nombre = TextHelper.applyTrim(nombre);
 		return this;
 	}
 	

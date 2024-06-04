@@ -1,9 +1,10 @@
 package co.com.cmdb.entity;
 
-import java.util.UUID;
-
+import co.com.cmdb.crosscutting.helpers.BooleanHelper;
+import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+
 
 
 public final class ClienteEntity {
@@ -13,24 +14,29 @@ public final class ClienteEntity {
 	private String nombre;
 	private String apellidos;
 	private String correo;
-	private int telefono;
+	private long telefono;
 	private boolean estado;
 	
 	public ClienteEntity() {
-		
-		setNombre(TextHelper.EMPTY);
-		setTipoDocumento(TipoDocumentoEntity.build());
+		super();
+		setIdentificador (TextHelper.EMPTY);
+		setTipoDocumento (TipoDocumentoEntity.build());
+		setNombre (TextHelper.EMPTY);
+		setApellidos (TextHelper.EMPTY);
+		setCorreo (TextHelper.EMPTY);
+		setTelefono (LongHelper.DEFAULT_LONG);
+		setEstado(BooleanHelper.DEFAULT_BOOLEAN );
 	}
 
 
 	public ClienteEntity( final String identificador, final TipoDocumentoEntity tipoDocumento, final String nombre, final String apellidos,
-			String correo, int telefono, boolean estado) {
+			final String correo, final long telefono,final  boolean estado) {
 		
 
 		setIdentificador(identificador);
 		setTipoDocumento(tipoDocumento);
 		setNombre(nombre);
-		setapellidos(apellidos);
+		setApellidos(apellidos);
 		setCorreo(correo);
 		setTelefono(telefono);
 		setEstado(estado);
@@ -62,7 +68,7 @@ public final class ClienteEntity {
 		return nombre;
 	}
 	
-	public final String getApellido() {
+	public final String getApellidos() {
 		return apellidos;
 	}
 	
@@ -91,8 +97,6 @@ public final class ClienteEntity {
 	public final ClienteEntity setTipoDocumento(final TipoDocumentoEntity tipoDocumento) {
 		this.tipoDocumento = ObjectHelper.getObjectHelper().getDefaultValue(tipoDocumento, new TipoDocumentoEntity());
 		return this;
-		
-	
 	}
 
 	public final ClienteEntity setNombre(final String nombre) {
@@ -100,23 +104,23 @@ public final class ClienteEntity {
 		return this;
 	}
 
-	public final ClienteEntity setapellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public final ClienteEntity setApellidos(final String apellidos) {
+		this.apellidos = TextHelper.applyTrim(apellidos);
 		return this;
 	}
 
-	public final ClienteEntity setCorreo(String correo) {
-		this.correo = correo;
+	public final ClienteEntity setCorreo(final String correo) {
+		this.correo = TextHelper.applyTrim(correo);
 		return this;
 	}
 
-	public final ClienteEntity setTelefono(int telefono) {
+	public final ClienteEntity setTelefono(final long telefono) {
 		this.telefono = telefono;
 		return this;
 	}
 
 	public ClienteEntity setEstado(final boolean estado) {
-		this.estado = estado;
+		this.estado = BooleanHelper.getDefaultValue(estado);
 		return this;
 	}
 
