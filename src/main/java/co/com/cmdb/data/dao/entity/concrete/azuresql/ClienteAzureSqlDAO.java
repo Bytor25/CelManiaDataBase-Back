@@ -128,7 +128,7 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
                 cliente.setNombre(resultado.getString("nombreCliente"));
                 cliente.setApellidos(resultado.getString("apellidosCliente"));
                 cliente.setCorreo(resultado.getString("correoCliente"));
-                cliente.setTelefono(resultado.getInt("telefonoCliente"));
+                cliente.setTelefono(resultado.getLong("telefonoCliente"));
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
                 cliente.setTipoDocumento(tipoDocumento);
@@ -153,6 +153,52 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
         return clientes;
 	
 	}
+	
+	@Override
+	public List<ClienteEntity> consultarPorid(String identificador) {
+	    final StringBuilder sentenciaSql = new StringBuilder();
 
+	    sentenciaSql.append("SELECT C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+	    sentenciaSql.append("FROM clientes C ");
+	    sentenciaSql.append("INNER JOIN tipos_documentos TD ");
+	    sentenciaSql.append("ON C.tipo_documento = TD.identificador ");
+	    sentenciaSql.append("WHERE C.numero_documento = ?");
+
+	    final List<ClienteEntity> clientes = new ArrayList<>();
+	    
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setString(1, identificador);
+
+	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+	            while (resultado.next()) {
+	                ClienteEntity cliente = ClienteEntity.build();
+	                cliente.setIdentificador(resultado.getString("numeroDocumento"));
+	                cliente.setNombre(resultado.getString("nombreCliente"));
+	                cliente.setApellidos(resultado.getString("apellidosCliente"));
+	                cliente.setCorreo(resultado.getString("correoCliente"));
+	                cliente.setTelefono(resultado.getLong("telefonoCliente"));
+	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
+	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+	                cliente.setTipoDocumento(tipoDocumento);
+
+	                clientes.add(cliente);
+	            }
+	        }
+
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "Error al consultar los datos.";
+	        var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "Error inesperado al consultar los datos.";
+	        var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+	    
+	    return clientes;
+
+
+	}
 
 }

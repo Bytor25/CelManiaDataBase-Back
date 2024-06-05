@@ -11,6 +11,4 @@ public class ClienteResponse extends Response<ClienteDTO> {
 		setDatos(new ArrayList<>());
 	}
 
-	
-
 }

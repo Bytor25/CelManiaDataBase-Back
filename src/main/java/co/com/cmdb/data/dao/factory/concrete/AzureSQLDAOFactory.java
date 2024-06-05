@@ -14,8 +14,7 @@ import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.data.dao.entity.concrete.azuresql.ClienteAzureSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.azuresql.TipoDocumentoAzureSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
-import co.com.cmdb.entity.ClienteEntity;
-import co.com.cmdb.entity.TipoDocumentoEntity;
+
 
 
 public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactory {

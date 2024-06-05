@@ -57,7 +57,7 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteResponse, httpStatusCode);
 	}
 
-	@PostMapping("/p")
+	@PostMapping
 	public ResponseEntity<ClienteResponse> crear(@RequestBody ClienteDTO cliente) {
 		var httpStatusCode = HttpStatus.ACCEPTED;
 		var clienteResponse = new ClienteResponse();

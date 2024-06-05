@@ -1,7 +1,7 @@
 package co.com.cmdb.data.dao.entity;
 
-public interface DeleteDAO<SW> {
+interface DeleteDAO<E> {
 	
-	void eliminar (SW data);
+	void eliminar (E data);
 
 }

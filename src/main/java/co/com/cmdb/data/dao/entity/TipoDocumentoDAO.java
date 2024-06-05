@@ -4,6 +4,4 @@ import co.com.cmdb.entity.TipoDocumentoEntity;
 
 public interface TipoDocumentoDAO extends RetrieveDAO<TipoDocumentoEntity> {
 	
-	
-
 }
