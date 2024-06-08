@@ -1,4 +1,4 @@
-package co.com.cmdb.data.dao.entity.concrete.azuresql;
+package co.com.cmdb.data.dao.entity.concrete.postgresSql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
@@ -13,14 +14,15 @@ import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.entity.ClienteDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.entity.ClienteEntity;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
-public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDAO {
+public final class ClientePostgresSqlDAO extends SqlConnection implements ClienteDAO {
 
-	public ClienteAzureSqlDAO(final Connection conexion) { 
+	public ClientePostgresSqlDAO(final Connection conexion) { 
 		
 		super(conexion);
 	}
@@ -30,8 +32,8 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 		final StringBuilder sentenciaSql = new StringBuilder();
 		
 
-		sentenciaSql.append("INSERT INTO clientes(numero_documento, tipo_documento, nombre, apellidos, correo, telefono, estado)");
-		sentenciaSql.append("SELECT ?, ?, ?, ?, ?, ?, ?");
+		sentenciaSql.append("INSERT INTO clientes(identificador, numero_documento, tipo_documento, nombre, apellidos, correo, telefono, estado) ");
+		sentenciaSql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 
 		
@@ -39,12 +41,13 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 			
 
 			sentenciaSqlPreparada.setObject(1, data.getIdentificador());
-			sentenciaSqlPreparada.setObject(2, data.getTipoDocumento().getIdentificador());
-			sentenciaSqlPreparada.setString(3,data.getNombre());
-			sentenciaSqlPreparada.setString(4, data.getApellidos());
-			sentenciaSqlPreparada.setString(5, data.getCorreo());
-			sentenciaSqlPreparada.setLong(6, data.getTelefono());
-			sentenciaSqlPreparada.setBoolean(7, data.isEstado());
+			sentenciaSqlPreparada.setObject(2,data.getNumeroDocumento());
+			sentenciaSqlPreparada.setObject(3, data.getTipoDocumento().getIdentificador());
+			sentenciaSqlPreparada.setString(4,data.getNombre());
+			sentenciaSqlPreparada.setString(5, data.getApellidos());
+			sentenciaSqlPreparada.setString(6, data.getCorreo());
+			sentenciaSqlPreparada.setLong(7, data.getTelefono());
+			sentenciaSqlPreparada.setBoolean(8, data.isEstado());
 			
 
 			sentenciaSqlPreparada.executeUpdate();
@@ -79,35 +82,48 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
         sentenciaSql.append("FROM clientes C ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
         sentenciaSql.append(" WHERE 1=1");
         
 	    final List<Object> parametros = new ArrayList<>();
-
-	    if (!TextHelper.isNullOrEmpty(data.getIdentificador())) {
-	        sentenciaSql.append(" AND C.numero_documento = ?");
-	        parametros.add(data.getIdentificador());
+	    if (!ObjectHelper.getObjectHelper().isNull(data.getIdentificador()) && !data.getIdentificador().equals(UUIDHelper.getDefault())) {
+	    	sentenciaSql.append(" AND C.identificador = ?");
+	    	parametros.add(data.getIdentificador());
 	    }
+	    
+	    if(!TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
+	    	
+	    	sentenciaSql.append(" AND C.numero_documento = ?" );
+	    	parametros.add(data.getNumeroDocumento());
+	    }
+	    
 	    if (!TextHelper.isNullOrEmpty(data.getNombre())) {
 	        sentenciaSql.append(" AND C.nombre = ?");
 	        parametros.add(data.getNombre());
 	    }
+	    
 	    if (!TextHelper.isNullOrEmpty(data.getApellidos())) {
 	        sentenciaSql.append(" AND C.apellidos = ?");
 	        parametros.add(data.getApellidos());
 	    }
+	    
 	    if (!TextHelper.isNullOrEmpty(data.getCorreo())) {
 	        sentenciaSql.append(" AND C.correo = ?");
 	        parametros.add(data.getCorreo());
 	    }
+	    
 	    if (LongHelper.isNull(data.getTelefono())) {
 	        sentenciaSql.append(" AND C.telefono = ?");
 	        parametros.add(data.getTelefono());
 	    }
-	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && !ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getNombre()) && !data.getTipoDocumento().getNombre().equals(TextHelper.EMPTY)) {
+	    
+	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && 
+	    		!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getNombre()) && 
+	    		!data.getTipoDocumento().getNombre().equals(TextHelper.EMPTY)) {
+	    	
 	        sentenciaSql.append(" AND TD.nombre = ?");
 	        parametros.add(data.getTipoDocumento().getNombre());
 	    }
@@ -124,13 +140,17 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 
             while (resultado.next()) {
                 ClienteEntity cliente = ClienteEntity.build();
-                cliente.setIdentificador(resultado.getString("numeroDocumento"));
+                
+                cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
+                cliente.setNumeroDocumento(resultado.getString("numeroDocumento"));
                 cliente.setNombre(resultado.getString("nombreCliente"));
                 cliente.setApellidos(resultado.getString("apellidosCliente"));
                 cliente.setCorreo(resultado.getString("correoCliente"));
                 cliente.setTelefono(resultado.getLong("telefonoCliente"));
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
+                
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+
                 cliente.setTipoDocumento(tipoDocumento);
 
                 clientes.add(cliente);
@@ -155,10 +175,10 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 	}
 	
 	@Override
-	public List<ClienteEntity> consultarPorid(String identificador) {
+	public List<ClienteEntity> consultarPorid(String numeroDocumento) {
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
-	    sentenciaSql.append("SELECT C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+	    sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
 	    sentenciaSql.append("FROM clientes C ");
 	    sentenciaSql.append("INNER JOIN tipos_documentos TD ");
 	    sentenciaSql.append("ON C.tipo_documento = TD.identificador ");
@@ -167,16 +187,18 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 	    final List<ClienteEntity> clientes = new ArrayList<>();
 	    
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
-	        sentenciaSqlPreparada.setString(1, identificador);
+	        sentenciaSqlPreparada.setString(1, numeroDocumento);
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            while (resultado.next()) {
 	                ClienteEntity cliente = ClienteEntity.build();
-	                cliente.setIdentificador(resultado.getString("numeroDocumento"));
+	                cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
+	                cliente.setNumeroDocumento(resultado.getString("numeroDocumento"));
 	                cliente.setNombre(resultado.getString("nombreCliente"));
 	                cliente.setApellidos(resultado.getString("apellidosCliente"));
 	                cliente.setCorreo(resultado.getString("correoCliente"));
 	                cliente.setTelefono(resultado.getLong("telefonoCliente"));
+	                
 	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
 	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
 	                cliente.setTipoDocumento(tipoDocumento);
@@ -197,7 +219,6 @@ public final class ClienteAzureSqlDAO extends SqlConnection implements ClienteDA
 	    }
 	    
 	    return clientes;
-
 
 	}
 

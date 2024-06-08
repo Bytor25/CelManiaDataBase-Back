@@ -11,15 +11,15 @@ import co.com.cmdb.crosscutting.helpers.SQLHelper;
 import co.com.cmdb.data.dao.entity.ClienteDAO;
 import co.com.cmdb.data.dao.entity.TipoDocumentoDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
-import co.com.cmdb.data.dao.entity.concrete.azuresql.ClienteAzureSqlDAO;
-import co.com.cmdb.data.dao.entity.concrete.azuresql.TipoDocumentoAzureSqlDAO;
+import co.com.cmdb.data.dao.entity.concrete.postgresSql.ClientePostgresSqlDAO;
+import co.com.cmdb.data.dao.entity.concrete.postgresSql.TipoDocumentoPostgresSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
 
 
-public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactory {
+public final class PostgresSQLDAOFactory extends SqlConnection implements DAOFactory {
 	
-	public AzureSQLDAOFactory() {
+	public PostgresSQLDAOFactory() {
 		
 		super();
 		abrirConexion();
@@ -89,13 +89,13 @@ public final class AzureSQLDAOFactory extends SqlConnection implements DAOFactor
 		
 		public ClienteDAO getClienteDAO() {
 			
-			return new ClienteAzureSqlDAO(getConexion());
+			return new ClientePostgresSqlDAO(getConexion());
 		
 		}
 		
 		public TipoDocumentoDAO getTipoDocumentoDAO() {
 			
-			return new TipoDocumentoAzureSqlDAO(getConexion());
+			return new TipoDocumentoPostgresSqlDAO(getConexion());
 			
 		}
 		

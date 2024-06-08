@@ -1,6 +1,7 @@
 package co.com.cmdb.entity;
 
 
+import co.com.cmdb.crosscutting.helpers.IntegerHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 
 
@@ -12,7 +13,7 @@ public final class TipoDocumentoEntity {
 	
 	public TipoDocumentoEntity() {
 		super();
-		setIdentificador(identificador = 0);
+		setIdentificador(IntegerHelper.DEFAULT_INT);
 		setNombre(TextHelper.EMPTY);
 	}
 	

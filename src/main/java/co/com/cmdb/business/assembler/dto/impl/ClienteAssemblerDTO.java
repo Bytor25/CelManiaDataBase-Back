@@ -25,21 +25,21 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 	public static final AssemblerDTO <ClienteDomain, ClienteDTO> getInstance() {
 		
 		return instance;
-		
+		  
 	}
 	
 	@Override
 	public final ClienteDomain toDomain(final ClienteDTO data) {
 		var clienteDtoTmp = getObjectHelper().getDefaultValue(data, ClienteDTO.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(clienteDtoTmp.getTipoDocumento());
-		return ClienteDomain.build(clienteDtoTmp.getIdentificador(),tipoDocumentoDomain,clienteDtoTmp.getNombre(),clienteDtoTmp.getApellido(),clienteDtoTmp.getCorreo(),clienteDtoTmp.getTelefono(),clienteDtoTmp.isEstado());
+		return ClienteDomain.build(clienteDtoTmp.getIdentificador(),clienteDtoTmp.getNumeroDocumento(),tipoDocumentoDomain,clienteDtoTmp.getNombre(),clienteDtoTmp.getApellidos(),clienteDtoTmp.getCorreo(),clienteDtoTmp.getTelefono(),clienteDtoTmp.isEstado());
 	}
 
 	@Override
 	public ClienteDTO toDTO(final ClienteDomain domain) {
 		var clienteDomainTmp = getObjectHelper().getDefaultValue(domain, ClienteDomain.build());
 		var tipoDocumentoDTO = tipoDocumentoAssembler.toDTO(clienteDomainTmp.getTipoDocumento());
-		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setTipoDocumento(tipoDocumentoDTO).setNombre(clienteDomainTmp.getNombre()).setApellido(clienteDomainTmp.getApellido()).setCorreo(clienteDomainTmp.getCorreo()).setTelefono(clienteDomainTmp.getTelefono());
+		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setTipoDocumento(tipoDocumentoDTO).setNombre(clienteDomainTmp.getNombre()).setApellidos(clienteDomainTmp.getApellidos()).setCorreo(clienteDomainTmp.getCorreo()).setTelefono(clienteDomainTmp.getTelefono());
 	}
 	
 	@Override

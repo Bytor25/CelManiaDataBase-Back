@@ -93,7 +93,7 @@ public class ClienteController {
 		var httpStatusCode = HttpStatus.ACCEPTED;
 		var clienteResponse = new ClienteResponse();
 		try {
-			clienteDto.setIdentificador(id);
+			clienteDto.setNumeroDocumento(id);
 			// var facade = new RegistrarCiudadesFacade();
 
 			// facade.execute(id);

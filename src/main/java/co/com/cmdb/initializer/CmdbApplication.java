@@ -15,7 +15,7 @@ public class CmdbApplication {
 		SpringApplication.run(CmdbApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
 	WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 
@@ -28,5 +28,5 @@ public class CmdbApplication {
 
 		};
 
-	}*/
+	}
 }

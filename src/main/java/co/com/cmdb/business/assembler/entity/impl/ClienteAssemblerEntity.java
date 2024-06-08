@@ -30,14 +30,19 @@ public class ClienteAssemblerEntity implements AssemblerEntity<ClienteDomain, Cl
 	public ClienteDomain toDomain(final ClienteEntity data) {
 		var clienteEntityTmp = getObjectHelper().getDefaultValue(data, ClienteEntity.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(clienteEntityTmp.getTipoDocumento());
-		return ClienteDomain.build(clienteEntityTmp.getIdentificador(),tipoDocumentoDomain,clienteEntityTmp.getNombre(),clienteEntityTmp.getApellidos(),clienteEntityTmp.getCorreo(),clienteEntityTmp.getTelefono(),clienteEntityTmp.isEstado());
+		
+		return ClienteDomain.build(clienteEntityTmp.getIdentificador(),clienteEntityTmp.getNumeroDocumento(),tipoDocumentoDomain,
+				clienteEntityTmp.getNombre(),clienteEntityTmp.getApellidos(),clienteEntityTmp.getCorreo(),clienteEntityTmp.getTelefono(),
+				clienteEntityTmp.isEstado());
 	}
 
 	@Override
 	public ClienteEntity toEntity(final ClienteDomain domain) {
 		var clienteDomainTmp = getObjectHelper().getDefaultValue(domain, ClienteDomain.build());
 		var tipoDocumentoEntity = tipoDocumentoAssembler.toEntity(clienteDomainTmp.getTipoDocumento());
-		return ClienteEntity.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNombre(clienteDomainTmp.getNombre()).setTipoDocumento(tipoDocumentoEntity);
+		
+		return ClienteEntity.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNombre(clienteDomainTmp.getNombre())
+				.setTipoDocumento(tipoDocumentoEntity);
 	}
 
 	@Override

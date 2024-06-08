@@ -1,5 +1,6 @@
 package co.com.cmdb.dto;
 
+import co.com.cmdb.crosscutting.helpers.IntegerHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 
 public final class TipoDocumentoDTO {
@@ -9,7 +10,7 @@ public final class TipoDocumentoDTO {
 	
 	public TipoDocumentoDTO() {
 		super();
-		setIdentificador(identificador = 0);
+		setIdentificador(IntegerHelper.DEFAULT_INT);
 		setNombre (TextHelper.EMPTY);
 	}
 

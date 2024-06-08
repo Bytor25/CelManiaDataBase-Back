@@ -1,5 +1,5 @@
 
-package co.com.cmdb.data.dao.entity.concrete.azuresql;
+package co.com.cmdb.data.dao.entity.concrete.postgresSql;
 
 import java.sql.Connection;
 
@@ -10,9 +10,9 @@ import co.com.cmdb.data.dao.entity.TipoDocumentoDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
-public class TipoDocumentoAzureSqlDAO extends SqlConnection implements TipoDocumentoDAO{
+public class TipoDocumentoPostgresSqlDAO extends SqlConnection implements TipoDocumentoDAO{
 	
-	public TipoDocumentoAzureSqlDAO(final Connection conexion) {
+	public TipoDocumentoPostgresSqlDAO(final Connection conexion) {
 		
 		super(conexion);
 

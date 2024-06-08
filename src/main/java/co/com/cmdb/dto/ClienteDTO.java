@@ -1,14 +1,18 @@
 package co.com.cmdb.dto;
 
+import java.util.UUID;
+
 import co.com.cmdb.crosscutting.helpers.BooleanHelper;
 import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 
 
 public final class ClienteDTO {
 
-	private String identificador;
+	private UUID identificador;
+	private String numeroDocumento;
 	private TipoDocumentoDTO tipoDocumento;
 	private String nombre;
 	private String apellidos;
@@ -18,38 +22,46 @@ public final class ClienteDTO {
 	
 	public ClienteDTO() {
 		super();
-		setIdentificador (TextHelper.EMPTY);
+		setIdentificador (UUIDHelper.getDefault());
+		setNumeroDocumento(TextHelper.EMPTY);
 		setTipoDocumento (TipoDocumentoDTO.build());
 		setNombre (TextHelper.EMPTY);
-		setApellido (TextHelper.EMPTY);
+		setApellidos(TextHelper.EMPTY);
 		setCorreo (TextHelper.EMPTY);
 		setTelefono (LongHelper.DEFAULT_LONG);
 		setEstado(BooleanHelper.DEFAULT_BOOLEAN);
 	}
 
-	public ClienteDTO( final String identificador, final TipoDocumentoDTO tipoDocumento, final String nombre, final String apellidos, final String correo,
-			final long telefono, final boolean estado) {
-		
+
 	
+	public ClienteDTO(final UUID identificador, final String numeroDocumento, final TipoDocumentoDTO tipoDocumento, final String nombre,
+			final String apellidos, final String correo, final long telefono, final boolean estado) {
+		
 		setIdentificador (identificador);
+		setNumeroDocumento(numeroDocumento);
 		setTipoDocumento (tipoDocumento);
 		setNombre (nombre);
-		setApellido (apellidos);
+		setApellidos(apellidos);
 		setCorreo (correo);
 		setTelefono (telefono);
 		setEstado(estado);
 	}
-	
+
+
 	public static final ClienteDTO build() {
 		return new ClienteDTO();
 	}
 	
 	//Getters
 	
-	public final String getIdentificador() {
+	public final UUID getIdentificador() {
 		return identificador;
 	}
 	
+	public final String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
 	public final TipoDocumentoDTO getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -58,7 +70,7 @@ public final class ClienteDTO {
 		return nombre;
 	}
 	
-	public final String getApellido() {
+	public final String getApellidos() {
 		return apellidos;
 	}
 	
@@ -77,8 +89,13 @@ public final class ClienteDTO {
 
 	//Setters
 
-	public final ClienteDTO setIdentificador(String identificador) {
+	public final ClienteDTO setIdentificador(UUID identificador) {
 		this.identificador = identificador;
+		return this;
+	}
+
+	public final ClienteDTO setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = TextHelper.applyTrim(numeroDocumento);
 		return this;
 	}
 
@@ -87,12 +104,12 @@ public final class ClienteDTO {
 		return this;
 	}
 
-	public final ClienteDTO setNombre(final String nombre) {
+	public final ClienteDTO setNombre(String nombre) {
 		this.nombre = TextHelper.applyTrim(nombre);
 		return this;
 	}
 
-	public final ClienteDTO setApellido(String apellidos) {
+	public final ClienteDTO setApellidos(String apellidos) {
 		this.apellidos = TextHelper.applyTrim(apellidos);
 		return this;
 	}

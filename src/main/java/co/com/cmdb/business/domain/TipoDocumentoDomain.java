@@ -1,6 +1,7 @@
 package co.com.cmdb.business.domain;
 
 
+import co.com.cmdb.crosscutting.helpers.IntegerHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 
 
@@ -12,7 +13,7 @@ public final class TipoDocumentoDomain {
 	
 	private TipoDocumentoDomain() {
 		super();
-		setIdentificador(identificador=0);
+		setIdentificador(IntegerHelper.DEFAULT_INT);
 		setNombre(TextHelper.EMPTY);
 	}
 	
@@ -36,8 +37,7 @@ public final class TipoDocumentoDomain {
 	
 	public static TipoDocumentoDomain build() {
 		
-		int defaultValue = 0;
-		return new TipoDocumentoDomain(defaultValue,TextHelper.EMPTY);
+		return new TipoDocumentoDomain(IntegerHelper.DEFAULT_INT,TextHelper.EMPTY);
 	}
 	
 	//Getters
@@ -59,5 +59,4 @@ public final class TipoDocumentoDomain {
 	private void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 }

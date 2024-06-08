@@ -1,61 +1,70 @@
 package co.com.cmdb.business.domain;
 
+import java.util.UUID;
+
 import co.com.cmdb.crosscutting.helpers.BooleanHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
+import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 
 
 
 public class ClienteDomain {
 	
-	private String identificador;
+	private UUID identificador;
+	private String numeroDocumento;
 	private TipoDocumentoDomain tipoDocumento;
 	private String nombre;
-	private String apellido;
+	private String apellidos;
 	private String correo;
 	private long telefono;
 	private boolean estado;
 
 
-	private ClienteDomain(final String identificador, final TipoDocumentoDomain tipoDocumento, 
-						  final String nombre, final String apellido, final String correo,
+	private ClienteDomain(final UUID identificador,final String numeroDocumento, final TipoDocumentoDomain tipoDocumento, 
+						  final String nombre, final String apellidos, final String correo,
 						  final long telefono, final boolean estado) {
 		
 		setIdentificador(identificador);
+		setNumeroDocumento(numeroDocumento);
 		setTipoDocumento(tipoDocumento);
 		setNombre(nombre);
-		setApellido(apellido);
+		setApellidos(apellidos);
 		setCorreo(correo);
 		setTelefono(telefono);
 		setEstado(estado);
 	
 	}
 
-public static final ClienteDomain build(final String identificador, final TipoDocumentoDomain tipoDocumento, 
-										final String nombre, final String apellido, final String correo,
+public static final ClienteDomain build(final UUID identificador,final String numeroDocumento, final TipoDocumentoDomain tipoDocumento, 
+										final String nombre, final String apellidos, final String correo,
 										final long telefono, final boolean estado) {
 	
-	return new ClienteDomain(identificador, tipoDocumento, nombre, apellido, correo, telefono, estado);
+	return new ClienteDomain(identificador,numeroDocumento, tipoDocumento, nombre, apellidos, correo, telefono, estado);
 	
 }
 
-public static final ClienteDomain build(final String identificador) {
+public static final ClienteDomain build(final UUID identificador, final String numeroDocumento) {
 	
-	return new ClienteDomain(identificador, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, false);
+	return new ClienteDomain(identificador,numeroDocumento, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, BooleanHelper.DEFAULT_BOOLEAN);
 	
 }
 
 public static final ClienteDomain build() {
-	return new ClienteDomain(TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, false);
+	return new ClienteDomain(UUIDHelper.getDefault(),TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, BooleanHelper.DEFAULT_BOOLEAN);
 	
 }
 
 // Getters
 
-	public String getIdentificador() {
+	public UUID getIdentificador() {
 		return identificador;
 	}
 	
+	public final String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
 	public TipoDocumentoDomain getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -64,8 +73,8 @@ public static final ClienteDomain build() {
 		return nombre;
 	}
 	
-	public String getApellido() {
-		return apellido;
+	public String getApellidos() {
+		return apellidos;
 	}
 	
 	public String getCorreo() {
@@ -79,12 +88,16 @@ public static final ClienteDomain build() {
 		return estado;
 	}
 	
-	//Setters
+//Setters
 	
-	private void setIdentificador(String identificador) {
-		this.identificador = TextHelper.applyTrim(identificador);
+	private void setIdentificador(UUID identificador) {
+		this.identificador = identificador;
 	}
 	
+	public final void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = TextHelper.applyTrim(numeroDocumento);
+	}
+
 	private void setTipoDocumento(TipoDocumentoDomain tipoDocumento) {
 		this.tipoDocumento = ObjectHelper.getObjectHelper().getDefaultValue(tipoDocumento, TipoDocumentoDomain.build());
 	}
@@ -93,8 +106,8 @@ public static final ClienteDomain build() {
 		this.nombre = TextHelper.applyTrim(nombre);
 	}
 	
-	private void setApellido(String apellido) {
-		this.apellido = TextHelper.applyTrim(apellido);
+	private void setApellidos(String apellidos) {
+		this.apellidos = TextHelper.applyTrim(apellidos);
 	}
 	
 	private void setCorreo(String correo) {
