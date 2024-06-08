@@ -33,7 +33,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 		
 
 		sentenciaSql.append("INSERT INTO clientes(identificador, numero_documento, tipo_documento, nombre, apellidos, correo, telefono, estado) ");
-		sentenciaSql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+		sentenciaSql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?); ");
 
 
 		
@@ -95,7 +95,6 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	    }
 	    
 	    if(!TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
-	    	
 	    	sentenciaSql.append(" AND C.numero_documento = ?" );
 	    	parametros.add(data.getNumeroDocumento());
 	    }

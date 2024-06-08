@@ -19,12 +19,12 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 		}
 
 	@Override
-	public void execute(final ClienteDTO dsto) {
+	public void execute(final ClienteDTO dato) {
 		daoFactory.iniciarTransaccion();
 		
 		try {
             var useCase = new RegistrarCliente(daoFactory);
-			var clienteDomain = ClienteAssemblerDTO.getInstance().toDomain(dsto);
+			var clienteDomain = ClienteAssemblerDTO.getInstance().toDomain(dato);
 			
 			useCase.execute(clienteDomain);
 			

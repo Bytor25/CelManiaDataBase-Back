@@ -2,6 +2,7 @@ package co.com.cmdb.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import co.com.cmdb.dto.ClienteDTO;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
+@CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
 	@GetMapping("/dummy")

@@ -14,6 +14,8 @@ import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.data.dao.entity.concrete.postgresSql.ClientePostgresSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.postgresSql.TipoDocumentoPostgresSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
+import co.com.cmdb.entity.ClienteEntity;
+import co.com.cmdb.entity.TipoDocumentoEntity;
 
 
 
@@ -100,37 +102,37 @@ public final class PostgresSQLDAOFactory extends SqlConnection implements DAOFac
 		}
 		
 		
-//		public static void main(String[] args) {
-//			try {
-//				DAOFactory factory = DAOFactory.getFactory();
-//
-//				System.out.println("Iniciando transacción...");
-//				factory.iniciarTransaccion();
-//
-//				System.out.println("Creando cliente aleatoriamente");
-//				TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build().setIdentificador(1);
-//				ClienteEntity cliente = ClienteEntity.build().setIdentificador("104144007").setTipoDocumento(tipoDocumento)
-//						.setNombre("Juan Pablo").setApellidos("Hincapie Torres").setCorreo("Juanpht2004@gmail.com")
-//						.setTelefono(3216945654L).setEstado(true);
-//
-//				factory.getClienteDAO().crear(cliente);
-//
-//				/*System.out.println("Consultamos cli: ");
-//				var resultados = factory.getClienteDAO().consultar(ClienteEntity.build());
-//
-//				for (ClienteEntity ciudadEntity : resultados) {
-//					System.out.print("idCliente: " + ciudadEntity.getIdentificador() + " --- " );
-//					System.out.println("nombre: " + ciudadEntity.getNombre());
-//				}*/
-//
-//				System.out.println("Confirmando transacción...");
-//				factory.confirmarTransaccion();
-//				System.out.println("Cerrando conexión...");
-//				factory.cerrarConexion();
-//			} catch (final Exception excepcion) {
-//				excepcion.printStackTrace();
-//			}
-//		}
+			/*public static void main(String[] args) {
+				try {
+					DAOFactory factory = DAOFactory.getFactory();
+	
+					System.out.println("Iniciando transacción...");
+					factory.iniciarTransaccion();
+	
+					System.out.println("Creando cliente aleatoriamente");
+					TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build().setIdentificador(1);
+					ClienteEntity cliente = ClienteEntity.build().setNumeroDocumento("1041440078").setTipoDocumento(tipoDocumento)
+							.setNombre("Juan Pablo").setApellidos("Hincapie Torres").setCorreo("Juanpht2004@gmail.com")
+							.setTelefono(3216945654L).setEstado(true);
+	
+					factory.getClienteDAO().crear(cliente);
+	
+					/*System.out.println("Consultamos cli: ");
+					var resultados = factory.getClienteDAO().consultar(ClienteEntity.build());
+	
+					for (ClienteEntity ciudadEntity : resultados) {
+						System.out.print("idCliente: " + ciudadEntity.getIdentificador() + " --- " );
+						System.out.println("nombre: " + ciudadEntity.getNombre());
+					}
+	
+					System.out.println("Confirmando transacción...");
+					factory.confirmarTransaccion();
+					System.out.println("Cerrando conexión...");
+					factory.cerrarConexion();
+				} catch (final Exception excepcion) {
+					excepcion.printStackTrace();
+				}
+			}*/
 }
 
 

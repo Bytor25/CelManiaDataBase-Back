@@ -22,8 +22,7 @@ public final class ClienteEntity {
 	private boolean estado;
 	
 	public ClienteEntity() {
-		super();
-		setIdentificador (UUIDHelper.getDefault());
+		setIdentificador (UUIDHelper.generate());
 		setNumeroDocumento (TextHelper.EMPTY);
 		setTipoDocumento (TipoDocumentoEntity.build());
 		setNombre (TextHelper.EMPTY);
@@ -71,11 +70,9 @@ public final class ClienteEntity {
 		return identificador;
 	}
 	
-	
 	public final String getNumeroDocumento() {
 		return numeroDocumento;
 	}
-
 
 	public final TipoDocumentoEntity getTipoDocumento() {
 		return tipoDocumento;
