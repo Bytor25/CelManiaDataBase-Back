@@ -35,6 +35,8 @@ public class ClienteAssemblerEntity implements AssemblerEntity<ClienteDomain, Cl
 				clienteEntityTmp.getNombre(),clienteEntityTmp.getApellidos(),clienteEntityTmp.getCorreo(),clienteEntityTmp.getTelefono(),
 				clienteEntityTmp.isEstado());
 	}
+	
+	
 
 	@Override
 	public ClienteEntity toEntity(final ClienteDomain domain) {

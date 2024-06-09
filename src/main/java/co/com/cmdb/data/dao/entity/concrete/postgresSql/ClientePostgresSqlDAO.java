@@ -30,12 +30,9 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	public void crear(final ClienteEntity data) {
 		  
 		final StringBuilder sentenciaSql = new StringBuilder();
-		
 
 		sentenciaSql.append("INSERT INTO clientes(identificador, numero_documento, tipo_documento, nombre, apellidos, correo, telefono, estado) ");
 		sentenciaSql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?); ");
-
-
 		
 		try(final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())){
 			
@@ -157,13 +154,13 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
         }
 
         } catch (final SQLException excepcion) {
-            var mensajeUsuario = "Error al consultar los datos.";
-            var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
         } catch (final Exception excepcion) {
-            var mensajeUsuario = "Error inesperado al consultar los datos.";
-            var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
         
@@ -207,15 +204,15 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        }
 
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = "Error al consultar los datos.";
-	        var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
-	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
-	    } catch (final Exception excepcion) {
-	        var mensajeUsuario = "Error inesperado al consultar los datos.";
-	        var mensajeTecnico = "Error técnico: " + excepcion.getMessage();
-	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
-	    }
+        } catch (final Exception excepcion) {
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+        }
 	    
 	    return clientes;
 

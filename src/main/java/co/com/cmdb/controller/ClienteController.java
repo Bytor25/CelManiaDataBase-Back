@@ -38,7 +38,7 @@ public class ClienteController {
 			var clienteDto = ClienteDTO.build();
 			var facade = new ConsultarClientesFacade();
 			
-			clienteResponse.setDatos(facade.excute(clienteDto));
+			clienteResponse.setDatos(facade.execute(clienteDto));
 			clienteResponse.getMensajes().add("Clientes consultados exitosamente");
 
 		} catch (final CMDBExceptions excepcion) {

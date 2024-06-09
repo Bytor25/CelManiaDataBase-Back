@@ -23,7 +23,7 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 	}
 
 	@Override
-	public List<ClienteDTO> excute(final ClienteDTO dto) {
+	public List<ClienteDTO> execute(final ClienteDTO dto) {
 		//daoFactory.iniciarTransaccion();
 		try {
             
@@ -47,7 +47,7 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 			daoFactory.cerrarConexion();
 		}
 	}
-	}
+}
 	
 
 

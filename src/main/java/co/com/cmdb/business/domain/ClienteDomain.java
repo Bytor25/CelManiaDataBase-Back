@@ -94,7 +94,7 @@ public static final ClienteDomain build() {
 		this.identificador = identificador;
 	}
 	
-	public final void setNumeroDocumento(String numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = TextHelper.applyTrim(numeroDocumento);
 	}
 
