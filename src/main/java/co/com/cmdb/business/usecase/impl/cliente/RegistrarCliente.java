@@ -81,39 +81,47 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	
     private void validarDatosCliente(final ClienteDomain data) {
     	
-        if(ObjectHelper.getObjectHelper().isNull(data.getNumeroDocumento()) || data.getNumeroDocumento().trim().isEmpty()) {
-            throw new BusinessCMDBException("El numero de identificacion del cliente está vacío.", "Debe proporcionar un numero de identificacion válido para el cliente.");
-        }
-        if (!DOCUMENT_NUMBER_PATTERN.matcher(data.getNumeroDocumento()).matches()) {
-            throw new BusinessCMDBException("El numero de identificacion del cliente contiene caracteres no válidos.", "Debe proporcionar un numero de identificacion válido que contenga solo números.");
+        if (ObjectHelper.getObjectHelper().isNull(data.getNumeroDocumento()) || data.getNumeroDocumento().trim().isEmpty()) {
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00045);
+            throw new BusinessCMDBException(mensajeUsuario);
         }
         
-
+        if (!DOCUMENT_NUMBER_PATTERN.matcher(data.getNumeroDocumento()).matches()) {
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00046);
+        	throw new BusinessCMDBException(mensajeUsuario);
+        }
+        
         if (ObjectHelper.getObjectHelper().isNull(data.getNombre()) || data.getNombre().trim().isEmpty()) {
-            throw new BusinessCMDBException("El nombre del cliente está vacío.", "Debe proporcionar un nombre válido para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00047);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
 
-		if(ObjectHelper.getObjectHelper().isNull(data.getApellidos()) || data.getApellidos().trim().isEmpty()) {
-			throw new BusinessCMDBException("El/Los apellidos del cliente están vacíos.","Debe de proporcionar apellido/s válidos para el cliente");
+		if (ObjectHelper.getObjectHelper().isNull(data.getApellidos()) || data.getApellidos().trim().isEmpty()) {
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00048);
+			throw new BusinessCMDBException(mensajeUsuario);
 		}
-		
         
         if (ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) || ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador())) {
-            throw new BusinessCMDBException("El tipo de documento del cliente es nulo.", "Debe proporcionar un tipo de documento válido para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00049);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
         
         if (ObjectHelper.getObjectHelper().isNull(data.getCorreo()) || data.getCorreo().trim().isEmpty()) {
-            throw new BusinessCMDBException("El correo electrónico del cliente está vacío.", "Debe proporcionar un correo electrónico válido para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00050);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
         if (!EMAIL_PATTERN.matcher(data.getCorreo()).matches()) {
-            throw new BusinessCMDBException("El correo electrónico del cliente es inválido.", "Debe proporcionar un correo electrónico válido para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00051);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
 
         if (ObjectHelper.getObjectHelper().isNull(data.getTelefono())) {
-            throw new BusinessCMDBException("El número de teléfono del cliente es nulo.", "Debe proporcionar un número de teléfono válido para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00052);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
         if (data.getTelefono() < MIN_PHONE_NUMBER || data.getTelefono() > MAX_PHONE_NUMBER) {
-            throw new BusinessCMDBException("El número de teléfono del cliente es inválido.", "Debe proporcionar un número de teléfono válido de 10 dígitos para el cliente.");
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00053);
+        	throw new BusinessCMDBException(mensajeUsuario);
         }
     }
     

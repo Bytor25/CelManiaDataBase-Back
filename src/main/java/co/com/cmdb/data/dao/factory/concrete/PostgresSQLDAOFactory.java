@@ -9,10 +9,12 @@ import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.SQLHelper;
 import co.com.cmdb.data.dao.entity.ClienteDAO;
+import co.com.cmdb.data.dao.entity.LoginDAO;
 import co.com.cmdb.data.dao.entity.ProveedorDAO;
 import co.com.cmdb.data.dao.entity.TipoDocumentoDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
 import co.com.cmdb.data.dao.entity.concrete.postgresSql.ClientePostgresSqlDAO;
+import co.com.cmdb.data.dao.entity.concrete.postgresSql.LoginPostgresSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.postgresSql.ProveedorPostgresSqlDAO;
 import co.com.cmdb.data.dao.entity.concrete.postgresSql.TipoDocumentoPostgresSqlDAO;
 import co.com.cmdb.data.dao.factory.DAOFactory;
@@ -103,6 +105,11 @@ public final class PostgresSQLDAOFactory extends SqlConnection implements DAOFac
 		public ProveedorDAO getProveedorDAO() {
 			
 			return new ProveedorPostgresSqlDAO(getConexion());
+		}
+
+		public LoginDAO getLoginDAO() {
+			
+			return new LoginPostgresSqlDAO(getConexion());
 		}
 		
 		

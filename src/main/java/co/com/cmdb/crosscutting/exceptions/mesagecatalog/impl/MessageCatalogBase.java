@@ -99,7 +99,30 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00040, "Se ha producido un problema tratando de llevar a cabo el registro del proveedor"));
 		mensajes.put(CodigoMensaje.M00041.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00041, "El dao factory para registrar el proveedor llegó nulo"));
-		
+		mensajes.put(CodigoMensaje.M00042.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00042, "Se ha presentado un problema tratando de consultar la informacion del proveedor..."));
+		mensajes.put(CodigoMensaje.M00043.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00043, "Se ha presentado un problema tratando de registrar la informacion del proveedor..."));
+		mensajes.put(CodigoMensaje.M00044.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00044, "Se ha presentado un problema tratando de actualizar la informacion del proveedor..."));
+		mensajes.put(CodigoMensaje.M00045.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00045, "El numero de identificacion del cliente está vacío.Debe proporcionar un numero de identificacion válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00046.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00046, "El numero de identificacion del cliente contiene caracteres no válidos. Debe proporcionar un numero de identificacion válido que contenga solo números."));
+		mensajes.put(CodigoMensaje.M00047.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00047, "El nombre del cliente está vacío. Debe proporcionar un nombre válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00048.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00048, "El/Los apellidos del cliente están vacíos. Debe de proporcionar apellido/s válidos para el cliente"));
+		mensajes.put(CodigoMensaje.M00049.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00049, "El tipo de documento del cliente es nulo. Debe proporcionar un tipo de documento válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00050.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00050, "El correo electrónico del cliente está vacío. Debe proporcionar un correo electrónico válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00051.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00051, "El correo electrónico del cliente es inválido. Debe proporcionar un correo electrónico válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00052.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00052, "El número de teléfono del cliente es nulo. Debe proporcionar un número de teléfono válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00053.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00053, "El número de teléfono del cliente es inválido. Debe proporcionar un número de teléfono válido de 10 dígitos para el cliente."));
 	}
 		
 

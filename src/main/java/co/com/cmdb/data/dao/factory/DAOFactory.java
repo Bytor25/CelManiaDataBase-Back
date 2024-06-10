@@ -1,6 +1,7 @@
 package co.com.cmdb.data.dao.factory;
 
 import co.com.cmdb.data.dao.entity.ClienteDAO;
+import co.com.cmdb.data.dao.entity.LoginDAO;
 import co.com.cmdb.data.dao.entity.ProveedorDAO;
 import co.com.cmdb.data.dao.entity.TipoDocumentoDAO;
 
@@ -27,6 +28,8 @@ public interface DAOFactory {
 	TipoDocumentoDAO getTipoDocumentoDAO();
 	
 	ProveedorDAO getProveedorDAO();
+	
+	LoginDAO getLoginDAO();
 
 
 }

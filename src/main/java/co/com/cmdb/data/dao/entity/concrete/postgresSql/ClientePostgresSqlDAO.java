@@ -79,7 +79,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumentoCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
         sentenciaSql.append("FROM clientes C ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
@@ -144,6 +144,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 cliente.setApellidos(resultado.getString("apellidosCliente"));
                 cliente.setCorreo(resultado.getString("correoCliente"));
                 cliente.setTelefono(resultado.getLong("telefonoCliente"));
+               
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
                 
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));

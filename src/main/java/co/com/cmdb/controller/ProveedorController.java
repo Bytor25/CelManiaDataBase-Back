@@ -14,6 +14,8 @@ import co.com.cmdb.business.facade.impl.proveedor.ConsultarProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.RegistrarProveedoresFacade;
 import co.com.cmdb.controller.response.ProveedorResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.ProveedorDTO;
 
 @RestController
@@ -49,7 +51,7 @@ public class ProveedorController {
 		} catch (final Exception excepcion) {
 			httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-			var mensajeUsuario = "";//Msg6
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00042);
 
 			proveedorResponse.getMensajes().add(mensajeUsuario);
 
@@ -79,7 +81,7 @@ public class ProveedorController {
 			
 			httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-			var mensajeUsuario = ""; //msg7
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00043);
 			proveedorResponse.getMensajes().add(mensajeUsuario);
 
 			excepcion.printStackTrace();
@@ -102,7 +104,7 @@ public class ProveedorController {
 		} catch (final Exception excepcion) {
 			httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-			var mensajeUsuario = ""; //Msg14
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00043);
 			proveedorResponse.getMensajes().add(mensajeUsuario);
 
 			excepcion.printStackTrace();
