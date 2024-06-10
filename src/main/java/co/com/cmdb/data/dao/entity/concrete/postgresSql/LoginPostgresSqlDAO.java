@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+import co.com.cmdb.crosscutting.helpers.BooleanHelper;
 import co.com.cmdb.crosscutting.helpers.IntegerHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.data.dao.entity.LoginDAO;
@@ -33,9 +31,9 @@ public LoginPostgresSqlDAO(final Connection conexion) {
 	public List<LoginEntity> consultar(LoginEntity data) {
 		final StringBuilder sentenciaSql = new StringBuilder();
 		
-		sentenciaSql.append("SELECT L.usuario as usuario, L.password as password, L.estado as estado ");
+		sentenciaSql.append("SELECT L.usuario as usuarioLogin, L.password as passwordLogin, L.estado as estadoLogin ");
 		sentenciaSql.append("FROM logins L ");
-		sentenciaSql.append(" WHERE 1=1 ");
+		sentenciaSql.append("WHERE 1=1 ");
 		
 		final List<Object> parametros = new ArrayList<>();
 		
@@ -44,9 +42,14 @@ public LoginPostgresSqlDAO(final Connection conexion) {
 	    	parametros.add(data.getUsuario());
 	    }
 		
-		if(!IntegerHelper.isNull(data.getPassword())) {
-			sentenciaSql.append(" AND L.password = ? ");
+		if(IntegerHelper.isNull(data.getPassword())) {
+			sentenciaSql.append(" AND L.password = ?");
 			parametros.add(data.getPassword());
+		}
+		
+		if(!BooleanHelper.isNull(data.isEstado())) {
+			sentenciaSql.append(" AND L.estado = ?");
+			parametros.add(data.isEstado());
 		}
 		
 		final List<LoginEntity> logins = new ArrayList<>();
@@ -61,9 +64,9 @@ public LoginPostgresSqlDAO(final Connection conexion) {
 	            while (resultado.next()) {
 	                LoginEntity login = LoginEntity.build();
 	           
-	                login.setUsuario(resultado.getString("usuario"));
-	                login.setPassword(resultado.getInt("password"));
-	                login.setEstado(resultado.getBoolean("estado"));
+	                login.setUsuario(resultado.getString("usuarioLogin"));
+	                login.setPassword(resultado.getInt("passwordLogin"));
+	                login.setEstado(resultado.getBoolean("estadoLogin"));
 	                logins.add(login);
 	            }
 	        }
@@ -80,8 +83,6 @@ public LoginPostgresSqlDAO(final Connection conexion) {
         }
 		
 		return logins;
-
-		
 	}
 
 	

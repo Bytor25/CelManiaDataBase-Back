@@ -44,12 +44,13 @@ public class LoginEntity {
 		return password;
 	}
 	
-	public final boolean getEstado() {
+	public final boolean isEstado() {
 		return estado;
 	}
 
 	
 	//Setters
+
 
 
 	public final LoginEntity setUsuario(String usuario) {
@@ -58,12 +59,12 @@ public class LoginEntity {
 	}
 
 	public final LoginEntity setPassword(int password) {
-		this.password = IntegerHelper.DEFAULT_INT;
+		this.password = password;
 		return this;
 	}
 	
 	public final LoginEntity setEstado(boolean estado) {
-		this.estado = BooleanHelper.DEFAULT_BOOLEAN;
+		this.estado = BooleanHelper.getDefaultValue(estado);
 		return this;
 	}
 	

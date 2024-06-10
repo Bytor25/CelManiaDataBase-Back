@@ -106,10 +106,4 @@ public class ProveedorEntity {
 		this.estado = BooleanHelper.getDefaultValue(estado);
 		return this;
 	}
-	
-	
-	
-	
-	
-
 }

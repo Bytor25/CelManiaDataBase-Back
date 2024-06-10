@@ -51,7 +51,7 @@ return new LoginDomain(TextHelper.EMPTY, IntegerHelper.DEFAULT_INT, BooleanHelpe
 	}
 	
 	private void setPassword(int password) {
-		this.password = IntegerHelper.DEFAULT_INT;
+		this.password = password;
 	}
 	
 	private void setEstado(boolean estado) {

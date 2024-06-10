@@ -44,10 +44,9 @@ public final class LoginDTO {
 		return password;
 	}
 	
-	public final boolean getEstado() {
+	public final boolean isEstado() {
 		return estado;
 	}
-
 	
 	//Setters
 
@@ -58,12 +57,12 @@ public final class LoginDTO {
 	}
 
 	public final LoginDTO setPassword(int password) {
-		this.password = IntegerHelper.DEFAULT_INT;
+		this.password = password;
 		return this;
 	}
 	
 	public final LoginDTO setEstado(boolean estado) {
-		this.estado = BooleanHelper.DEFAULT_BOOLEAN;
+		this.estado = BooleanHelper.getDefaultValue(estado);
 		return this;
 	}
 

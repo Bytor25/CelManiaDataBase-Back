@@ -11,6 +11,7 @@ import java.util.UUID;
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+import co.com.cmdb.crosscutting.helpers.BooleanHelper;
 import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
@@ -79,7 +80,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumentoCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumentoCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente, C.estado as estadoCliente ");
         sentenciaSql.append("FROM clientes C ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
@@ -116,6 +117,11 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        parametros.add(data.getTelefono());
 	    }
 	    
+		if(!BooleanHelper.isNull(data.isEstado())) {
+			sentenciaSql.append(" AND C.estado = ?");
+			parametros.add(data.isEstado());
+		}
+	    
 	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && 
 	    		!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getNombre()) && 
 	    		!data.getTipoDocumento().getNombre().equals(TextHelper.EMPTY)) {
@@ -144,6 +150,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 cliente.setApellidos(resultado.getString("apellidosCliente"));
                 cliente.setCorreo(resultado.getString("correoCliente"));
                 cliente.setTelefono(resultado.getLong("telefonoCliente"));
+                cliente.setEstado(resultado.getBoolean("estadoCliente"));
                
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
                 

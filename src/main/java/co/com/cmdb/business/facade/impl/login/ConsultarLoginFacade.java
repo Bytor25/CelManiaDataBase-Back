@@ -7,8 +7,7 @@ import co.com.cmdb.business.facade.FacadeWithReturn;
 import co.com.cmdb.business.usecase.impl.login.ConsultarLogin;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.dto.LoginDTO;
 

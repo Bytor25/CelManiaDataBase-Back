@@ -29,7 +29,7 @@ public class LoginAssemblerDTO implements AssemblerDTO<LoginDomain, LoginDTO>{
 	@Override
 	public final LoginDomain toDomain(final LoginDTO data) {
 		var loginDtoTmp = getObjectHelper().getDefaultValue(data, LoginDTO.build());
-		return LoginDomain.build(loginDtoTmp.getUsuario(),loginDtoTmp.getPassword(),loginDtoTmp.getEstado());
+		return LoginDomain.build(loginDtoTmp.getUsuario(),loginDtoTmp.getPassword(),loginDtoTmp.isEstado());
 	}
 	
 	@Override

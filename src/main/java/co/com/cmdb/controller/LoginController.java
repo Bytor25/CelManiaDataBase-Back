@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.cmdb.business.facade.impl.login.ConsultarLoginFacade;
 import co.com.cmdb.controller.response.LoginResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.LoginDTO;
 
 @RestController
-@RequestMapping("/api/v1/logins")
+@RequestMapping("/api/v1/login")
 @CrossOrigin("http://localhost:4200")
 
 public class LoginController {

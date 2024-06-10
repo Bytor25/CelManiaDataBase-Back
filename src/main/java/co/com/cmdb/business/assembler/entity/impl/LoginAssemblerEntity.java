@@ -26,7 +26,7 @@ public class LoginAssemblerEntity implements AssemblerEntity<LoginDomain, LoginE
 	public LoginDomain toDomain(final LoginEntity data) {
 		var loginEntityTmp = getObjectHelper().getDefaultValue(data, LoginEntity.build());
 		
-		return LoginDomain.build(loginEntityTmp.getUsuario(), loginEntityTmp.getPassword(), loginEntityTmp.getEstado());
+		return LoginDomain.build(loginEntityTmp.getUsuario(), loginEntityTmp.getPassword(), loginEntityTmp.isEstado());
 	}
 	
 	@Override
