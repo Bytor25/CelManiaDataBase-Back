@@ -14,8 +14,6 @@ import co.com.cmdb.business.facade.impl.proveedor.ConsultarProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.RegistrarProveedoresFacade;
 import co.com.cmdb.controller.response.ProveedorResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
-import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.ProveedorDTO;
 
 @RestController
@@ -96,9 +94,6 @@ public class ProveedorController {
 		var proveedorResponse = new ProveedorResponse();
 		try {
 			proveedorDto.setNumeroDocumento(id);
-			// var facade = new RegistrarCiudadesFacade();
-
-			// facade.execute(id);
 			proveedorResponse.getMensajes().add("Proveedor actualizado exitosamente");
 
 		} catch (final CMDBExceptions excepcion) {

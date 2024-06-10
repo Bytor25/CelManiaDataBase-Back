@@ -70,6 +70,7 @@ public final class ClienteEntity {
 		return identificador;
 	}
 	
+
 	public final String getNumeroDocumento() {
 		return numeroDocumento;
 	}

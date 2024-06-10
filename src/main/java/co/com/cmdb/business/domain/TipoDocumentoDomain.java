@@ -53,10 +53,10 @@ public final class TipoDocumentoDomain {
 	//Setters
 
 	private void setIdentificador(int identificador) {
-		this.identificador = identificador;
+		this.identificador = IntegerHelper.getDefaultValue(identificador);
 	}
 
 	private void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = TextHelper.applyTrim(nombre);
 	}
 }

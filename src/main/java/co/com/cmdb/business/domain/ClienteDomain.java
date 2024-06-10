@@ -3,6 +3,7 @@ package co.com.cmdb.business.domain;
 import java.util.UUID;
 
 import co.com.cmdb.crosscutting.helpers.BooleanHelper;
+import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
@@ -44,14 +45,14 @@ public static final ClienteDomain build(final UUID identificador,final String nu
 	
 }
 
-public static final ClienteDomain build(final UUID identificador, final String numeroDocumento) {
+public static final ClienteDomain build(final UUID identificador) {
 	
-	return new ClienteDomain(identificador,numeroDocumento, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, BooleanHelper.DEFAULT_BOOLEAN);
+	return new ClienteDomain(identificador,TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, LongHelper.DEFAULT_LONG, BooleanHelper.DEFAULT_BOOLEAN);
 	
 }
 
 public static final ClienteDomain build() {
-	return new ClienteDomain(UUIDHelper.getDefault(),TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, 0, BooleanHelper.DEFAULT_BOOLEAN);
+	return new ClienteDomain(UUIDHelper.getDefault(),TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY,TextHelper.EMPTY,TextHelper.EMPTY, LongHelper.DEFAULT_LONG, BooleanHelper.DEFAULT_BOOLEAN);
 	
 }
 
@@ -91,7 +92,7 @@ public static final ClienteDomain build() {
 //Setters
 	
 	private void setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 	}
 	
 	public void setNumeroDocumento(String numeroDocumento) {

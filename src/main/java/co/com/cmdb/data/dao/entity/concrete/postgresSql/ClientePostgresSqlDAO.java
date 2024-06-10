@@ -79,7 +79,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
+        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
         sentenciaSql.append("FROM clientes C ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
@@ -123,6 +123,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        sentenciaSql.append(" AND TD.nombre = ?");
 	        parametros.add(data.getTipoDocumento().getNombre());
 	    }
+	    
 
 
         final List<ClienteEntity> clientes = new ArrayList<>();
@@ -138,7 +139,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 ClienteEntity cliente = ClienteEntity.build();
                 
                 cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
-                cliente.setNumeroDocumento(resultado.getString("numeroDocumento"));
+                cliente.setNumeroDocumento(resultado.getString("numeroDocumentoCliente"));
                 cliente.setNombre(resultado.getString("nombreCliente"));
                 cliente.setApellidos(resultado.getString("apellidosCliente"));
                 cliente.setCorreo(resultado.getString("correoCliente"));

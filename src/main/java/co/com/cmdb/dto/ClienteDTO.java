@@ -90,7 +90,7 @@ public final class ClienteDTO {
 	//Setters
 
 	public final ClienteDTO setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 		return this;
 	}
 

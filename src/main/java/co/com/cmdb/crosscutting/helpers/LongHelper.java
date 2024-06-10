@@ -6,7 +6,7 @@ public class LongHelper {
 		super();
 	}
 	
-	public static final long DEFAULT_LONG = 0L;
+	public static final long DEFAULT_LONG = 0000000000L;
 
 	public static final boolean isNull(final Long valor) {
 		return ObjectHelper.getObjectHelper().isNull(valor);

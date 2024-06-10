@@ -24,7 +24,7 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 
 	@Override
 	public List<ClienteDTO> execute(final ClienteDTO dto) {
-		//daoFactory.iniciarTransaccion();
+		daoFactory.iniciarTransaccion();
 		try {
             
 			var useCase = new ConsultarCliente(daoFactory);
@@ -33,12 +33,12 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 			return ClienteAssemblerDTO.getInstance().toDTOCollection(resultadosDomain);
 		
 		}catch(final CMDBExceptions excepcion) {
-			//daoFactory.cancelarTransaccion();
+			daoFactory.cancelarTransaccion();
 			throw excepcion;
 			
 		}catch(final Exception excepcion) {
 			
-			//daoFactory.cancelarTransaccion();
+			daoFactory.cancelarTransaccion();
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
 			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00005);
 			throw new BusinessCMDBException(mensajeTecnico,mensajeUsuario,excepcion);

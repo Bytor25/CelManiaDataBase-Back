@@ -33,13 +33,11 @@ public final class PostgresSQLDAOFactory extends SqlConnection implements DAOFac
         String url = "jdbc:postgresql://roundhouse.proxy.rlwy.net:52404/railway";
         String user = "postgres";
         String password = "SYamDPlVmZDbqznixMqCkVZUHKGDQFyz";
-		//final String connectionUrl = "jdbc:postgresql://host:5432/CMDB-DOO?user=postgres&password=Catalan1425";
 		
 
 		try {
 			
 			setConexion(DriverManager.getConnection(url,user,password));
-			//setConexion(DriverManager.getConnection(connectionUrl));
 			
 		} catch (final CMDBExceptions excepcion) {
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00002);

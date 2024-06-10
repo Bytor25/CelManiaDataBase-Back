@@ -96,9 +96,7 @@ public class ClienteController {
 		var clienteResponse = new ClienteResponse();
 		try {
 			clienteDto.setNumeroDocumento(id);
-			// var facade = new RegistrarCiudadesFacade();
-
-			// facade.execute(id);
+			
 			clienteResponse.getMensajes().add("Cliente actualizado exitosamente");
 
 		} catch (final CMDBExceptions excepcion) {

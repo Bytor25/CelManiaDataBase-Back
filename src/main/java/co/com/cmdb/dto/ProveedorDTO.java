@@ -50,6 +50,7 @@ public final class ProveedorDTO {
 	
 
 	//Getters
+	
 	public final UUID getIdentificador() {
 		return identificador;
 	}

@@ -39,21 +39,11 @@ public class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain>
 	public void execute(final ProveedorDomain data) {
 		
 		//1.
-		try {
 			validarDatosProveedor(data);
-		} catch(Exception e) {
-			
-			throw e;
-		}
-		
+
 		//2.
-		
-		try {
+	
 			validarProveedorMismoNumeroDocumentoMismoNombre(data.getNombre(), data.getNumeroDocumento());
-		}catch(Exception e) {
-			
-			
-		}
 		
 		//3. 
 		
@@ -63,11 +53,8 @@ public class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain>
 		
 		//4.
 		
-		try {
 			factory.getProveedorDAO().crear(proveedorEntity);
-		}catch(Exception e) {
-			throw e;
-		}
+
 		
 	}
 	
@@ -95,15 +82,7 @@ public class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain>
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00036);
             throw new BusinessCMDBException(mensajeUsuario);
         }
-       /* if (!NOMBRE_PATTERN.matcher(data.getNombre()).matches()) {
-            throw new BusinessCMDBException("El nombre del cliente contiene caracteres inválidos.", "El nombre del cliente solo puede contener letras y espacios.");
-        }
-        */
-		
-       /* if (!NOMBRE_PATTERN.matcher(data.getApellidos()).matches()) {
-            throw new BusinessCMDBException("El/Los  apellidos del cliente contienen caracteres inválidos.", "El/Los apellidos del cliente solo pueden contener letras y espacios.");
-        }*/
-        
+
         if (ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) || ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador())) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00037);
             throw new BusinessCMDBException(mensajeUsuario);

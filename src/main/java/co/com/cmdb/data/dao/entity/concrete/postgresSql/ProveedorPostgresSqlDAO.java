@@ -76,7 +76,7 @@ final StringBuilder sentenciaSql = new StringBuilder();
 
         sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, P.nombre as nombreProveedor, P.telefono as telefonoProveedor ");
         sentenciaSql.append("FROM proveedores P ");
-        sentenciaSql.append("INNER JOIN tipos_documentos TD ");
+        sentenciaSql.append("JOIN tipos_documentos TD ");
         sentenciaSql.append("ON P.tipo_documento = TD.identificador");
         sentenciaSql.append(" WHERE 1=1");
         
@@ -125,12 +125,9 @@ final StringBuilder sentenciaSql = new StringBuilder();
                 proveedor.setIdentificador(UUID.fromString(resultado.getString("identificadorProveedor")));
                 proveedor.setNumeroDocumento(resultado.getString("numeroDocumento"));
                 proveedor.setNombre(resultado.getString("nombreProveedor"));
- 
                 proveedor.setTelefono(resultado.getLong("telefonoProveedor"));
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
-                
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
-
                 proveedor.setTipoDocumento(tipoDocumento);
 
                 proveedores.add(proveedor);

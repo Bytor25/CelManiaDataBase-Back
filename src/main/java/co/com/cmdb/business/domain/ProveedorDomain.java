@@ -44,7 +44,7 @@ public class ProveedorDomain {
 		}
 	
 	public static final ProveedorDomain build() {
-		return new ProveedorDomain(UUIDHelper.getDefault(),TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY, 0, BooleanHelper.DEFAULT_BOOLEAN);
+		return new ProveedorDomain(UUIDHelper.getDefault(),TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY, LongHelper.DEFAULT_LONG, BooleanHelper.DEFAULT_BOOLEAN);
 		
 	}
 
@@ -77,7 +77,7 @@ public class ProveedorDomain {
 	//Setters
 
 	private void setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 	}
 
 	private void setNumeroDocumento(String numeroDocumento) {

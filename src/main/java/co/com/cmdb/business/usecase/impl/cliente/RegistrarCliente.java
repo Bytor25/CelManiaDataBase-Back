@@ -20,8 +20,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	
 	private final DAOFactory factory;
 	
-	//private static final Pattern NOMBRE_PATTERN = Pattern.compile("^[a-zA-Z\\\\]+$");
 	private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+	private static final Pattern DOCUMENT_NUMBER_PATTERN = Pattern.compile("^[0-9]+$");
 	
     private static final long MIN_PHONE_NUMBER = 3000000000L;
     private static final long MAX_PHONE_NUMBER = 3999999999L;
@@ -43,19 +43,14 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	public void execute(final ClienteDomain data) {
 		 
 		//1. 
-		try {
+
 			validarDatosCliente(data);
-		} catch(Exception e) {
-			throw e;
-		}
+	
 		//2. 
 		
-		try {
+
 			validarClienteMismoNumeroDocumentoMismoNombre(data.getNombre(), data.getNumeroDocumento());
-		}catch(Exception e) {
-			throw e;
-		}
-		
+
 		//3.
 		
 		var clienteEntity = ClienteEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
@@ -64,11 +59,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		//4.
 
 		
-		try {
 			factory.getClienteDAO().crear(clienteEntity);
-		}catch(Exception e) {
-			throw e;
-		}
+	
 		
 	}
 	
@@ -89,23 +81,22 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	
     private void validarDatosCliente(final ClienteDomain data) {
     	
-    	if(ObjectHelper.getObjectHelper().isNull(data.getNumeroDocumento()) || data.getNumeroDocumento().trim().isEmpty()) {
-    		throw new BusinessCMDBException("El numero de identificacion del clientes está vacío.","Debe propocriconar un numero de identificacion válido para el cliente.");
-    	}
+        if(ObjectHelper.getObjectHelper().isNull(data.getNumeroDocumento()) || data.getNumeroDocumento().trim().isEmpty()) {
+            throw new BusinessCMDBException("El numero de identificacion del cliente está vacío.", "Debe proporcionar un numero de identificacion válido para el cliente.");
+        }
+        if (!DOCUMENT_NUMBER_PATTERN.matcher(data.getNumeroDocumento()).matches()) {
+            throw new BusinessCMDBException("El numero de identificacion del cliente contiene caracteres no válidos.", "Debe proporcionar un numero de identificacion válido que contenga solo números.");
+        }
+        
+
         if (ObjectHelper.getObjectHelper().isNull(data.getNombre()) || data.getNombre().trim().isEmpty()) {
             throw new BusinessCMDBException("El nombre del cliente está vacío.", "Debe proporcionar un nombre válido para el cliente.");
         }
-       /* if (!NOMBRE_PATTERN.matcher(data.getNombre()).matches()) {
-            throw new BusinessCMDBException("El nombre del cliente contiene caracteres inválidos.", "El nombre del cliente solo puede contener letras y espacios.");
-        }
-        */
+
 		if(ObjectHelper.getObjectHelper().isNull(data.getApellidos()) || data.getApellidos().trim().isEmpty()) {
 			throw new BusinessCMDBException("El/Los apellidos del cliente están vacíos.","Debe de proporcionar apellido/s válidos para el cliente");
 		}
 		
-       /* if (!NOMBRE_PATTERN.matcher(data.getApellidos()).matches()) {
-            throw new BusinessCMDBException("El/Los  apellidos del cliente contienen caracteres inválidos.", "El/Los apellidos del cliente solo pueden contener letras y espacios.");
-        }*/
         
         if (ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) || ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador())) {
             throw new BusinessCMDBException("El tipo de documento del cliente es nulo.", "Debe proporcionar un tipo de documento válido para el cliente.");
