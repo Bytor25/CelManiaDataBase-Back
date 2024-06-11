@@ -14,7 +14,7 @@ public class BooleanHelper {
     }
 
     public static final boolean getDefaultValue(final Boolean valor) {
-        return isNull(valor) || valor.equals(DEFAULT_BOOLEAN);
+        return isNull(valor) ? DEFAULT_BOOLEAN : valor;
     }
 
     public static final boolean parseBooleanOrDefault(final String str, final boolean defaultValue) {

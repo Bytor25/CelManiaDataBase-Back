@@ -21,7 +21,7 @@ import co.com.cmdb.dto.ClienteDTO;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 public class ClienteController {
 
 	@GetMapping("/dummy")
@@ -66,9 +66,9 @@ public class ClienteController {
 		try {
 			
 			var facade = new RegistrarClientesFacade();
-			
 			facade.execute(cliente);
-			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00068));
+			var mensajeUsuario= MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00068);
+			clienteResponse.getMensajes().add(mensajeUsuario);
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;

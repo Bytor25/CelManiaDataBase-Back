@@ -7,7 +7,7 @@ import co.com.cmdb.dto.ClienteDTO;
 public class ClienteResponse extends Response<ClienteDTO> {
 	
 	public ClienteResponse() {
-		setMensajes( new ArrayList<String>());
+		setMensajes(new ArrayList<String>());
 		setDatos(new ArrayList<>());
 	}
 

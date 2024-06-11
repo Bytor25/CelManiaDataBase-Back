@@ -33,6 +33,8 @@ public class RegistrarClientesFacade implements FacadeWithoutReturn<ClienteDTO> 
 		}catch(final CMDBExceptions excepcion) {
 			daoFactory.cancelarTransaccion();
 			
+			throw excepcion;
+			
 		}catch(final Exception excepcion) {
 			daoFactory.cancelarTransaccion();
 			

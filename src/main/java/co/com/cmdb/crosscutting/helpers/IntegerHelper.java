@@ -11,6 +11,9 @@ public class IntegerHelper {
     public static final boolean isNull(final Integer valor) {
         return ObjectHelper.getObjectHelper().isNull(valor);
     }
+    public static final boolean isNullOrEmpty(final Integer valor) {
+    	return isNull(valor) || valor==0;
+    }
 
     public static final Integer getDefaultValue(final Integer valor) {
         return isNull(valor) ? DEFAULT_INT : valor;
