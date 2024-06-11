@@ -72,7 +72,34 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 
 	@Override
 	public void mofidicar(ClienteEntity data) {
-		// TODO Auto-generated method stub
+	    final StringBuilder sentenciaSql = new StringBuilder();
+
+	    sentenciaSql.append("UPDATE clientes SET ");
+	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, ");
+	    sentenciaSql.append("correo = ?, telefono = ?, estado = ? ");
+	    sentenciaSql.append("WHERE numero_documento = ?");
+
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setObject(1, data.getTipoDocumento().getIdentificador());
+	        sentenciaSqlPreparada.setString(2, data.getNombre());
+	        sentenciaSqlPreparada.setString(3, data.getApellidos());
+	        sentenciaSqlPreparada.setString(4, data.getCorreo());
+	        sentenciaSqlPreparada.setLong(5, data.getTelefono());
+	        sentenciaSqlPreparada.setBoolean(6, data.isEstado());
+	        sentenciaSqlPreparada.setString(7, data.getNumeroDocumento());
+
+	        sentenciaSqlPreparada.executeUpdate();
+
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "";
+	        var mensajeTecnico = "";
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "";
+	        var mensajeTecnico = "";
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
 		
 	}
 

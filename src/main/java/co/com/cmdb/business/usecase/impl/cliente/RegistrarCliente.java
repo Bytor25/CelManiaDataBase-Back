@@ -185,12 +185,12 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
         if (ObjectHelper.getObjectHelper().isNull(numeroTelefono) || numeroTelefono.trim().isEmpty()) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00052);
         	var mensajeTecnico = "validarTelefono";
-        	throw new BusinessCMDBException(mensajeUsuario);
+        	throw new BusinessCMDBException(mensajeUsuario,mensajeTecnico);
         }
         if (!validarLongitud(numeroTelefono,1,10)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00053);
         	var mensajeTecnico = "validarTelefono";
-        	throw new BusinessCMDBException(mensajeUsuario);
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
         	var mensajeUsuario = "validarTelefono";
