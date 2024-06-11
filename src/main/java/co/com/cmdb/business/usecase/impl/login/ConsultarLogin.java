@@ -6,6 +6,8 @@ import co.com.cmdb.business.assembler.entity.impl.LoginAssemblerEntity;
 import co.com.cmdb.business.domain.LoginDomain;
 import co.com.cmdb.business.usecase.UseCaseWithReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
@@ -17,8 +19,8 @@ public class ConsultarLogin implements UseCaseWithReturn<LoginDomain, List<Login
 		
 		if(ObjectHelper.getObjectHelper().isNull(factory)) {
 			
-			var mensajeUsuario = ""; //Msg6
-			var mensajeTecnico = ""; //Msg9
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00056);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00058);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			

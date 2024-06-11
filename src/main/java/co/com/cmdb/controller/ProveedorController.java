@@ -41,7 +41,7 @@ public class ProveedorController {
 			var facade = new ConsultarProveedoresFacade();
 			
 			proveedorResponse.setDatos(facade.execute(proveedorDto));
-			proveedorResponse.getMensajes().add("Proveedores consultados exitosamente");
+			proveedorResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00075));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -70,7 +70,7 @@ public class ProveedorController {
 			var facade = new RegistrarProveedoresFacade();
 			
 			facade.execute(proveedor);
-			proveedorResponse.getMensajes().add("Proveedor registrado exitosamente");
+			proveedorResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00076));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -96,7 +96,7 @@ public class ProveedorController {
 		var proveedorResponse = new ProveedorResponse();
 		try {
 			proveedorDto.setNumeroDocumento(id);
-			proveedorResponse.getMensajes().add("Proveedor actualizado exitosamente");
+			proveedorResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00077));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;

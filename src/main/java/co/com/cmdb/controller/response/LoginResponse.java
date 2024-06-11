@@ -7,7 +7,7 @@ import co.com.cmdb.dto.LoginDTO;
 public class LoginResponse extends Response<LoginDTO> {
 	
 	public LoginResponse() {
-		setMensajes( new ArrayList<>());
+		setMensajes( new ArrayList<String>());
 		setDatos(new ArrayList<>());
 	}
 

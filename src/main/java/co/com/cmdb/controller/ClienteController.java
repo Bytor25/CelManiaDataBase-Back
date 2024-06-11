@@ -39,7 +39,7 @@ public class ClienteController {
 			var facade = new ConsultarClientesFacade();
 			
 			clienteResponse.setDatos(facade.execute(clienteDto));
-			clienteResponse.getMensajes().add("Clientes consultados exitosamente");
+			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00067));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -68,7 +68,7 @@ public class ClienteController {
 			var facade = new RegistrarClientesFacade();
 			
 			facade.execute(cliente);
-			clienteResponse.getMensajes().add("Cliente registrado exitosamente");
+			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00068));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -97,7 +97,7 @@ public class ClienteController {
 		try {
 			clienteDto.setNumeroDocumento(id);
 			
-			clienteResponse.getMensajes().add("Cliente actualizado exitosamente");
+			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00069));
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;

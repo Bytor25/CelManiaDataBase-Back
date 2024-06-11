@@ -20,7 +20,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00001.getIdentificador(), 
 				new Mensaje(CodigoMensaje.M00001, "El código del mensaje que se quiere obtener del catalogo de mensajes llego nulo"));
 		mensajes.put(CodigoMensaje.M00002.getIdentificador(), 
-				new Mensaje(CodigoMensaje.M00002, "Se ha presentado un problema tratando de llevar a cabo la operaci+on deseada"));
+				new Mensaje(CodigoMensaje.M00002, "Se ha presentado un problema tratando de llevar a cabo la operacion deseada"));
 		mensajes.put(CodigoMensaje.M00003.getIdentificador(), 
 				new Mensaje(CodigoMensaje.M00003, "El idetificador del mensaje \"${1}\" que se intentó obtener, no está en el catálo de mensajes base"));
 		mensajes.put(CodigoMensaje.M00004.getIdentificador(), 
@@ -34,7 +34,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00008.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00008, "Se ha presentado un problema INESPERADO tratando de registrar el cliente"));
 		mensajes.put(CodigoMensaje.M00009.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00009, "el DAOfactoty para consultar el cliente llegó nulo..."));
+				new Mensaje(CodigoMensaje.M00009, "el DAOfactory para consultar el cliente llegó nulo..."));
 		mensajes.put(CodigoMensaje.M00010.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00010, "Se ha producido un problema tratando de llevar a cabo el registro del cliente"));
 		mensajes.put(CodigoMensaje.M00011.getIdentificador(),
@@ -78,7 +78,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00030.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00030, "Se ha presentado un problema tratando de consultar la informacion del proveedor..."));
 		mensajes.put(CodigoMensaje.M00031.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00031, "el DAOfactoty para proveedor el cliente llegó nulo..."));
+				new Mensaje(CodigoMensaje.M00031, "el DAOfactory para proveedor el cliente llegó nulo..."));
 		mensajes.put(CodigoMensaje.M00032.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00032, "Se ha presentado un problema tratando de consultar la informacion del proveedor..."));
 		mensajes.put(CodigoMensaje.M00033.getIdentificador(),
@@ -123,6 +123,56 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00052, "El número de teléfono del cliente es nulo. Debe proporcionar un número de teléfono válido para el cliente."));
 		mensajes.put(CodigoMensaje.M00053.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00053, "El número de teléfono del cliente es inválido. Debe proporcionar un número de teléfono válido de 10 dígitos para el cliente."));
+		mensajes.put(CodigoMensaje.M00054.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00054, "Se ha presentado un problema tratando de registrar la informacion del proveedor..."));
+		mensajes.put(CodigoMensaje.M00055.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00055, "Se ha presentado un problema INESPERADO tratando de registrar el proveedor"));
+		mensajes.put(CodigoMensaje.M00056.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00056, "Se ha presentado un problema tratando de consultar la informacion del usuario..."));
+		mensajes.put(CodigoMensaje.M00057.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00057, "Se ha presentado un problema INESPERADO tratando de consultar el usuario.."));
+		mensajes.put(CodigoMensaje.M00058.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00058, "el DAOfactory para consultar el usuario llegó nulo..."));
+		mensajes.put(CodigoMensaje.M00059.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00059, "El campo de usuario no puede estar vacío"));
+		mensajes.put(CodigoMensaje.M00060.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00060, "El usuario y/o el password es incorrecto. Vuelva a intentar"));
+		mensajes.put(CodigoMensaje.M00061.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00061, "No fue posible validar la información de los usuarios. Intente de nuevo"));
+		mensajes.put(CodigoMensaje.M00062.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00062, "Se ha presentado un problema ejecutando la sentencia SQL en la base de datos de POSTGRESQL"));
+		mensajes.put(CodigoMensaje.M00063.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00063, "Se ha presentado un problema INESPERADO ejecutando la sentencia SQL en la base de datos de POSTGRESQL"));
+		mensajes.put(CodigoMensaje.M00064.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00064, "Se ha presentado un problema tratando de consultar los Usuarios. Por favor, contacte al administrador del sistema"));
+		mensajes.put(CodigoMensaje.M00065.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00065, "Se ha presentado una SQLException tratando de realizar la consulta de los usuarios en la tabla \\\\\\\"Logins\\\\\\\" de la base de datos POSTGRESQL."));
+		mensajes.put(CodigoMensaje.M00066.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00066, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la consulta del usuario ... en la tabla Logins de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00067.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00067, "Clientes consultados exitosamente"));
+		mensajes.put(CodigoMensaje.M00068.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00068, "Cliente registrado exitosamente"));
+		mensajes.put(CodigoMensaje.M00069.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00069, "Cliente actualizado exitosamente"));
+		mensajes.put(CodigoMensaje.M00070.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00070, "Usuarios consultados exitosamente"));
+		mensajes.put(CodigoMensaje.M00071.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00071, "Se ha presentado un problema tratando de consultar la informacion del usuario..."));
+		mensajes.put(CodigoMensaje.M00072.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00072, "Usuario validado exitosamente"));
+		mensajes.put(CodigoMensaje.M00073.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00073, "Credenciales incorrectas"));
+		mensajes.put(CodigoMensaje.M00074.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00074, "Se presentó un problema validando el usuario"));
+		mensajes.put(CodigoMensaje.M00075.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00075, "Proveedores consultados exitosamente"));
+		mensajes.put(CodigoMensaje.M00076.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00076, "Proveedor registrado exitosamente"));
+		mensajes.put(CodigoMensaje.M00077.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00077, "Proveedor actualizado exitosamente"));
+		mensajes.put(CodigoMensaje.M00078.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00078, "TipoDocumento eliminado exitosamente"));
 	}
 		
 

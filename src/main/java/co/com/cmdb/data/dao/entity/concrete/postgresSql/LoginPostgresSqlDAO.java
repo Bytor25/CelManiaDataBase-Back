@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.BooleanHelper;
 import co.com.cmdb.crosscutting.helpers.IntegerHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
@@ -23,7 +26,41 @@ public LoginPostgresSqlDAO(final Connection conexion) {
 	}
 
 	@Override
-	public void validar(LoginEntity data) {
+	public boolean validarUsuario(final String usuario, final int password) {
+		
+		final StringBuilder sentenciaSql = new StringBuilder();
+		
+		sentenciaSql.append("SELECT L.usuario as usuarioLogin ");
+		sentenciaSql.append("FROM logins L ");
+		sentenciaSql.append("WHERE usuario = ? ");
+		sentenciaSql.append("AND password = ? ");
+		
+		try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+			
+			sentenciaSqlPreparada.setString(1, usuario);
+			sentenciaSqlPreparada.setInt(2, password);
+			
+			try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+				
+				return resultado.next();
+				
+			}
+			
+		} catch (SQLException exception) {
+			
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00061);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00062);
+			
+			throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario, exception);
+			
+		} catch(final Exception exception) {
+			
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00061);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00063);
+			
+			throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario, exception);
+			
+		}
 		
 	}
 
@@ -72,18 +109,19 @@ public LoginPostgresSqlDAO(final Connection conexion) {
 	        }
 	        
 		}  catch (final SQLException excepcion) {
-            var mensajeUsuario = ""; //Msg24
-            var mensajeTecnico = ""; //Msg25
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00064);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00065);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
         } catch (final Exception excepcion) {
-            var mensajeUsuario = ""; //Msg24
-            var mensajeTecnico = ""; //Msg26
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00064);
+            var mensajeTecnico =  MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00066);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
 		
 		return logins;
 	}
+
 
 	
 

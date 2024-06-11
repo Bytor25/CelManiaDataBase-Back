@@ -52,6 +52,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			validarClienteMismoNumeroDocumentoMismoNombre(data.getNombre(), data.getNumeroDocumento());
 
 		//3.
+			
+			/*validarTipoDocumentoExista(data.getTipoDocumento().getIdentificador());*/
 		
 		var clienteEntity = ClienteEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())

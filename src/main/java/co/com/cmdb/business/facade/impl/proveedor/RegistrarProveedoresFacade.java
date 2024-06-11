@@ -5,6 +5,8 @@ import co.com.cmdb.business.facade.FacadeWithoutReturn;
 import co.com.cmdb.business.usecase.impl.proveedor.RegistrarProveedor;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.dto.ProveedorDTO;
 
@@ -39,8 +41,8 @@ public class RegistrarProveedoresFacade implements FacadeWithoutReturn<Proveedor
 			
 			daoFactory.cancelarTransaccion();
 			
-			var mensajeUsuario = ""; //msg7
-			var mensajeTecnico = ""; //msg8
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00054);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00055);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 			

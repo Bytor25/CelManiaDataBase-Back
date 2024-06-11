@@ -33,7 +33,7 @@ public class TipoDocumentoController {
 			var tipoDocumentoResponse = new TipoDocumentoResponse();
 			try {
 				
-				tipoDocumentoResponse.getMensajes().add("TipoDocumento eliminado exitosamente");
+				tipoDocumentoResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00078));
 				
 			}catch (final CMDBExceptions excepcion) {
 				httpStatusCode = HttpStatus.BAD_REQUEST;

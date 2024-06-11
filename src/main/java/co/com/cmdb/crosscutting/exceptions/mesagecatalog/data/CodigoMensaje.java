@@ -57,7 +57,32 @@ public enum CodigoMensaje {
 	M00050(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00050", true),
 	M00051(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00051", true),
 	M00052(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00052", true),
-	M00053(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00053", true);
+	M00053(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00053", true),
+	M00054(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00054", true),
+	M00055(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00055", true),
+	M00056(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00056", true),
+	M00057(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00057", true),
+	M00058(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00058", true),
+	M00059(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00059", true),
+	M00060(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00060", true),
+	M00061(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00061", true),
+	M00062(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00062", true),
+	M00063(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00063", true),
+	M00064(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00064", true),
+	M00065(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00065", true),
+	M00066(TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "00066", true),
+	M00067(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00067", true),
+	M00068(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00068", true),
+	M00069(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00069", true),
+	M00070(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00070", true),
+	M00071(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00071", true),
+	M00072(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00072", true),
+	M00073(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00073", true),
+	M00074(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00074", true),
+	M00075(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00075", true),
+	M00076(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00076", true),
+	M00077(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00077", true),
+	M00078(TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "00078", true);
 	
 	private TipoMensaje tipo;
 	private CategoriaMensaje categoria;
