@@ -40,9 +40,12 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			
 			validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
 			
-			validarClienteMismoNumeroDocumento(data.getNumeroDocumento());
+			System.out.println(data.getNumeroDocumento());
 			
 			validarNumeroDocumento(data.getNumeroDocumento());
+			
+			validarClienteMismoNumeroDocumento(data.getNumeroDocumento());
+			
 			validarNombre(data.getNombre());
 			validarApellido(data.getApellidos());
 			validarCorreo(data.getCorreo());
@@ -66,13 +69,9 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	
 	private final void validarClienteMismoNumeroDocumento(final String valor) {
 		
-		var clienteEntity = ClienteEntity.build().setNumeroDocumento(valor);
-		System.out.println(clienteEntity);
-		var resultados = factory.getClienteDAO().consultar(clienteEntity);
+		ClienteEntity clienteExiste = factory.getClienteDAO().consultarPorid(valor);
 		
-		System.out.println(resultados);
-		
-		if(resultados.isEmpty()) {
+		if(clienteExiste != null) {
 			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00012);
 			var mensajeTecnico = "validarClienteMismoNumeroDocumento";

@@ -6,4 +6,6 @@ public interface ProveedorDAO extends CreateDAO<ProveedorEntity>, RetrieveDAO<Pr
 	
 	boolean existeTelefono(long telefono, String numeroDocumento);
 	
+	ProveedorEntity consultarPorNumeroDocumento(String numeroDocumento);
+	
 }

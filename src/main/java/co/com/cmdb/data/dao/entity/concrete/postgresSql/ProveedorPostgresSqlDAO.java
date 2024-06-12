@@ -11,12 +11,12 @@ import java.util.UUID;
 import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
-import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.entity.ProveedorDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
+import co.com.cmdb.entity.ClienteEntity;
 import co.com.cmdb.entity.ProveedorEntity;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 
@@ -187,6 +187,58 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
         
         return false;
     }
+
+	@Override
+	public ProveedorEntity consultarPorNumeroDocumento(String numeroDocumento) {
+		
+		  
+	    final StringBuilder sentenciaSql = new StringBuilder();
+
+	    sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.tipo_documento as identificadorTipoDocumento, ")
+	                .append("P.numero_documento as numeroDocumentoProveedor, TD.nombre as nombreTipoId, ")
+	                .append("P.nombre as nombreProveedor, P.telefono as telefonoProveedor ")
+	                .append("FROM proveedores P ")
+	                .append("INNER JOIN tipos_documentos TD ")
+	                .append("ON P.tipo_documento = TD.identificador ")
+	                .append("WHERE P.numero_documento = ?");
+
+	    ProveedorEntity proveedor = null;
+
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
+
+	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+	            if (resultado.next()) {
+	            	
+	            	
+	                proveedor = ProveedorEntity.build();
+	                
+	                proveedor.setIdentificador(UUID.fromString(resultado.getString("identificadorProveedor")));
+	                proveedor.setNumeroDocumento(resultado.getString("numeroDocumentoProveedor"));
+	                proveedor.setNombre(resultado.getString("nombreProveedor"));
+	                proveedor.setTelefono(resultado.getLong("telefonoProveedor"));
+	                
+	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
+	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+	                proveedor.setTipoDocumento(tipoDocumento);
+
+
+	            }
+	        }
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+
+	    return proveedor;
+
+	}
 
 
 

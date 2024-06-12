@@ -8,9 +8,7 @@ import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
-import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
-import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.entity.ProveedorEntity;
@@ -54,13 +52,9 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 	
 	private final void validarProveedorMismoNumeroDocumento(final String numeroDocumento) {
 		
+		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumento(numeroDocumento);
 		
-		var proveedorEntity = ProveedorEntity.build().setNumeroDocumento(numeroDocumento);
-		var resultados = factory.getProveedorDAO().consultar(proveedorEntity);
-		
-		System.out.println(resultados);
-		
-		if(!resultados.isEmpty()) {
+		if(proveedorExiste != null) {
 			
 			var mensajeUsuario = "puta madre";
 			var mensajeTecnico = "loco";
