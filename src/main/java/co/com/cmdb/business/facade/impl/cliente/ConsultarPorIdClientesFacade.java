@@ -25,7 +25,9 @@ public class ConsultarPorIdClientesFacade  implements FacadeWithReturn<ClienteDT
             return ClienteAssemblerDTO.getInstance().toDTO(resultadoDomain);
 
         } catch (final CMDBExceptions excepcion) {
+        	
             daoFactory.cancelarTransaccion();
+            
             throw excepcion;
 
         } catch (final Exception excepcion) {

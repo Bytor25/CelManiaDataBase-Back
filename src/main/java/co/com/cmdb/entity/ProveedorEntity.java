@@ -20,7 +20,7 @@ public final class ProveedorEntity {
 	
 	
 	public ProveedorEntity() {
-		
+		super();
 		setIdentificador(UUIDHelper.getDefault());
 		setNumeroDocumento(TextHelper.EMPTY);
 		setTipoDocumento(TipoDocumentoEntity.build());

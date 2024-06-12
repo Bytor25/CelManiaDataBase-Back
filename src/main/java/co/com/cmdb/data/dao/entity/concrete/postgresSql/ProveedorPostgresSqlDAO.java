@@ -16,7 +16,6 @@ import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.entity.ProveedorDAO;
 import co.com.cmdb.data.dao.entity.concrete.SqlConnection;
-import co.com.cmdb.entity.ClienteEntity;
 import co.com.cmdb.entity.ProveedorEntity;
 import co.com.cmdb.entity.TipoDocumentoEntity;
 

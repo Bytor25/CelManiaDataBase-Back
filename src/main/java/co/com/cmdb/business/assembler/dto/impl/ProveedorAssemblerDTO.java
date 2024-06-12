@@ -31,7 +31,8 @@ public final class ProveedorAssemblerDTO implements AssemblerDTO<ProveedorDomain
 		
 		var proveedorDtoTmp = getObjectHelper().getDefaultValue(data, ProveedorDTO.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(proveedorDtoTmp.getTipoDocumento());
-		return ProveedorDomain.build(proveedorDtoTmp.getIdentificador(),proveedorDtoTmp.getNumeroDocumento(),tipoDocumentoDomain,proveedorDtoTmp.getNombre(),proveedorDtoTmp.getTelefono(),proveedorDtoTmp.isEstado());
+		return ProveedorDomain.build(proveedorDtoTmp.getIdentificador(),proveedorDtoTmp.getNumeroDocumento(),
+				tipoDocumentoDomain,proveedorDtoTmp.getNombre(),proveedorDtoTmp.getTelefono(),proveedorDtoTmp.isEstado());
 		
 	}
 	

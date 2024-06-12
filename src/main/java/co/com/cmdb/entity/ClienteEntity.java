@@ -20,7 +20,9 @@ public final class ClienteEntity {
 	private boolean estado;
 	
 	public ClienteEntity() {
-		setIdentificador (UUIDHelper.generate());
+		
+		super();
+		setIdentificador (UUIDHelper.getDefault());
 		setNumeroDocumento (TextHelper.EMPTY);
 		setTipoDocumento (TipoDocumentoEntity.build());
 		setNombre (TextHelper.EMPTY);

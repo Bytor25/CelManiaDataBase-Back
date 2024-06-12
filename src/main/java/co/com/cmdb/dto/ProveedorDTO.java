@@ -19,7 +19,6 @@ public final class ProveedorDTO {
 	
 	
 	public ProveedorDTO() {
-		
 		super();
 		setIdentificador(UUIDHelper.getDefault());
 		setNumeroDocumento(TextHelper.EMPTY);

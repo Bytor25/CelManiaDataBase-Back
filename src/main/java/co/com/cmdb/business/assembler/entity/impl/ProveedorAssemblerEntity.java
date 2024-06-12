@@ -24,6 +24,7 @@ public class ProveedorAssemblerEntity implements AssemblerEntity<ProveedorDomain
 	public static final AssemblerEntity<ProveedorDomain, ProveedorEntity> getInstance(){
 		return instance;
 	}
+	
 	@Override
 	public ProveedorDomain toDomain(final ProveedorEntity data) {
 		
@@ -40,7 +41,10 @@ public class ProveedorAssemblerEntity implements AssemblerEntity<ProveedorDomain
 		var proveedorDomainTmp = getObjectHelper().getDefaultValue(domain, ProveedorDomain.build());
 		var tipoDocumentoEntity = tipoDocumentoAssembler.toEntity(proveedorDomainTmp.getTipoDocumento());
 		
-		return ProveedorEntity.build().setIdentificador(proveedorDomainTmp.getIdentificador()).setNumeroDocumento(proveedorDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoEntity).setNombre(proveedorDomainTmp.getNombre()).setTelefono(proveedorDomainTmp.getTelefono()).setEstado(proveedorDomainTmp.isEstado());
+		return ProveedorEntity.build().setIdentificador(proveedorDomainTmp.getIdentificador())
+				.setNumeroDocumento(proveedorDomainTmp.getNumeroDocumento())
+				.setTipoDocumento(tipoDocumentoEntity).setNombre(proveedorDomainTmp.getNombre())
+				.setTelefono(proveedorDomainTmp.getTelefono()).setEstado(proveedorDomainTmp.isEstado());
 	}
 
 	@Override

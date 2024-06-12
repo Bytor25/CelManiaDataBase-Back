@@ -50,29 +50,30 @@ public class ProveedorDomain {
 
 	//Getters
 	
-	public UUID getIdentificador() {
+	public final UUID getIdentificador() {
 		return identificador;
 	}
 
-	public String getNumeroDocumento() {
+	public final String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 
-	public TipoDocumentoDomain getTipoDocumento() {
+	public final TipoDocumentoDomain getTipoDocumento() {
 		return tipoDocumento;
 	}
 
-	public String getNombre() {
+	public final String getNombre() {
 		return nombre;
 	}
 
-	public long getTelefono() {
+	public final long getTelefono() {
 		return telefono;
 	}
 
-	public boolean isEstado() {
+	public final boolean isEstado() {
 		return estado;
 	}
+
 	
 	//Setters
 

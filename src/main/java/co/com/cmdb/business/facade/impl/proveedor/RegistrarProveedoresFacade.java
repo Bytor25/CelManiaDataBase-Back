@@ -21,14 +21,15 @@ public class RegistrarProveedoresFacade implements FacadeWithoutReturn<Proveedor
 	}
 	
 	@Override
-	public void execute(final ProveedorDTO dato) {
+	public void execute(final ProveedorDTO dto) {
 		daoFactory.iniciarTransaccion();
 		
 		try {
 			
 			var useCase = new RegistrarProveedor(daoFactory);
-			var proveedorDomain = ProveedorAssemblerDTO.getInstance().toDomain(dato);
-			System.out.println(proveedorDomain);
+			
+			var proveedorDomain = ProveedorAssemblerDTO.getInstance().toDomain(dto);
+			
 			useCase.execute(proveedorDomain);
 			
 			daoFactory.confirmarTransaccion();
@@ -36,6 +37,8 @@ public class RegistrarProveedoresFacade implements FacadeWithoutReturn<Proveedor
 		}catch(final CMDBExceptions excepcion) {
 			
 			daoFactory.cancelarTransaccion();
+			
+			throw excepcion;
 			
 		}catch(final Exception excepcion) {
 			
