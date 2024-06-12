@@ -219,7 +219,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	
 	@Override
 	public ClienteEntity consultarPorid(String numeroDocumento) {
-	    System.out.println("Número de documento recibido: " + numeroDocumento);
+	  
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
 	    sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.tipo_documento as identificadorTipoDocumento, ")
@@ -230,8 +230,6 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	                .append("ON C.tipo_documento = TD.identificador ")
 	                .append("WHERE C.numero_documento = ?");
 
-	    System.out.println("Consulta SQL: " + sentenciaSql.toString());
-
 	    ClienteEntity cliente = null;
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
@@ -239,16 +237,6 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            if (resultado.next()) {
-	                System.out.println("Resultados obtenidos del ResultSet:");
-	                System.out.println("identificadorCliente: " + resultado.getString("identificadorCliente"));
-	                System.out.println("numeroDocumentoCliente: " + resultado.getString("numeroDocumentoCliente"));
-	                System.out.println("nombreCliente: " + resultado.getString("nombreCliente"));
-	                System.out.println("apellidosCliente: " + resultado.getString("apellidosCliente"));
-	                System.out.println("correoCliente: " + resultado.getString("correoCliente"));
-	                System.out.println("telefonoCliente: " + resultado.getLong("telefonoCliente"));
-	                System.out.println("estadoCliente: " + resultado.getBoolean("estadoCliente"));
-	                System.out.println("nombreTipoId: " + resultado.getString("nombreTipoId"));
-	                System.out.println("identificadorTipoDocumento: " + resultado.getInt("identificadorTipoDocumento"));
 
 	                cliente = ClienteEntity.build();
 
@@ -277,8 +265,6 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
-
-	    System.out.println("Cliente obtenido: " + cliente);
 
 	    return cliente;
 	}

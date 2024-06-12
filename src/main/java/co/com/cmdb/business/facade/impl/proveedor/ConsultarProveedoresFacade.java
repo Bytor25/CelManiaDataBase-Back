@@ -22,7 +22,7 @@ public class ConsultarProveedoresFacade implements FacadeWithReturn<ProveedorDTO
 
 @Override
 public List<ProveedorDTO> execute(final ProveedorDTO dto) {
-	//daoFactory.iniciarTransaccion();
+	daoFactory.iniciarTransaccion();
 	try {
 		
 		var useCase = new ConsultarProveedor(daoFactory);
@@ -32,15 +32,15 @@ public List<ProveedorDTO> execute(final ProveedorDTO dto) {
 		return ProveedorAssemblerDTO.getInstance().toDTOCollection(resultadosDomain);
 		
 	}catch(final CMDBExceptions excepcion) {
-		//daoFactory.cancelarTransaccion();
 		
+		daoFactory.cancelarTransaccion();
 		throw excepcion;
 		
 	}catch(final Exception excepcion) {
-		//daoFactory.cancelarTransaccion();
 		
+		daoFactory.cancelarTransaccion();
 		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00032);
-		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00033);;
+		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00033);
 		throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario, excepcion);
 	
 	} finally {

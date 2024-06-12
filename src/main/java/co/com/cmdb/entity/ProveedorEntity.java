@@ -9,7 +9,7 @@ import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.entity.ProveedorEntity;
 
-public class ProveedorEntity {
+public final class ProveedorEntity {
 	
 	private UUID identificador;
 	private String numeroDocumento;
@@ -21,7 +21,6 @@ public class ProveedorEntity {
 	
 	public ProveedorEntity() {
 		
-		super();
 		setIdentificador(UUIDHelper.getDefault());
 		setNumeroDocumento(TextHelper.EMPTY);
 		setTipoDocumento(TipoDocumentoEntity.build());
@@ -31,8 +30,8 @@ public class ProveedorEntity {
 		
 	}
 	
-	public ProveedorEntity(final UUID identificador,  final String numeroDocumento,  final TipoDocumentoEntity tipoDocumento,  final String nombre,
-			 final long telefono, final boolean estado) {
+	public ProveedorEntity(final UUID identificador, final String numeroDocumento, final TipoDocumentoEntity tipoDocumento, final String nombre,
+			 			final long telefono, final boolean estado) {
 		
 		setIdentificador(identificador);
 		setNumeroDocumento(numeroDocumento);
@@ -44,11 +43,15 @@ public class ProveedorEntity {
 	}
 	
 	public static final ProveedorEntity build() {
-		
 		return new ProveedorEntity();
-		
 	}
 	
+	
+	public static final ProveedorEntity build( final UUID identificador,final String numeroDocumento, final TipoDocumentoEntity tipoDocumento, 
+			final String nombre, final long telefono, final boolean estado) {
+		
+		return new ProveedorEntity( identificador, numeroDocumento, tipoDocumento, nombre, telefono, estado);
+	}
 	//Getters
 
 	public final UUID getIdentificador() {
@@ -78,7 +81,7 @@ public class ProveedorEntity {
 	//Setters
 
 	public final ProveedorEntity setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 		return this;
 	}
 

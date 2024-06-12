@@ -31,18 +31,16 @@ public class ProveedorAssemblerEntity implements AssemblerEntity<ProveedorDomain
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(proveedorEntityTmp.getTipoDocumento());
 		
 		return ProveedorDomain.build(proveedorEntityTmp.getIdentificador(),proveedorEntityTmp.getNumeroDocumento(),tipoDocumentoDomain,
-				proveedorEntityTmp.getNombre(),proveedorEntityTmp.getTelefono(),
-				proveedorEntityTmp.isEstado());
+				proveedorEntityTmp.getNombre(),proveedorEntityTmp.getTelefono(), proveedorEntityTmp.isEstado());
 		
 	}
 	
 	@Override
-	public ProveedorEntity toEntity(ProveedorDomain domain) {
+	public ProveedorEntity toEntity(final ProveedorDomain domain) {
 		var proveedorDomainTmp = getObjectHelper().getDefaultValue(domain, ProveedorDomain.build());
 		var tipoDocumentoEntity = tipoDocumentoAssembler.toEntity(proveedorDomainTmp.getTipoDocumento());
 		
-		return ProveedorEntity.build().setIdentificador(proveedorDomainTmp.getIdentificador()).setNombre(proveedorDomainTmp.getNombre())
-				.setTipoDocumento(tipoDocumentoEntity);
+		return ProveedorEntity.build().setIdentificador(proveedorDomainTmp.getIdentificador()).setNumeroDocumento(proveedorDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoEntity).setNombre(proveedorDomainTmp.getNombre()).setTelefono(proveedorDomainTmp.getTelefono()).setEstado(proveedorDomainTmp.isEstado());
 	}
 
 	@Override

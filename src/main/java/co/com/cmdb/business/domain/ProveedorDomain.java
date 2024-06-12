@@ -20,12 +20,12 @@ public class ProveedorDomain {
 	private ProveedorDomain(final UUID identificador,final String numeroDocumento, final TipoDocumentoDomain tipoDocumento, 
 			  final String nombre, final long telefono, final boolean estado) {
 
-	setIdentificador(identificador);
-	setNumeroDocumento(numeroDocumento);
-	setTipoDocumento(tipoDocumento);
-	setNombre(nombre);
-	setTelefono(telefono);
-	setEstado(estado);
+		setIdentificador(identificador);
+		setNumeroDocumento(numeroDocumento);
+		setTipoDocumento(tipoDocumento);
+		setNombre(nombre);
+		setTelefono(telefono);
+		setEstado(estado);
 
 }
 	
@@ -37,9 +37,9 @@ public class ProveedorDomain {
 	}
 		
 	
-	public static final ProveedorDomain build(final UUID identificador, final String numeroDocumento) {
+	public static final ProveedorDomain build(final UUID identificador) {
 			
-		return new ProveedorDomain(identificador,numeroDocumento, TipoDocumentoDomain.build(),TextHelper.EMPTY, LongHelper.DEFAULT_LONG, BooleanHelper.DEFAULT_BOOLEAN);
+		return new ProveedorDomain(identificador, TextHelper.EMPTY, TipoDocumentoDomain.build(),TextHelper.EMPTY, LongHelper.DEFAULT_LONG, BooleanHelper.DEFAULT_BOOLEAN);
 			
 		}
 	
@@ -80,7 +80,7 @@ public class ProveedorDomain {
 		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 	}
 
-	private void setNumeroDocumento(String numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = TextHelper.applyTrim(numeroDocumento);
 	}
 

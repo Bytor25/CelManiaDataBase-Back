@@ -28,7 +28,7 @@ public class RegistrarProveedoresFacade implements FacadeWithoutReturn<Proveedor
 			
 			var useCase = new RegistrarProveedor(daoFactory);
 			var proveedorDomain = ProveedorAssemblerDTO.getInstance().toDomain(dato);
-			
+			System.out.println(proveedorDomain);
 			useCase.execute(proveedorDomain);
 			
 			daoFactory.confirmarTransaccion();

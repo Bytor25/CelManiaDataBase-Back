@@ -20,7 +20,7 @@ import co.com.cmdb.dto.ProveedorDTO;
 
 @RestController
 @RequestMapping("/api/v1/proveedores")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 
 public class ProveedorController {
 	
@@ -41,7 +41,8 @@ public class ProveedorController {
 			var facade = new ConsultarProveedoresFacade();
 			
 			proveedorResponse.setDatos(facade.execute(proveedorDto));
-			proveedorResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00075));
+			var mensajeUsuario = "Proveedores consultados exitosamente";
+			proveedorResponse.getMensajes().add(mensajeUsuario);
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -68,9 +69,9 @@ public class ProveedorController {
 		try {
 			
 			var facade = new RegistrarProveedoresFacade();
-			
 			facade.execute(proveedor);
-			proveedorResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00076));
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00076);
+			proveedorResponse.getMensajes().add(mensajeUsuario);
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;

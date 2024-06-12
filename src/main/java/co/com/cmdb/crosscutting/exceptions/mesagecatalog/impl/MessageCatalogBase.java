@@ -40,7 +40,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00011.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00011, "El dao factory para registrar el cliente llegó nulo"));
 		mensajes.put(CodigoMensaje.M00012.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00012, "Ya existe un cliente con el nombre ... asociada con el tipo de documento"));
+				new Mensaje(CodigoMensaje.M00012, "Ya existe un cliente con el nombre ... asociada con el número de documento"));
 		mensajes.put(CodigoMensaje.M00013.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00013, "Se ha presentado un problema tratando de eliminar la informacion del cliente..."));
 		mensajes.put(CodigoMensaje.M00014.getIdentificador(),

@@ -24,8 +24,7 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, C
 
 	@Override
     public ClienteDomain execute(ClienteDomain data) {
-		
-		System.out.println(data.getNumeroDocumento());
+	
         if (TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
             var mensajeUsuario = "El número de documento no puede ser nulo.";
             var mensajeTecnico = "El número de documento es nulo o vacío en el método execute de ConsultarPorIdCliente.";
@@ -33,8 +32,6 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, C
         }
 
         var clienteEntityFilter = ClienteAssemblerEntity.getInstance().toEntity(data);
-        
-        System.out.println(clienteEntityFilter.getNumeroDocumento());
         
         var resultadoEntity = factory.getClienteDAO().consultarPorid(clienteEntityFilter.getNumeroDocumento());
 

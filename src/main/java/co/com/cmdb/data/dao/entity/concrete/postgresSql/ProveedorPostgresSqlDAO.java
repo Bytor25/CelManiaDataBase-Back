@@ -28,12 +28,12 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	}
 
 	@Override
-	public void crear(ProveedorEntity data) {
+	public void crear(final ProveedorEntity data) {
 		
-final StringBuilder sentenciaSql = new StringBuilder();
+		final StringBuilder sentenciaSql = new StringBuilder();
 		
 
-		sentenciaSql.append("INSERT INTO proveedores(identificador, numero_documento, tipo_documento, nombre, telefono, estado) ");
+		sentenciaSql.append("INSERT INTO proveedores(identificador, numero_documento, tipo_documento, nombre, telefono, estado ) ");
 		sentenciaSql.append("VALUES (?, ?, ?, ?, ?, ?); ");
 
 
@@ -76,8 +76,8 @@ final StringBuilder sentenciaSql = new StringBuilder();
 
         sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, P.nombre as nombreProveedor, P.telefono as telefonoProveedor ");
         sentenciaSql.append("FROM proveedores P ");
-        sentenciaSql.append("JOIN tipos_documentos TD ");
-        sentenciaSql.append("ON P.tipo_documento = TD.identificador");
+        sentenciaSql.append("INNER JOIN tipos_documentos TD ");
+        sentenciaSql.append("ON P.tipo_documento = TD.identificador ");
         sentenciaSql.append(" WHERE 1=1");
         
 	    final List<Object> parametros = new ArrayList<>();
@@ -96,7 +96,7 @@ final StringBuilder sentenciaSql = new StringBuilder();
 	        parametros.add(data.getNombre());
 	    }
 	    
-	    if (LongHelper.isNull(data.getTelefono())) {
+	    if (data.getTelefono() != 0) {
 	        sentenciaSql.append(" AND P.telefono = ?");
 	        parametros.add(data.getTelefono());
 	    }
@@ -156,6 +156,37 @@ final StringBuilder sentenciaSql = new StringBuilder();
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean existeTelefono(long telefono, String numeroDocumento) {
+		
+		final StringBuilder sentenciaSql = new StringBuilder();
+        
+        sentenciaSql.append("SELECT COUNT(*) ");
+        sentenciaSql.append("FROM proveedores ");
+        sentenciaSql.append("WHERE telefono = ? AND numero_documento <> ?");
+        
+        try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+            sentenciaSqlPreparada.setLong(1, telefono);
+            sentenciaSqlPreparada.setString(2, numeroDocumento);
+            
+            try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+                if (resultado.next()) {
+                    return resultado.getInt(1) > 0;
+                }
+            }
+        } catch (final SQLException excepcion) {
+            var mensajeUsuario = "a";
+            var mensajeTecnico = "a";
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+        } catch (final Exception excepcion) {
+            var mensajeUsuario = "a";
+            var mensajeTecnico = "a";
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+        }
+        
+        return false;
+    }
 
 
 

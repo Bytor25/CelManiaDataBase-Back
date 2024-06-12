@@ -8,17 +8,17 @@ import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.entity.ProveedorEntity;
+import co.com.cmdb.entity.TipoDocumentoEntity;
 
-public class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain> {
+public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain> {
 
 	private final DAOFactory factory;
-	
-	private static final long MIN_PHONE_NUMBER = 3000000000L;
-    private static final long MAX_PHONE_NUMBER = 3999999999L;
 	
     public RegistrarProveedor(final DAOFactory factory) {
     	
@@ -38,66 +38,56 @@ public class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorDomain>
 	@Override
 	public void execute(final ProveedorDomain data) {
 		
-		//1.
-			validarDatosProveedor(data);
-
-		//2.
-	
-			validarProveedorMismoNumeroDocumentoMismoNombre(data.getNombre(), data.getNumeroDocumento());
+		validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
+			
+		validarProveedorMismoNumeroDocumento(data.getNumeroDocumento());
 		
-		//3. 
-		
-		var proveedorEntity = ProveedorEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
+	var proveedorEntity = ProveedorEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
 				.setTelefono(data.getTelefono()).setEstado(data.isEstado());
 		
-		//4.
 		
 			factory.getProveedorDAO().crear(proveedorEntity);
 
 		
 	}
 	
-	private final void validarProveedorMismoNumeroDocumentoMismoNombre(final String nombreProveedor, final String numeroDocumento) {
+	private final void validarProveedorMismoNumeroDocumento(final String numeroDocumento) {
 		
-		var proveedorEntity = ProveedorEntity.build().setNombre(nombreProveedor).setNumeroDocumento(numeroDocumento);
+		
+		var proveedorEntity = ProveedorEntity.build().setNumeroDocumento(numeroDocumento);
 		var resultados = factory.getProveedorDAO().consultar(proveedorEntity);
+		
+		System.out.println(resultados);
 		
 		if(!resultados.isEmpty()) {
 			
-			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00034); 
-			throw new BusinessCMDBException(mensajeUsuario);
+			var mensajeUsuario = "puta madre";
+			var mensajeTecnico = "loco";
+			
+			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			
 		}
 		
 	}
 	
-    private void validarDatosProveedor(final ProveedorDomain data) {
-    	
-    	if(ObjectHelper.getObjectHelper().isNull(data.getNumeroDocumento()) || data.getNumeroDocumento().trim().isEmpty()) {
-    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00035);
-    		throw new BusinessCMDBException(mensajeUsuario);
-    	}
-        if (ObjectHelper.getObjectHelper().isNull(data.getNombre()) || data.getNombre().trim().isEmpty()) {
-        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00036);
-            throw new BusinessCMDBException(mensajeUsuario);
-        }
+	private final void validarExisteTipoDocumento(final int TipoDocumento) {
+		
+		var tipoDocumentoEntity = TipoDocumentoEntity.build().setIdentificador(TipoDocumento);
+		var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
+		
+		if(tipoDocumentoResultado.isEmpty()) {
+			
+			var mensajeUsuario = "El tipo de documento que se seleccionó no existe";
+			var mensajeTecnico = "El tipo de documento que se seleccionó no existe en la base de datos";
+			
+			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+			
+			
+		}
+		
+	}
 
-        if (ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) || ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador())) {
-        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00037);
-            throw new BusinessCMDBException(mensajeUsuario);
-        }
-
-        if (ObjectHelper.getObjectHelper().isNull(data.getTelefono())) {
-        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00038);
-            throw new BusinessCMDBException(mensajeUsuario);
-        }
-        if (data.getTelefono() < MIN_PHONE_NUMBER || data.getTelefono() > MAX_PHONE_NUMBER) {
-        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00039);
-            throw new BusinessCMDBException(mensajeUsuario);
-        }
-    }
-    
     private final UUID generarIdentificador() {
     	UUID id = UUIDHelper.generate();
     	

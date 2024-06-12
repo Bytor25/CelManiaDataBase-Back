@@ -78,7 +78,7 @@ public final class ProveedorDTO {
 	//Setters
 
 	public final ProveedorDTO setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 		return this;
 	}
 

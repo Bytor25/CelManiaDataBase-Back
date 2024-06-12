@@ -9,4 +9,5 @@ public interface ClienteDAO extends CreateDAO<ClienteEntity>, RetrieveDAO<Client
 	boolean existeCorreo(String correo, String numeroDocumento);
 	
 	boolean existeTelefono(long telefono, String numeroDocumento);
+	
 }

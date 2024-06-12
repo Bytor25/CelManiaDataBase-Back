@@ -27,7 +27,7 @@ public final class ProveedorAssemblerDTO implements AssemblerDTO<ProveedorDomain
 		  
 	}
 	@Override
-	public ProveedorDomain toDomain(ProveedorDTO data) {
+	public ProveedorDomain toDomain(final ProveedorDTO data) {
 		
 		var proveedorDtoTmp = getObjectHelper().getDefaultValue(data, ProveedorDTO.build());
 		var tipoDocumentoDomain = tipoDocumentoAssembler.toDomain(proveedorDtoTmp.getTipoDocumento());
@@ -39,7 +39,7 @@ public final class ProveedorAssemblerDTO implements AssemblerDTO<ProveedorDomain
 	public ProveedorDTO toDTO(final ProveedorDomain domain) {
 		var proveedorDomainTmp = getObjectHelper().getDefaultValue(domain, ProveedorDomain.build());
 		var tipoDocumentoDTO = tipoDocumentoAssembler.toDTO(proveedorDomainTmp.getTipoDocumento());
-		return ProveedorDTO.build().setIdentificador(proveedorDomainTmp.getIdentificador()).setNumeroDocumento(proveedorDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoDTO).setNombre(proveedorDomainTmp.getNombre() ).setTelefono(proveedorDomainTmp.getTelefono());
+		return ProveedorDTO.build().setIdentificador(proveedorDomainTmp.getIdentificador()).setNumeroDocumento(proveedorDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoDTO).setNombre(proveedorDomainTmp.getNombre()).setTelefono(proveedorDomainTmp.getTelefono()).setEstado(proveedorDomainTmp.isEstado());
 
 	}
 

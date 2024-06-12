@@ -8,8 +8,6 @@ import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 
-
-
 public final class ClienteEntity {
 	
 	private UUID identificador;
