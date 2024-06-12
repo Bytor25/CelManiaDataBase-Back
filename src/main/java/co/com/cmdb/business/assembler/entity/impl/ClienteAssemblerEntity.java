@@ -43,8 +43,9 @@ public class ClienteAssemblerEntity implements AssemblerEntity<ClienteDomain, Cl
 		var clienteDomainTmp = getObjectHelper().getDefaultValue(domain, ClienteDomain.build());
 		var tipoDocumentoEntity = tipoDocumentoAssembler.toEntity(clienteDomainTmp.getTipoDocumento());
 		
-		return ClienteEntity.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNombre(clienteDomainTmp.getNombre())
-				.setTipoDocumento(tipoDocumentoEntity);
+		return ClienteEntity.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNumeroDocumento(clienteDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoEntity)
+				.setNombre(clienteDomainTmp.getNombre()).setApellidos(clienteDomainTmp.getApellidos()).setCorreo(clienteDomainTmp.getCorreo())
+				.setTelefono(clienteDomainTmp.getTelefono()).setEstado(clienteDomainTmp.isEstado());
 	}
 
 	@Override

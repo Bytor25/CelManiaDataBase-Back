@@ -124,7 +124,8 @@ public final class ClienteDTO {
 		return this;
 	}
 
-	public void setEstado(boolean estado) {
+	public final ClienteDTO setEstado(boolean estado) {
 		this.estado = BooleanHelper.getDefaultValue(estado);
+		return this;
 	}
 }

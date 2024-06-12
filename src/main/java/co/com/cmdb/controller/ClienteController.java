@@ -1,5 +1,7 @@
 package co.com.cmdb.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.cmdb.business.facade.impl.cliente.ActualizarClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.ConsultarClientesFacade;
+import co.com.cmdb.business.facade.impl.cliente.ConsultarPorIdClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.RegistrarClientesFacade;
 import co.com.cmdb.controller.response.ClienteResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
@@ -39,7 +43,8 @@ public class ClienteController {
 			var facade = new ConsultarClientesFacade();
 			
 			clienteResponse.setDatos(facade.execute(clienteDto));
-			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00067));
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00067);
+			clienteResponse.getMensajes().add(mensajeUsuario);
 
 		} catch (final CMDBExceptions excepcion) {
 			httpStatusCode = HttpStatus.BAD_REQUEST;
@@ -90,27 +95,60 @@ public class ClienteController {
 
 	
 
-	@PutMapping("/{id}")
-	public ResponseEntity<ClienteResponse> actualizar(@PathVariable String id, @RequestBody ClienteDTO clienteDto) {
-		var httpStatusCode = HttpStatus.ACCEPTED;
-		var clienteResponse = new ClienteResponse();
-		try {
-			clienteDto.setNumeroDocumento(id);
-			
-			clienteResponse.getMensajes().add(MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00069));
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteResponse> actualizar(@PathVariable String id, @RequestBody ClienteDTO clienteDto) {
+        var httpStatusCode = HttpStatus.ACCEPTED;
+        var clienteResponse = new ClienteResponse();
 
-		} catch (final CMDBExceptions excepcion) {
-			httpStatusCode = HttpStatus.BAD_REQUEST;
-			clienteResponse.getMensajes().add(excepcion.getMensajeUsuario());
-		} catch (final Exception excepcion) {
-			httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+        try {
+            clienteDto.setNumeroDocumento(id);
+            var facade = new ActualizarClientesFacade();
+            facade.execute(clienteDto);
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00069);
+            clienteResponse.getMensajes().add(mensajeUsuario);
 
-			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00014);
-			clienteResponse.getMensajes().add(mensajeUsuario);
+        } catch (final CMDBExceptions excepcion) {
+            httpStatusCode = HttpStatus.BAD_REQUEST;
+            clienteResponse.getMensajes().add(excepcion.getMensajeUsuario());
+            excepcion.printStackTrace();
+        } catch (final Exception excepcion) {
+            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00014);
+            clienteResponse.getMensajes().add(mensajeUsuario);
+            excepcion.printStackTrace();
+        }
 
-			excepcion.printStackTrace();
-		}
+        return new ResponseEntity<>(clienteResponse, httpStatusCode);
+    }
+	
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponse> consultarPorId(@PathVariable String id) {
+        var httpStatusCode = HttpStatus.ACCEPTED;
+        var clienteResponse = new ClienteResponse();
 
-		return new ResponseEntity<>(clienteResponse, httpStatusCode);
-	}
+        try {
+            var clienteDto = ClienteDTO.build();
+            clienteDto.setNumeroDocumento(id);
+            var facade = new ConsultarPorIdClientesFacade();
+
+            var resultado = facade.execute(clienteDto);
+            clienteResponse.setDatos(List.of(resultado)); 
+            var mensajeUsuario = "";
+            clienteResponse.getMensajes().add(mensajeUsuario);
+
+        } catch (final CMDBExceptions excepcion) {
+            httpStatusCode = HttpStatus.BAD_REQUEST;
+            clienteResponse.getMensajes().add(excepcion.getMensajeUsuario());
+            excepcion.printStackTrace();
+
+        } catch (final Exception excepcion) {
+            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
+            clienteResponse.getMensajes().add(mensajeUsuario);
+            excepcion.printStackTrace();
+        }
+
+        return new ResponseEntity<>(clienteResponse, httpStatusCode);
+    }
+	
 }

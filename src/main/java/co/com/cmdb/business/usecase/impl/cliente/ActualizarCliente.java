@@ -38,23 +38,22 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 		validarCorreo(data.getCorreo());
 		validarTelefono(data.getTelefono());
 		
-		validarClienteMismoNumeroTelefono(data.getTelefono());
-		validarClienteMismoCorreo(data.getCorreo());
+		validarClienteMismoNumeroTelefono(data.getNumeroDocumento(),data.getTelefono());
+		validarClienteMismoCorreo(data.getNumeroDocumento(),data.getCorreo());
 		
 		
 		var clienteEntity = ClienteEntity.build().setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
 				.setApellidos(data.getApellidos()).setCorreo(data.getCorreo()).setTelefono(data.getTelefono()).setEstado(data.isEstado());
+		
 		factory.getClienteDAO().mofidicar(clienteEntity);
 		
 	}
 	
 	
-	private final void validarClienteMismoNumeroTelefono(final long valor) {
-		var clienteEntity = ClienteEntity.build().setTelefono(valor);
-		var resultados = factory.getClienteDAO().consultar(clienteEntity);
-		
-		if(!resultados.isEmpty()) {
+	private final void validarClienteMismoNumeroTelefono(final String numeroDocumento, final long valor) {
+
+		if(factory.getClienteDAO().existeTelefono(valor, numeroDocumento)) {
 			
         	var mensajeUsuario = "validarClienteMismoNumeroTelefono";
         	var mensajeTecnico = "validarClienteMismoNumeroTelefono";
@@ -62,13 +61,9 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 		}
 	}
 	
-	private final void validarClienteMismoCorreo(final String valor) {
+	private final void validarClienteMismoCorreo(final String numeroDocumento, final String valor) {
 		
-		var clienteEntity = ClienteEntity.build().setCorreo(valor);
-		var resultados = factory.getClienteDAO().consultar(clienteEntity);
-		
-		if(!resultados.isEmpty()) {
-			
+		if(factory.getClienteDAO().existeCorreo(valor, numeroDocumento)) {
         	var mensajeUsuario = "validarClienteMismoCorreo";
         	var mensajeTecnico = "validarClienteMismoCorreo";
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);

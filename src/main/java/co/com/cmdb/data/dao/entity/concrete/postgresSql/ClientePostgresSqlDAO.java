@@ -12,7 +12,6 @@ import co.com.cmdb.crosscutting.exceptions.custom.DataCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.BooleanHelper;
-import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
@@ -75,8 +74,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
 	    sentenciaSql.append("UPDATE clientes SET ");
-	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, ");
-	    sentenciaSql.append("correo = ?, telefono = ?, estado = ? ");
+	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, correo = ?, telefono = ?, estado = ? ");
 	    sentenciaSql.append("WHERE numero_documento = ?");
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
@@ -96,6 +94,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
 	    } catch (final Exception excepcion) {
+	    	
 	        var mensajeUsuario = "";
 	        var mensajeTecnico = "";
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
@@ -107,7 +106,9 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	public List<ClienteEntity> consultar(ClienteEntity data) {
         final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumentoCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente, C.estado as estadoCliente ");
+        sentenciaSql.append("SELECT C.identificador as identificadorCliente,C.tipo_documento as identificadorTipoDocumento, "
+        		+ "C.numero_documento as numeroDocumentoCliente, C.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, "
+        		+ "C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente, C.estado as estadoCliente ");
         sentenciaSql.append("FROM clientes C ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON C.tipo_documento = TD.identificador");
@@ -139,7 +140,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        parametros.add(data.getCorreo());
 	    }
 	    
-	    if (LongHelper.isNull(data.getTelefono())) {
+	    if (data.getTelefono() != 0) {
 	        sentenciaSql.append(" AND C.telefono = ?");
 	        parametros.add(data.getTelefono());
 	    }
@@ -156,6 +157,15 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        sentenciaSql.append(" AND TD.nombre = ?");
 	        parametros.add(data.getTipoDocumento().getNombre());
 	    }
+	    
+	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && 
+	    		!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador()) && 
+	    		data.getTipoDocumento().getIdentificador() != 0) {
+	    	
+	        sentenciaSql.append(" AND C.tipo_documento = ?");
+	        parametros.add(data.getTipoDocumento().getIdentificador());
+	    }
+	    
 	    
 
 
@@ -182,6 +192,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
                 
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+                tipoDocumento.setIdentificador(resultado.getInt("identificadorTipoDocumento"));
 
                 cliente.setTipoDocumento(tipoDocumento);
 
@@ -207,51 +218,130 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	}
 	
 	@Override
-	public List<ClienteEntity> consultarPorid(String numeroDocumento) {
+	public ClienteEntity consultarPorid(String numeroDocumento) {
+	    System.out.println("Número de documento recibido: " + numeroDocumento);
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
-	    sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente ");
-	    sentenciaSql.append("FROM clientes C ");
-	    sentenciaSql.append("INNER JOIN tipos_documentos TD ");
-	    sentenciaSql.append("ON C.tipo_documento = TD.identificador ");
-	    sentenciaSql.append("WHERE C.numero_documento = ?");
+	    sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.tipo_documento as identificadorTipoDocumento, ")
+	                .append("C.numero_documento as numeroDocumentoCliente, TD.nombre as nombreTipoId, ")
+	                .append("C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente, C.estado as estadoCliente ")
+	                .append("FROM clientes C ")
+	                .append("INNER JOIN tipos_documentos TD ")
+	                .append("ON C.tipo_documento = TD.identificador ")
+	                .append("WHERE C.numero_documento = ?");
 
-	    final List<ClienteEntity> clientes = new ArrayList<>();
-	    
+	    System.out.println("Consulta SQL: " + sentenciaSql.toString());
+
+	    ClienteEntity cliente = null;
+
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
-	        sentenciaSqlPreparada.setString(1, numeroDocumento);
+	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
-	            while (resultado.next()) {
-	                ClienteEntity cliente = ClienteEntity.build();
+	            if (resultado.next()) {
+	                System.out.println("Resultados obtenidos del ResultSet:");
+	                System.out.println("identificadorCliente: " + resultado.getString("identificadorCliente"));
+	                System.out.println("numeroDocumentoCliente: " + resultado.getString("numeroDocumentoCliente"));
+	                System.out.println("nombreCliente: " + resultado.getString("nombreCliente"));
+	                System.out.println("apellidosCliente: " + resultado.getString("apellidosCliente"));
+	                System.out.println("correoCliente: " + resultado.getString("correoCliente"));
+	                System.out.println("telefonoCliente: " + resultado.getLong("telefonoCliente"));
+	                System.out.println("estadoCliente: " + resultado.getBoolean("estadoCliente"));
+	                System.out.println("nombreTipoId: " + resultado.getString("nombreTipoId"));
+	                System.out.println("identificadorTipoDocumento: " + resultado.getInt("identificadorTipoDocumento"));
+
+	                cliente = ClienteEntity.build();
+
 	                cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
-	                cliente.setNumeroDocumento(resultado.getString("numeroDocumento"));
+	                cliente.setNumeroDocumento(resultado.getString("numeroDocumentoCliente"));
 	                cliente.setNombre(resultado.getString("nombreCliente"));
 	                cliente.setApellidos(resultado.getString("apellidosCliente"));
 	                cliente.setCorreo(resultado.getString("correoCliente"));
 	                cliente.setTelefono(resultado.getLong("telefonoCliente"));
-	                
+	                cliente.setEstado(resultado.getBoolean("estadoCliente"));
+
 	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
 	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
-	                cliente.setTipoDocumento(tipoDocumento);
+	                tipoDocumento.setIdentificador(resultado.getInt("identificadorTipoDocumento"));
 
-	                clientes.add(cliente);
+	                cliente.setTipoDocumento(tipoDocumento);
 	            }
 	        }
-
 	    } catch (final SQLException excepcion) {
-            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
-            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+
+	    System.out.println("Cliente obtenido: " + cliente);
+
+	    return cliente;
+	}
+
+	
+    @Override
+    public boolean existeCorreo(String correo, String numeroDocumento) {
+        final StringBuilder sentenciaSql = new StringBuilder();
+        
+        sentenciaSql.append("SELECT COUNT(*) ");
+        sentenciaSql.append("FROM clientes ");
+        sentenciaSql.append("WHERE correo = ? AND numero_documento <> ?");
+        
+        try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+            sentenciaSqlPreparada.setString(1, correo);
+            sentenciaSqlPreparada.setString(2, numeroDocumento);
+            
+            try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+                if (resultado.next()) {
+                    return resultado.getInt(1) > 0;
+                }
+            }
+        } catch (final SQLException excepcion) {
+            var mensajeUsuario = "";
+            var mensajeTecnico = "";
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         } catch (final Exception excepcion) {
-            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+            var mensajeUsuario = "";
+            var mensajeTecnico = "";
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
-	    
-	    return clientes;
+        
+        return false;
+    }
 
-	}
+    @Override
+    public boolean existeTelefono(long telefono, String numeroDocumento) {
+        final StringBuilder sentenciaSql = new StringBuilder();
+        
+        sentenciaSql.append("SELECT COUNT(*) ");
+        sentenciaSql.append("FROM clientes ");
+        sentenciaSql.append("WHERE telefono = ? AND numero_documento <> ?");
+        
+        try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+            sentenciaSqlPreparada.setLong(1, telefono);
+            sentenciaSqlPreparada.setString(2, numeroDocumento);
+            
+            try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+                if (resultado.next()) {
+                    return resultado.getInt(1) > 0;
+                }
+            }
+        } catch (final SQLException excepcion) {
+            var mensajeUsuario = "";
+            var mensajeTecnico = "";
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+        } catch (final Exception excepcion) {
+            var mensajeUsuario = "";
+            var mensajeTecnico = "";
+            throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+        }
+        
+        return false;
+    }
 
 }

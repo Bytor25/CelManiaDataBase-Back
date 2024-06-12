@@ -32,9 +32,6 @@ public final class ClienteEntity {
 		setEstado(BooleanHelper.DEFAULT_BOOLEAN);
 	}
 
-
-
-	
 	public ClienteEntity(final UUID identificador, final String numeroDocumento, final TipoDocumentoEntity tipoDocumento, final String nombre,
 			final String apellidos, final String correo, final long telefono, final boolean estado) {
 		
@@ -105,7 +102,7 @@ public final class ClienteEntity {
 
 
 	public final ClienteEntity setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+		this.identificador = UUIDHelper.getDefault(identificador, UUIDHelper.getDefault());
 		return this;
 	}
 

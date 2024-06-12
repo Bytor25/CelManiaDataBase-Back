@@ -40,16 +40,16 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			
 			validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
 			
+			validarClienteMismoNumeroDocumento(data.getNumeroDocumento());
+			
 			validarNumeroDocumento(data.getNumeroDocumento());
 			validarNombre(data.getNombre());
 			validarApellido(data.getApellidos());
 			validarCorreo(data.getCorreo());
 			validarTelefono(data.getTelefono());
 			 
-		
-			validarClienteMismoNumeroDocumento(data.getNumeroDocumento());
-			validarClienteMismoNumeroTelefono(data.getTelefono());
-			validarClienteMismoCorreo(data.getCorreo());
+			validarClienteMismoCorreo(data.getNumeroDocumento(),data.getCorreo());
+			validarClienteMismoNumeroTelefono(data.getNumeroDocumento(),data.getTelefono());
 
 		//3.
 		
@@ -77,24 +77,19 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		}
 	}
 	
-	private final void validarClienteMismoNumeroTelefono(final long valor) {
-		var clienteEntity = ClienteEntity.build().setTelefono(valor);
-		var resultados = factory.getClienteDAO().consultar(clienteEntity);
+	private final void validarClienteMismoNumeroTelefono(final String numeroDocumento, final long valor) {
 		
-		if(!resultados.isEmpty()) {
+		if(factory.getClienteDAO().existeTelefono(valor, numeroDocumento)) {
 			
-        	var mensajeUsuario = "validarClienteMismoNumeroTelefono";
+        	var mensajeUsuario = "validarClienteMismoNumeroTelefono holaaaaaaaaa";
         	var mensajeTecnico = "validarClienteMismoNumeroTelefono";
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
 	
-	private final void validarClienteMismoCorreo(final String valor) {
+	private final void validarClienteMismoCorreo(final String numeroDocumento, final String valor) {
 		
-		var clienteEntity = ClienteEntity.build().setCorreo(valor);
-		var resultados = factory.getClienteDAO().consultar(clienteEntity);
-		
-		if(!resultados.isEmpty()) {
+		if(factory.getClienteDAO().existeCorreo(valor, numeroDocumento)) {
 			
         	var mensajeUsuario = "validarClienteMismoCorreo";
         	var mensajeTecnico = "validarClienteMismoCorreo";
@@ -226,7 +221,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
     	
     	if (tipoDocumentoResultado.isEmpty()) {
-    		var mensajeUsuario = "validarExisteTipoDocumento";
+    		var mensajeUsuario = "validarExisteTipoDocumento Usuario";
     		var mensajeTecnico = "validarExisteTipoDocumento";
     		
     		throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);

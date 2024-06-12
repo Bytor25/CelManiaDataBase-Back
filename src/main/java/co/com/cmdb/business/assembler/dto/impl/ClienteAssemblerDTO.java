@@ -39,7 +39,9 @@ public final class ClienteAssemblerDTO implements AssemblerDTO<ClienteDomain, Cl
 	public ClienteDTO toDTO(final ClienteDomain domain) {
 		var clienteDomainTmp = getObjectHelper().getDefaultValue(domain, ClienteDomain.build());
 		var tipoDocumentoDTO = tipoDocumentoAssembler.toDTO(clienteDomainTmp.getTipoDocumento());
-		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNumeroDocumento(clienteDomainTmp.getNumeroDocumento()).setTipoDocumento(tipoDocumentoDTO).setNombre(clienteDomainTmp.getNombre()).setApellidos(clienteDomainTmp.getApellidos()).setCorreo(clienteDomainTmp.getCorreo()).setTelefono(clienteDomainTmp.getTelefono());
+		return ClienteDTO.build().setIdentificador(clienteDomainTmp.getIdentificador()).setNumeroDocumento(clienteDomainTmp.getNumeroDocumento())
+				.setTipoDocumento(tipoDocumentoDTO).setNombre(clienteDomainTmp.getNombre()).setApellidos(clienteDomainTmp.getApellidos())
+				.setCorreo(clienteDomainTmp.getCorreo()).setTelefono(clienteDomainTmp.getTelefono()).setEstado(clienteDomainTmp.isEstado());
 	}
 	
 	@Override
