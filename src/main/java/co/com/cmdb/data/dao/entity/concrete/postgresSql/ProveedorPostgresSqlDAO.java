@@ -188,7 +188,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
     }
 
 	@Override
-	public ProveedorEntity consultarPorNumeroDocumento(String numeroDocumento) {
+	public List<ProveedorEntity> consultarPorNumeroDocumento(String numeroDocumento) {
 		
 		  
 	    final StringBuilder sentenciaSql = new StringBuilder();
@@ -201,7 +201,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	                .append("ON P.tipo_documento = TD.identificador ")
 	                .append("WHERE P.numero_documento = ?");
 
-	    ProveedorEntity proveedor = null;
+	    List<ProveedorEntity> proveedores = new ArrayList<>();
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
@@ -209,8 +209,9 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            if (resultado.next()) {
 	            	
+	            
 	            	
-	                proveedor = ProveedorEntity.build();
+	                ProveedorEntity proveedor = ProveedorEntity.build();
 	                
 	                proveedor.setIdentificador(UUID.fromString(resultado.getString("identificadorProveedor")));
 	                proveedor.setNumeroDocumento(resultado.getString("numeroDocumentoProveedor"));
@@ -220,6 +221,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
 	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
 	                proveedor.setTipoDocumento(tipoDocumento);
+	                proveedores.add(proveedor);
 
 
 	            }
@@ -235,7 +237,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 
-	    return proveedor;
+	    return proveedores;
 
 	}
 

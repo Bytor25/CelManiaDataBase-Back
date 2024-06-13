@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import co.com.cmdb.business.facade.impl.proveedor.ConsultarPorIdProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.ConsultarProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.RegistrarProveedoresFacade;
 import co.com.cmdb.controller.response.ProveedorResponse;
@@ -115,6 +117,37 @@ public class ProveedorController {
 		return new ResponseEntity<>(proveedorResponse, httpStatusCode);
 	}
 	
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ProveedorResponse> consultarPorId(@PathVariable String id) {
+	    var httpStatusCode = HttpStatus.ACCEPTED;
+	    var proveedorResponse = new ProveedorResponse();
+
+	    try {
+	        var proveedorDto = ProveedorDTO.build();
+	        proveedorDto.setNumeroDocumento(id);
+	        var facade = new ConsultarPorIdProveedoresFacade();
+
+	        var resultado = facade.execute(proveedorDto);
+	        proveedorResponse.setDatos(resultado); 
+	        var mensajeUsuario = "";
+	        proveedorResponse.getMensajes().add(mensajeUsuario);
+
+	    } catch (final CMDBExceptions excepcion) {
+	        httpStatusCode = HttpStatus.BAD_REQUEST;
+	        proveedorResponse.getMensajes().add(excepcion.getMensajeUsuario());
+	        excepcion.printStackTrace();
+
+	    } catch (final Exception excepcion) {
+	        httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	        var mensajeUsuario = "";
+	        proveedorResponse.getMensajes().add(mensajeUsuario);
+	        excepcion.printStackTrace();
+	    }
+
+	    return new ResponseEntity<>(proveedorResponse, httpStatusCode);
+	}
+
 	
 		
 		
