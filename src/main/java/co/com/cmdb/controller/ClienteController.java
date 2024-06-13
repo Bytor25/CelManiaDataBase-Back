@@ -133,7 +133,7 @@ public class ClienteController {
 
             var resultado = facade.execute(clienteDto);
             clienteResponse.setDatos(List.of(resultado)); 
-            var mensajeUsuario = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
             clienteResponse.getMensajes().add(mensajeUsuario);
 
         } catch (final CMDBExceptions excepcion) {

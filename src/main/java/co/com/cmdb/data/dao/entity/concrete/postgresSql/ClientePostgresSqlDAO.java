@@ -89,14 +89,14 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        sentenciaSqlPreparada.executeUpdate();
 
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = "";
-	        var mensajeTecnico = "";
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00080);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00081);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
 	    } catch (final Exception excepcion) {
 	    	
-	        var mensajeUsuario = "";
-	        var mensajeTecnico = "";
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00080);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00082);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 		
@@ -256,13 +256,13 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	            }
 	        }
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00083);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00084);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
 	    } catch (final Exception excepcion) {
-	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00083);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00085);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 
@@ -288,12 +288,12 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 }
             }
         } catch (final SQLException excepcion) {
-            var mensajeUsuario = "";
-            var mensajeTecnico = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00086);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00087);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         } catch (final Exception excepcion) {
-            var mensajeUsuario = "";
-            var mensajeTecnico = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00086);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00088);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
         
@@ -318,12 +318,12 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
                 }
             }
         } catch (final SQLException excepcion) {
-            var mensajeUsuario = "";
-            var mensajeTecnico = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00089);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00090);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         } catch (final Exception excepcion) {
-            var mensajeUsuario = "";
-            var mensajeTecnico = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00089);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00091);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
         

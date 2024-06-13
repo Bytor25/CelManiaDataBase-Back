@@ -8,7 +8,9 @@ import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
+import co.com.cmdb.crosscutting.helpers.LongHelper;
 import co.com.cmdb.crosscutting.helpers.ObjectHelper;
+import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.crosscutting.helpers.UUIDHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 import co.com.cmdb.entity.ProveedorEntity;
@@ -37,8 +39,17 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 	public void execute(final ProveedorDomain data) {
 		
 		validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
+		
+		validarNumeroDocumento(data.getNumeroDocumento());
 			
-		validarProveedorMismoNumeroDocumento(data.getNumeroDocumento());
+		validarProveedorMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador());
+		
+		validarNombre(data.getNombre());
+		
+		validarTelefono(data.getTelefono());
+		
+		validarProveedorMismoNumeroTelefono(data.getNumeroDocumento(), data.getTelefono());
+		
 		
 	var proveedorEntity = ProveedorEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
@@ -50,13 +61,13 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		
 	}
 	
-	private final void validarProveedorMismoNumeroDocumento(final String numeroDocumento) {
+	private final void validarProveedorMismoNumeroDocumentoMismoTipoDocumento(final String numeroDocumento, int identificadorDocumento) {
 		
-		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumento(numeroDocumento);
+		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(numeroDocumento, identificadorDocumento);
 		
 		if(proveedorExiste != null) {
 			
-			var mensajeUsuario = "puta madre";
+			var mensajeUsuario = "Ya existe un proveedor asociado al mismo número de documento y tipo de documento ingresados ;(";
 			var mensajeTecnico = "loco";
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
@@ -64,6 +75,87 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		}
 		
 	}
+	
+	private void validarNumeroDocumento( final String valor) {
+    	
+        if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
+        	var mensajeUsuario = "";
+        	var mensajeTecnico = "validarNumeroDocumento";
+            throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        
+        if (!TextHelper.validarSoloNumeros(valor)) {
+        	var mensajeUsuario = "nums";
+        	var mensajeTecnico = "validarNumeroDocumento";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        
+        if (!validarLongitud(valor,1,15)) {
+        	var mensajeUsuario = "validarNumeroDocumento";
+        	var mensajeTecnico = "validarNumeroDocumento";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+    	
+    }
+	
+	private final void validarProveedorMismoNumeroTelefono(final String numeroDocumento, final long valor) {
+		
+		if(factory.getProveedorDAO().existeTelefono(valor, numeroDocumento)) {
+			
+        	var mensajeUsuario = "validarClienteMismoNumeroTelefono holaaaaaaaaa";
+        	var mensajeTecnico = "validarClienteMismoNumeroTelefono";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+		}
+	}
+	
+	private void validarNombre(final String valor) {
+    	
+        if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
+        	var mensajeUsuario = "lol";
+        	var mensajeTecnico = "";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        
+        if (!validarLongitud(valor, 1, 60)) {
+        	var mensajeUsuario = "validarNombre";
+        	var mensajeTecnico = "validarNombre";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        
+    }
+	
+	private void validarTelefono(final long valor) {
+    	
+    	String numeroTelefono = String.valueOf(valor);
+    	
+        if (ObjectHelper.getObjectHelper().isNull(numeroTelefono) || numeroTelefono.trim().isEmpty()) {
+        	var mensajeUsuario = "telefonomalo";
+        	var mensajeTecnico = "validarTelefono";
+        	throw new BusinessCMDBException(mensajeUsuario,mensajeTecnico);
+        }
+        if (!validarLongitud(numeroTelefono,1,10)) {
+        	var mensajeUsuario = "";
+        	var mensajeTecnico = "validarTelefono";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
+        	var mensajeUsuario = "validarTelefono";
+        	var mensajeTecnico = "validarTelefono";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+        if(!LongHelper.validarRango(valor)) {
+        	var mensajeUsuario = "validarTelefono";
+        	var mensajeTecnico = "validarTelefono";
+        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+        }
+    	
+    }
+	
+	 private boolean validarLongitud(final String valor, final int longitudMinima, final int LongitudMaxima) {
+	    	
+	    	return TextHelper.longitudMinima(valor, longitudMinima) && TextHelper.longitudMaxima(valor, LongitudMaxima);
+	    	
+	    }
 	
 	private final void validarExisteTipoDocumento(final int TipoDocumento) {
 		
@@ -79,6 +171,8 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 			
 			
 		}
+		
+		
 		
 	}
 

@@ -40,18 +40,20 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			
 			validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
 			
-			System.out.println(data.getNumeroDocumento());
-			
 			validarNumeroDocumento(data.getNumeroDocumento());
 			
 			validarClienteMismoNumeroDocumento(data.getNumeroDocumento());
 			
 			validarNombre(data.getNombre());
+			
 			validarApellido(data.getApellidos());
+			
 			validarCorreo(data.getCorreo());
+			
 			validarTelefono(data.getTelefono());
 			 
 			validarClienteMismoCorreo(data.getNumeroDocumento(),data.getCorreo());
+			
 			validarClienteMismoNumeroTelefono(data.getNumeroDocumento(),data.getTelefono());
 
 		//3.
@@ -74,7 +76,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		if(clienteExiste != null) {
 			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00012);
-			var mensajeTecnico = "validarClienteMismoNumeroDocumento";
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00107);
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
@@ -83,8 +85,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		
 		if(factory.getClienteDAO().existeTelefono(valor, numeroDocumento)) {
 			
-        	var mensajeUsuario = "validarClienteMismoNumeroTelefono holaaaaaaaaa";
-        	var mensajeTecnico = "validarClienteMismoNumeroTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00108);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00109);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
@@ -93,8 +95,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 		
 		if(factory.getClienteDAO().existeCorreo(valor, numeroDocumento)) {
 			
-        	var mensajeUsuario = "validarClienteMismoCorreo";
-        	var mensajeTecnico = "validarClienteMismoCorreo";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00110); 
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00111);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 		
@@ -106,19 +108,19 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00045);
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00112);
             throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!TextHelper.validarSoloNumeros(valor)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00046);
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00113);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor,1,15)) {
-        	var mensajeUsuario = "validarNumeroDocumento";
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00114);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00115);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     	
@@ -128,13 +130,13 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00047);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00116);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor, 1, 60)) {
-        	var mensajeUsuario = "validarNombre";
-        	var mensajeTecnico = "validarNombre";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00117);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00118);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
@@ -143,14 +145,14 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     private void validarApellido(final String valor) {
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
-        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00047);
-        	var mensajeTecnico = "validarApellido";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00048);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00119);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor, 1, 100)) {
-        	var mensajeUsuario = "validarApellido";
-        	var mensajeTecnico = "validarApellido";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00120);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00121);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
@@ -160,17 +162,17 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     private void validarCorreo(final String valor) {
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00050);
-        	var mensajeTecnico = "validarCorreo";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00122);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if (!TextHelper.validarFormatoCorreo(valor)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00051);
-        	var mensajeTecnico = "validarCorreo";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00123);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if (!validarLongitud(valor,6,255)) {
-        	var mensajeUsuario = "validarCorreo";
-        	var mensajeTecnico = "validarCorreo";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00124);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00125);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     }
@@ -179,24 +181,24 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	
     	String numeroTelefono = String.valueOf(valor);
     	
-        if (ObjectHelper.getObjectHelper().isNull(numeroTelefono) || numeroTelefono.trim().isEmpty()) {
+        if (valor == 0) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00052);
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00126);
         	throw new BusinessCMDBException(mensajeUsuario,mensajeTecnico);
         }
         if (!validarLongitud(numeroTelefono,1,10)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00053);
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00127);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
-        	var mensajeUsuario = "validarTelefono";
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00128);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00129);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!LongHelper.validarRango(valor)) {
-        	var mensajeUsuario = "validarTelefono";
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00130);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00131);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     	
@@ -223,8 +225,8 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
     	
     	if (tipoDocumentoResultado.isEmpty()) {
-    		var mensajeUsuario = "validarExisteTipoDocumento Usuario";
-    		var mensajeTecnico = "validarExisteTipoDocumento";
+    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
+    		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00133);
     		
     		throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
     	}

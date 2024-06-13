@@ -40,7 +40,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00011.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00011, "El dao factory para registrar el cliente llegó nulo"));
 		mensajes.put(CodigoMensaje.M00012.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00012, "Ya existe un cliente con el nombre ... asociada con el número de documento"));
+				new Mensaje(CodigoMensaje.M00012, "Ya existe un cliente asociado al número de documento y tipo de documento ingresados. Por favor verifique la información "));
 		mensajes.put(CodigoMensaje.M00013.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00013, "Se ha presentado un problema tratando de eliminar la informacion del cliente..."));
 		mensajes.put(CodigoMensaje.M00014.getIdentificador(),
@@ -173,6 +173,116 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00077, "Proveedor actualizado exitosamente"));
 		mensajes.put(CodigoMensaje.M00078.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00078, "TipoDocumento eliminado exitosamente"));
+		mensajes.put(CodigoMensaje.M00079.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00079, "Cliente consultado exitosamente"));
+		mensajes.put(CodigoMensaje.M00080.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00080, "Se ha presentado un problema tratando de actualizar un cliente, Si el problema persiste contacte al administrador"));
+		mensajes.put(CodigoMensaje.M00081.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00081, "Se ha presentado una excepción tipo SQLException tratando de realizar la actualización del cliente ... en la tabla de clienres de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00082.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00082, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la actualización del proveedor ... en la tabla clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00083.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00083, "Se ha presentado un problema tratando de consultar un cliente, Si el problema persiste contacte al administrador"));
+		mensajes.put(CodigoMensaje.M00084.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00084, "Se ha presentado una excepción tipo SQLException tratando de realizar la consulta del cliente ... en la tabla de clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00085.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00085, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la consulta del cliente ... en la tabla clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00086.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00086, "El correo que se ingresó ya existe. Por favor intente con otro"));
+		mensajes.put(CodigoMensaje.M00087.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00087, "Se ha presentado una excepción tipo SQLException tratando de realizar la validación del correo del cliente ... en la tabla de clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00088.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00088, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la validación del correo del cliente ... en la tabla clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00089.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00089, "El teléfono que se ingresó ya está asociado a otro cliente. Por favor intente con otro"));
+		mensajes.put(CodigoMensaje.M00090.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00090, "Se ha presentado una excepción tipo SQLException tratando de realizar la validación del teléfono del cliente ... en la tabla de clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00091.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00091, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la validación del teléfono del cliente ... en la tabla clientes de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00092.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00092, "El teléfono que se ingresó ya está asociado a otro proveedor. Por favor intente con otro"));
+		mensajes.put(CodigoMensaje.M00093.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00093, "Se ha presentado una excepción tipo SQLException tratando de realizar la validación del teléfono del proveedor ... en la tabla de proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00094.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00094, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de realizar la validación del teléfono del proveedor ... en la tabla proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00095.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00095, "Se ha presentado un problema tratando de consultar el proveedor por su número de documento, Si el problema persiste contacte al administrador"));
+		mensajes.put(CodigoMensaje.M00096.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00096, "Se ha presentado una excepción tipo SQLException tratando de consultar un proveedor por su número de documento ... en la tabla de proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00097.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00097, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de consultar un proveedor por su número de documento ... en la tabla proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00098.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00098, "Se ha presentado un problema tratando de consultar el proveedor por su número de documento y tipo de documento, Si el problema persiste contacte al administrador"));
+		mensajes.put(CodigoMensaje.M00099.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00099, "Se ha presentado una excepción tipo SQLException tratando de consultar un proveedor por su número de documento y tipo de documento ... en la tabla de proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00100.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00100, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de consultar un proveedor por su número de documento y tipo de documento ... en la tabla proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
+		mensajes.put(CodigoMensaje.M00101.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00101, "Se ha presemtado un problema tratando de consultar el cliente por ID."));
+		mensajes.put(CodigoMensaje.M00102.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00102, "Error técnico al ejecutar el caso de uso ConsultarPorIdCliente."));
+		mensajes.put(CodigoMensaje.M00103.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00103, "Se ha presentado un problema tratando de actualizar la informacion del cliente..."));
+		mensajes.put(CodigoMensaje.M00104.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00104, "Se ha presentado un problema INESPERADO tratando de actualizar el cliente"));
+		mensajes.put(CodigoMensaje.M00105.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00105, "Se ha producido un problema tratando de llevar a cabo la actualización del cliente"));
+		mensajes.put(CodigoMensaje.M00106.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00106, "El dao factory para consultar el cliente llegó nulo"));
+		mensajes.put(CodigoMensaje.M00107.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00107, "No fue posible el registro cliente debido a que ya existe un cliente asociado al número de documento y tipo de documento ingresados"));
+		mensajes.put(CodigoMensaje.M00108.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00108, "El número de teléfono ingresado ya está asociado a otro cliente"));
+		mensajes.put(CodigoMensaje.M00109.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00109, "No fue posible el registro del cliente debido a que el número de teléfono ya está en uso"));
+		mensajes.put(CodigoMensaje.M00110.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00110, "El correo ingresado ya está asociado a otro cliente"));
+		mensajes.put(CodigoMensaje.M00111.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00111, "No fue posible el registro del cliente debido a que el correo ya está en uso"));
+		mensajes.put(CodigoMensaje.M00112.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00112, "No fue posible el registro del cliente ya que el número de teléfono ya está en uso"));
+		mensajes.put(CodigoMensaje.M00113.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00113, "No fue posible el registro del cliente ya que el número de teléfono solo puede contener números"));
+		mensajes.put(CodigoMensaje.M00114.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00114, "El numero de identificacion del cliente no cumple con el rango establecido.Debe proporcionar un numero de identificacion válido para el cliente."));
+		mensajes.put(CodigoMensaje.M00115.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00115, "No fue posible el registro del cliente ya que el número de teléfono solo puede iniciar desde el número 3..."));
+		mensajes.put(CodigoMensaje.M00116.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00116, "No fue posible el registro del cliente debido a que el campo de nombre llegó vacío"));
+		mensajes.put(CodigoMensaje.M00117.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00117, "El nombre ingresado no se encuentra en el rango permitido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00118.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00118, "No fue posible el registro del cliente debido a que el nombre ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00119.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00119, "No fue posible el registro del cliente debido a que el campo de apellido llegó vacío"));
+		mensajes.put(CodigoMensaje.M00120.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00120, "El apellido ingresado no se encuentra en el rango permitido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00121.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00121, "No fue posible el registro del cliente debido a que el apellido ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00122.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00122, "No fue posible el registro del cliente debido a que el campo de correo llegó vacío"));
+		mensajes.put(CodigoMensaje.M00123.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00123, "No fue posible el registro del cliente debido a que el correo ingresado no se encuentra bajo el formato permitido"));
+		mensajes.put(CodigoMensaje.M00124.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00124, "El correo ingresado no se encuentra en el rango permitido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00125.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00125, "No fue posible el registro del cliente debido a que el correo ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00126.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00126, "No fue posible el registro del cliente debido a que el campo de teléfono llegó vacío"));
+		mensajes.put(CodigoMensaje.M00127.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00127, "No fue posbile el registro del cliente debido a que el teléfono ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00128.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00128, "El teléfono ingresado no se encuentra en el formato correcto. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00129.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00129, "No fue posible el registro del cliente debido a que el teléfono ingresado no se encuentra en el formato permitido"));
+		mensajes.put(CodigoMensaje.M00130.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00130, "El teléfono ingresado no se encuentra en el rango definido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00131.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00131, "No fue posible el registro del cliente debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
+		mensajes.put(CodigoMensaje.M00132.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00132, "El tipo de documento ingresado no existe. Por favor intente con otro"));
+		mensajes.put(CodigoMensaje.M00133.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00133, "No fue posible el registro del cliente debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
 	}
 		
 

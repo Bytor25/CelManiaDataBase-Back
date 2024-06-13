@@ -8,4 +8,7 @@ public interface ProveedorDAO extends CreateDAO<ProveedorEntity>, RetrieveDAO<Pr
 	
 	ProveedorEntity consultarPorNumeroDocumento(String numeroDocumento);
 	
+	ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento);
+	
+	
 }

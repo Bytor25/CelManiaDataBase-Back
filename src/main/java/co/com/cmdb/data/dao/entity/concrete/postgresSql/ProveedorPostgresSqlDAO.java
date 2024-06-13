@@ -175,12 +175,12 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
                 }
             }
         } catch (final SQLException excepcion) {
-            var mensajeUsuario = "a";
-            var mensajeTecnico = "a";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00092);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00093);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         } catch (final Exception excepcion) {
-            var mensajeUsuario = "a";
-            var mensajeTecnico = "a";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00092);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00094);
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
         
@@ -225,19 +225,72 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	            }
 	        }
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00025);
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00095);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00096);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 
 	    } catch (final Exception excepcion) {
-	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00024);
-	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00026);
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00095);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00097);
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 
 	    return proveedor;
 
 	}
+
+	@Override
+	public ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento) {
+		
+	    final StringBuilder sentenciaSql = new StringBuilder();
+
+	    sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.tipo_documento as identificadorTipoDocumento, ")
+	                .append("P.numero_documento as numeroDocumentoProveedor, TD.nombre as nombreTipoId, ")
+	                .append("P.nombre as nombreProveedor, P.telefono as telefonoProveedor ")
+	                .append("FROM proveedores P ")
+	                .append("INNER JOIN tipos_documentos TD ")
+	                .append("ON P.tipo_documento = TD.identificador ")
+	                .append("WHERE P.numero_documento = ? AND P.tipo_documento = ?");
+
+	    ProveedorEntity proveedor = null;
+
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
+	        sentenciaSqlPreparada.setObject(2, identificadorDocumento);
+
+	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+	            if (resultado.next()) {
+	            	
+	            	
+	                proveedor = ProveedorEntity.build();
+	                
+	                proveedor.setIdentificador(UUID.fromString(resultado.getString("identificadorProveedor")));
+	                proveedor.setNumeroDocumento(resultado.getString("numeroDocumentoProveedor"));
+	                proveedor.setNombre(resultado.getString("nombreProveedor"));
+	                proveedor.setTelefono(resultado.getLong("telefonoProveedor"));
+	                
+	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
+	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+	                proveedor.setTipoDocumento(tipoDocumento);
+
+
+	            }
+	        }
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00098);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00099);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00098);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00100);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+
+	    return proveedor;
+	}
+	
+	
 
 
 
