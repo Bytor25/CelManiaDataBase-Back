@@ -234,9 +234,10 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
+	        
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
-	            if (resultado.next()) {
+	            while (resultado.next()) {
 
 	                ClienteEntity cliente = ClienteEntity.build();
 
@@ -268,7 +269,6 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 
-	    System.out.println(clientes);
 	    return clientes;
 	}
 
@@ -348,6 +348,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	    ClienteEntity cliente = null;
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	    	
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
 	        sentenciaSqlPreparada.setObject(2, identificadorDocumento);
 

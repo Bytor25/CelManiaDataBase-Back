@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.cmdb.business.facade.impl.cliente.ActualizarClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.ConsultarClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.ConsultarPorIdClientesFacade;
+import co.com.cmdb.business.facade.impl.cliente.ConsultarPorIdTipoDocumentoClientesFacade;
 import co.com.cmdb.business.facade.impl.cliente.RegistrarClientesFacade;
 import co.com.cmdb.controller.response.ClienteResponse;
 import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.ClienteDTO;
+import co.com.cmdb.dto.TipoDocumentoDTO;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
@@ -131,8 +133,7 @@ public class ClienteController {
             clienteDto.setNumeroDocumento(id);
             var facade = new ConsultarPorIdClientesFacade();
 
-            var resultado = facade.execute(clienteDto);
-            clienteResponse.setDatos(resultado); 
+            clienteResponse.setDatos(facade.execute(clienteDto)); 
             var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
             clienteResponse.getMensajes().add(mensajeUsuario);
 
@@ -151,4 +152,40 @@ public class ClienteController {
         return new ResponseEntity<>(clienteResponse, httpStatusCode);
     }
 	
+    
+    @GetMapping("/{id}/{tipoDocumento}")
+    public ResponseEntity<ClienteResponse> consultarPorIdTipoDocumento(@PathVariable String id, @PathVariable int tipoDocumento){
+        var httpStatusCode = HttpStatus.ACCEPTED;
+        var clienteResponse = new ClienteResponse();
+
+        try {
+        	
+        	var tipoDocumentoDto = TipoDocumentoDTO.build();
+        	tipoDocumentoDto.setIdentificador(tipoDocumento);
+            var clienteDto = ClienteDTO.build().setTipoDocumento(tipoDocumentoDto);
+            clienteDto.setNumeroDocumento(id);
+            
+            var facade = new ConsultarPorIdTipoDocumentoClientesFacade();
+
+            var resultado = facade.execute(clienteDto);
+            clienteResponse.setDatos(List.of(resultado)); 
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
+            clienteResponse.getMensajes().add(mensajeUsuario);
+
+        } catch (final CMDBExceptions excepcion) {
+            httpStatusCode = HttpStatus.BAD_REQUEST;
+            clienteResponse.getMensajes().add(excepcion.getMensajeUsuario());
+            excepcion.printStackTrace();
+
+        } catch (final Exception excepcion) {
+            httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
+            clienteResponse.getMensajes().add(mensajeUsuario);
+            excepcion.printStackTrace();
+        }
+
+        return new ResponseEntity<>(clienteResponse, httpStatusCode);
+    	
+    }
+    
 }
