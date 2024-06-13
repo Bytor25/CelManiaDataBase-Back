@@ -59,8 +59,8 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 
 		if(factory.getClienteDAO().existeTelefono(valor, numeroDocumento)) {
 			
-        	var mensajeUsuario = "El número de teléfono ingresado ya está asociado a otro cliente";
-        	var mensajeTecnico = "No fue posible la actualización del cliente ya que el número de teléfono ya está en uso";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00108);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00134);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
@@ -68,8 +68,8 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	private final void validarClienteMismoCorreo(final String numeroDocumento, final String valor) {
 		
 		if(factory.getClienteDAO().existeCorreo(valor, numeroDocumento)) {
-        	var mensajeUsuario = "El correo ingresado ya está asociado a otro cliente";
-        	var mensajeTecnico = "No fue posible la actualización del cliente ya que el número de teléfono ya está en uso";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00110); 
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00135);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 		
@@ -79,13 +79,13 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    	
 	        if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00047);
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el campo de nombre llegó vacío";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00136);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        
 	        if (!validarLongitud(valor, 1, 60)) {
-	        	var mensajeUsuario = "El nombre ingresado no se encuentra en el rango permitido. Revise los datos nuevamente";
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el nombre ingresado no se encuentra en el rango permitido";
+	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00117);
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00137);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        
@@ -95,13 +95,13 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    	
 	        if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00048);
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el campo de apellido llegó vacío";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00138);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        
 	        if (!validarLongitud(valor, 1, 100)) {
-	        	var mensajeUsuario = "El apellido ingresado no se encuentra en el rango permitido. Revise los datos nuevamente";
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el apellido ingresado no se encuentra en el rango permitido";
+	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00120);
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00139);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        
@@ -111,17 +111,17 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    private void validarCorreo(final String valor) {
 	        if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00050);
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el campo de correo llegó vacío";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00140);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        if (!TextHelper.validarFormatoCorreo(valor)) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00051);
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el correo ingresado no se encuentra bajo el formato permitido";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00141);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        if (!validarLongitud(valor,6,255)) {
-	        	var mensajeUsuario = "El correo ingresado no se encuentra en el rango permitido. Revise los datos nuevamente";
-	        	var mensajeTecnico = "No fue posible el registro del cliente debido a que el correo ingresado no se encuentra en el rango permitido";
+	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00124);
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00142);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	    }
@@ -132,22 +132,22 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    	
 	        if (ObjectHelper.getObjectHelper().isNull(numeroTelefono) || numeroTelefono.trim().isEmpty()) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00052);
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el campo de teléfono llegó vacío";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00143);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        if (!validarLongitud(numeroTelefono,1,10)) {
 	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00053);
-	        	var mensajeTecnico = "No fue posbile la actualización del cliente debido a que el teléfono ingresado no se encuentra en el rango permitido";
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00144);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
-	        	var mensajeUsuario = "El teléfono ingresado no se encuentra en el formato correcto. Revise los datos nuevamente";
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el teléfono ingresado no se encuentra en el formato permitido";
+	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00128); 
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00145);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	        if(!LongHelper.validarRango(valor)) {
-	        	var mensajeUsuario = "El teléfono ingresado no se encuentra en el rango definido. Revise los datos nuevamente";
-	        	var mensajeTecnico = "No fue posible la actualización del cliente debido a que el teléfono ingresado no se encuentra dentro del rango definido";
+	        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00130);
+	        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00146);
 	        	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	        }
 	    	
@@ -167,8 +167,9 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    	var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
 	    	
 	    	if (tipoDocumentoResultado.isEmpty()) {
-	    		var mensajeUsuario = "El tipo de documento ingresado no existe. Por favor intente con otro";
-	    		var mensajeTecnico = "No fue posible la actualización del cliente debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL";
+	    		
+	    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
+	    		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00147);
 	    		
 	    		throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 	    	}

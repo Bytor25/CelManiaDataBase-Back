@@ -162,7 +162,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 		final StringBuilder sentenciaSql = new StringBuilder();
         
         sentenciaSql.append("SELECT COUNT(*) ");
-        sentenciaSql.append("FROM proveedores ");
+        sentenciaSql.append("FROM proveedores "); 
         sentenciaSql.append("WHERE telefono = ? AND numero_documento <> ?");
         
         try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {

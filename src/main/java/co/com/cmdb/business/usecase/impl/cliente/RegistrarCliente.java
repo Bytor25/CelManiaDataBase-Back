@@ -225,6 +225,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
     	var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
     	
     	if (tipoDocumentoResultado.isEmpty()) {
+    		
     		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
     		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00133);
     		

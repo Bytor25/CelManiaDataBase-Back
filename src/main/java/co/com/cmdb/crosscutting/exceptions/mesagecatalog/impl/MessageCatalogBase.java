@@ -283,6 +283,81 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00132, "El tipo de documento ingresado no existe. Por favor intente con otro"));
 		mensajes.put(CodigoMensaje.M00133.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00133, "No fue posible el registro del cliente debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
+		mensajes.put(CodigoMensaje.M00134.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00134, "No fue posible la actualización del cliente debido a que el número de teléfono ya está en uso"));
+		mensajes.put(CodigoMensaje.M00135.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00135, "No fue posible la actualización del cliente debido a que el correo ya está en uso"));
+		mensajes.put(CodigoMensaje.M00136.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00136, "No fue posible la actualización del cliente debido a que el campo de nombre llegó vacío"));
+		mensajes.put(CodigoMensaje.M00137.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00137, "No fue posible la actualización del cliente debido a que el nombre ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00138.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00138, "No fue posible la actualización del cliente debido a que el campo de apellido llegó vacío"));
+		mensajes.put(CodigoMensaje.M00139.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00139, "No fue posible la actualización del cliente debido a que el apellido ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00140.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00140, "No fue posible la actualización del cliente debido a que el campo de correo llegó vacío"));
+		mensajes.put(CodigoMensaje.M00141.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00141, "No fue posible la actualización del cliente debido a que el correo ingresado no se encuentra bajo el formato permitido"));
+		mensajes.put(CodigoMensaje.M00142.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00142, "No fue posible la actualización del cliente debido a que el correo ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00143.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00143, "No fue posible la actualización del cliente debido a que el campo de teléfono llegó vacío"));
+		mensajes.put(CodigoMensaje.M00144.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00144, "No fue posible la actualización del cliente debido a que el teléfono ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00145.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00145, "No fue posible la actualización del cliente debido a que el teléfono ingresado no se encuentra en el formato permitido"));
+		mensajes.put(CodigoMensaje.M00146.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00146, "No fue posible la actualización del cliente debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
+		mensajes.put(CodigoMensaje.M00147.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00147, "No fue posible la actualización del cliente debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
+		mensajes.put(CodigoMensaje.M00148.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00148, "Ya existe un proveedor asociado al mismo número de documento y tipo de documento ingresados"));
+		mensajes.put(CodigoMensaje.M00149.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00149, "No fue posible el registro de proveedor debido a que ya existe un proveedor con el mismo número de documento y tipo de documento ingresados"));
+		mensajes.put(CodigoMensaje.M00150.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00150, "El numero de identificación del proveedor está vacío.Debe proporcionar un numero de identificacion válido para el proveedor."));
+		mensajes.put(CodigoMensaje.M00151.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00151, "No fue posible el registro de proveedor debido a que el campo de numero de documento llegó nulo"));
+		mensajes.put(CodigoMensaje.M00152.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00152, "El numero de identificación del proveedor contiene caracteres no válidos. Debe proporcionar un numero de identificación válido que contenga solo números."));
+		mensajes.put(CodigoMensaje.M00153.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00153, "No fue posible el registro del proveedor ya que el número de teléfono solo puede contener números"));
+		mensajes.put(CodigoMensaje.M00154.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00154, "El numero de identificacion del proveedor no cumple con el rango establecido.Debe proporcionar un numero de identificacion válido para el proveedor."));
+		mensajes.put(CodigoMensaje.M00155.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00155, "No fue posible el registro del proveedor ya que el número de teléfono solo puede iniciar desde el número 3..."));
+		mensajes.put(CodigoMensaje.M00156.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00156, "El número de teléfono ingresado ya está asociado a otro proveedor"));
+		mensajes.put(CodigoMensaje.M00157.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00157, "No fue posible el registro del proveedor debido a que el número de teléfono ya está en uso"));
+		mensajes.put(CodigoMensaje.M00158.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00158, "El nombre del proveedor está vacío. Debe proporcionar un nombre válido para el proveedor."));
+		mensajes.put(CodigoMensaje.M00159.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00159, "No fue posible el registro del proveedor debido a que el campo de nombre llegó vacío"));
+		mensajes.put(CodigoMensaje.M00160.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00160, "El nombre ingresado no se encuentra en el rango permitido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00161.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00161, "No fue posible el registro del proveedor debido a que el nombre ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00162.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00162, "El número de teléfono del proveedor es nulo. Debe proporcionar un número de teléfono válido para el proveedor."));
+		mensajes.put(CodigoMensaje.M00163.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00163, "No fue posible el registro del proveedor debido a que el campo de teléfono llegó vacío"));
+		mensajes.put(CodigoMensaje.M00164.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00164, "El número de teléfono del proveedor es inválido. Debe proporcionar un número de teléfono válido de 10 dígitos para el proveedor."));
+		mensajes.put(CodigoMensaje.M00165.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00165, "No fue posbile el registro del proveedor debido a que el teléfono ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00166.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00166, "El teléfono ingresado no se encuentra en el formato correcto. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00167.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00167, "No fue posible el registro del proveedor debido a que el teléfono ingresado no se encuentra en el formato permitido"));
+		mensajes.put(CodigoMensaje.M00168.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00168, "El teléfono ingresado no se encuentra en el rango definido. Revise los datos nuevamente"));
+		mensajes.put(CodigoMensaje.M00169.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00169, "No fue posible el registro del proveedor debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
+		mensajes.put(CodigoMensaje.M00170.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00170, "No fue posible el registro del proveedor debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
+	
 	}
 		
 

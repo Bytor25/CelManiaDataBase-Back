@@ -67,8 +67,8 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		
 		if(proveedorExiste != null) {
 			
-			var mensajeUsuario = "Ya existe un proveedor asociado al mismo número de documento y tipo de documento ingresados ;(";
-			var mensajeTecnico = "loco";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00148);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00149);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			
@@ -79,20 +79,20 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 	private void validarNumeroDocumento( final String valor) {
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
-        	var mensajeUsuario = "";
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00150);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00151);
             throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!TextHelper.validarSoloNumeros(valor)) {
-        	var mensajeUsuario = "nums";
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00152);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00153);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor,1,15)) {
-        	var mensajeUsuario = "validarNumeroDocumento";
-        	var mensajeTecnico = "validarNumeroDocumento";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00154);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00155);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     	
@@ -102,8 +102,8 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		
 		if(factory.getProveedorDAO().existeTelefono(valor, numeroDocumento)) {
 			
-        	var mensajeUsuario = "validarClienteMismoNumeroTelefono holaaaaaaaaa";
-        	var mensajeTecnico = "validarClienteMismoNumeroTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00156);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00157);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
@@ -111,14 +111,14 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 	private void validarNombre(final String valor) {
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
-        	var mensajeUsuario = "lol";
-        	var mensajeTecnico = "";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00158);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00159);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor, 1, 60)) {
-        	var mensajeUsuario = "validarNombre";
-        	var mensajeTecnico = "validarNombre";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00160);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00161);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
@@ -128,24 +128,24 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
     	
     	String numeroTelefono = String.valueOf(valor);
     	
-        if (ObjectHelper.getObjectHelper().isNull(numeroTelefono) || numeroTelefono.trim().isEmpty()) {
-        	var mensajeUsuario = "telefonomalo";
-        	var mensajeTecnico = "validarTelefono";
+        if (valor == 0) {
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00162);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00163);
         	throw new BusinessCMDBException(mensajeUsuario,mensajeTecnico);
         }
         if (!validarLongitud(numeroTelefono,1,10)) {
-        	var mensajeUsuario = "";
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00164);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00165);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
-        	var mensajeUsuario = "validarTelefono";
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00166);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00167);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!LongHelper.validarRango(valor)) {
-        	var mensajeUsuario = "validarTelefono";
-        	var mensajeTecnico = "validarTelefono";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00168);
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00169);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     	
@@ -162,10 +162,10 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		var tipoDocumentoEntity = TipoDocumentoEntity.build().setIdentificador(TipoDocumento);
 		var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
 		
-		if(tipoDocumentoResultado.isEmpty()) {
+		if(tipoDocumentoResultado.isEmpty() || TipoDocumento == 0) {
 			
-			var mensajeUsuario = "El tipo de documento que se seleccionó no existe";
-			var mensajeTecnico = "El tipo de documento que se seleccionó no existe en la base de datos";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00170);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			
