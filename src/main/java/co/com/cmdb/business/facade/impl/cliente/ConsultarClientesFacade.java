@@ -24,7 +24,7 @@ public class ConsultarClientesFacade implements FacadeWithReturn<ClienteDTO, Lis
 
 	@Override
 	public List<ClienteDTO> execute(final ClienteDTO dto) {
-		daoFactory.iniciarTransaccion();
+		daoFactory.iniciarTransaccion(); 
 		try {
             
 			var useCase = new ConsultarCliente(daoFactory);

@@ -218,7 +218,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	}
 	
 	@Override
-	public ClienteEntity consultarPorid(String numeroDocumento) {
+	public List<ClienteEntity> consultarPorid(String numeroDocumento) {
 	  
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
@@ -230,7 +230,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	                .append("ON C.tipo_documento = TD.identificador ")
 	                .append("WHERE C.numero_documento = ?");
 
-	    ClienteEntity cliente = null;
+	    final List<ClienteEntity> clientes = new ArrayList<>();
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
@@ -238,7 +238,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            if (resultado.next()) {
 
-	                cliente = ClienteEntity.build();
+	                ClienteEntity cliente = ClienteEntity.build();
 
 	                cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
 	                cliente.setNumeroDocumento(resultado.getString("numeroDocumentoCliente"));
@@ -253,6 +253,8 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	                tipoDocumento.setIdentificador(resultado.getInt("identificadorTipoDocumento"));
 
 	                cliente.setTipoDocumento(tipoDocumento);
+	                
+	                clientes.add(cliente);
 	            }
 	        }
 	    } catch (final SQLException excepcion) {
@@ -266,7 +268,8 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
 	    }
 
-	    return cliente;
+	    System.out.println(clientes);
+	    return clientes;
 	}
 
 	

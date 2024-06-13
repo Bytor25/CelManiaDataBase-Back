@@ -56,12 +56,10 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			
 			validarClienteMismoNumeroTelefono(data.getNumeroDocumento(),data.getTelefono());
 
-		//3.
 		
 		var clienteEntity = ClienteEntity.build().setIdentificador(generarIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
 				.setApellidos(data.getApellidos()).setCorreo(data.getCorreo()).setTelefono(data.getTelefono()).setEstado(data.isEstado());
-		//4.
 
 			factory.getClienteDAO().crear(clienteEntity);
 	

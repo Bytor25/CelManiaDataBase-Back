@@ -280,7 +280,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00131.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00131, "No fue posible el registro del cliente debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
 		mensajes.put(CodigoMensaje.M00132.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00132, "El tipo de documento ingresado no existe. Por favor intente con otro"));
+				new Mensaje(CodigoMensaje.M00132, "El tipo de documento ingresado no existe o está vacio. Por favor ingrese un tipo de documento o intente con otro "));
 		mensajes.put(CodigoMensaje.M00133.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00133, "No fue posible el registro del cliente debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
 		mensajes.put(CodigoMensaje.M00134.getIdentificador(),

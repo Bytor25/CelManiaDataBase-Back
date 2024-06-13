@@ -1,5 +1,7 @@
 package co.com.cmdb.business.usecase.impl.cliente;
 
+import java.util.List;
+
 import co.com.cmdb.business.assembler.entity.impl.ClienteAssemblerEntity;
 import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.usecase.UseCaseWithReturn;
@@ -7,7 +9,7 @@ import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
-public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, ClienteDomain>{
+public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, List<ClienteDomain>>{
 	
 	private DAOFactory factory;
 
@@ -23,7 +25,7 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, C
 	}
 
 	@Override
-    public ClienteDomain execute(ClienteDomain data) {
+    public List<ClienteDomain> execute(final ClienteDomain data) {
 	
         if (TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
             var mensajeUsuario = "El número de documento no puede ser nulo.";
@@ -41,7 +43,7 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, C
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
         }
 
-        return ClienteAssemblerEntity.getInstance().toDomain(resultadoEntity);
+        return ClienteAssemblerEntity.getInstance().toDomainCollection(resultadoEntity);
     }
 
 }

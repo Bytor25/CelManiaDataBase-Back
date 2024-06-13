@@ -132,7 +132,7 @@ public class ClienteController {
             var facade = new ConsultarPorIdClientesFacade();
 
             var resultado = facade.execute(clienteDto);
-            clienteResponse.setDatos(List.of(resultado)); 
+            clienteResponse.setDatos(resultado); 
             var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
             clienteResponse.getMensajes().add(mensajeUsuario);
 

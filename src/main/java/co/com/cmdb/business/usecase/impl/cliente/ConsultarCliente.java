@@ -19,6 +19,7 @@ public class ConsultarCliente implements UseCaseWithReturn<ClienteDomain, List<C
 	private DAOFactory factory;
 
 	public ConsultarCliente(final DAOFactory factory) {
+		
 		if (ObjectHelper.getObjectHelper().isNull(factory)) {
 			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
