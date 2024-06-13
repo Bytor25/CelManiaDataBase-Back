@@ -329,5 +329,57 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
         
         return false;
     }
+	@Override
+	public ClienteEntity consultarPoridTipoDocumento(String numeroDocumento, int identificadorDocumento) {
+		  
+	    final StringBuilder sentenciaSql = new StringBuilder();
+
+	    sentenciaSql.append("SELECT C.identificador as identificadorCliente, C.tipo_documento as identificadorTipoDocumento, ")
+	                .append("C.numero_documento as numeroDocumentoCliente, TD.nombre as nombreTipoId, ")
+	                .append("C.nombre as nombreCliente, C.apellidos as apellidosCliente, C.correo as correoCliente, C.telefono as telefonoCliente, C.estado as estadoCliente ")
+	                .append("FROM clientes C ")
+	                .append("INNER JOIN tipos_documentos TD ")
+	                .append("ON C.tipo_documento = TD.identificador ")
+	                .append("WHERE C.numero_documento = ? AND C.tipo_documento = ?");
+
+	    ClienteEntity cliente = null;
+
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
+	        sentenciaSqlPreparada.setObject(2, identificadorDocumento);
+
+	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
+	            if (resultado.next()) {
+
+	                cliente = ClienteEntity.build();
+
+	                cliente.setIdentificador(UUID.fromString(resultado.getString("identificadorCliente")));
+	                cliente.setNumeroDocumento(resultado.getString("numeroDocumentoCliente"));
+	                cliente.setNombre(resultado.getString("nombreCliente"));
+	                cliente.setApellidos(resultado.getString("apellidosCliente"));
+	                cliente.setCorreo(resultado.getString("correoCliente"));
+	                cliente.setTelefono(resultado.getLong("telefonoCliente"));
+	                cliente.setEstado(resultado.getBoolean("estadoCliente"));
+
+	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
+	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+	                tipoDocumento.setIdentificador(resultado.getInt("identificadorTipoDocumento"));
+
+	                cliente.setTipoDocumento(tipoDocumento);
+	            }
+	        }
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00083);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00084);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00083);
+	        var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00085);
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+
+	    return cliente;
+	}
 
 }

@@ -166,7 +166,7 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	    	
 	    	var tipoDocumentoResultado = factory.getTipoDocumentoDAO().consultar(tipoDocumentoEntity);
 	    	
-	    	if (tipoDocumentoResultado.isEmpty()) {
+	    	if (tipoDocumentoResultado.isEmpty() || TipoDocumento == 0) {
 	    		
 	    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
 	    		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00147);
