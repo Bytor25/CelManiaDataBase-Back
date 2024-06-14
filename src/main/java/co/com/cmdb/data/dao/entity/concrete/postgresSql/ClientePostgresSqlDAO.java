@@ -83,8 +83,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        sentenciaSqlPreparada.setString(3, data.getApellidos());
 	        sentenciaSqlPreparada.setString(4, data.getCorreo());
 	        sentenciaSqlPreparada.setLong(5, data.getTelefono());
-	        sentenciaSqlPreparada.setBoolean(6, data.isEstado());
-	        sentenciaSqlPreparada.setString(7, data.getNumeroDocumento());
+	        sentenciaSqlPreparada.setString(6, data.getNumeroDocumento());
 
 	        sentenciaSqlPreparada.executeUpdate();
 
