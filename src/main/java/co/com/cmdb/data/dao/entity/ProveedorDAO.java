@@ -1,6 +1,7 @@
 package co.com.cmdb.data.dao.entity;
 
 import java.util.List;
+import java.util.UUID;
 
 import co.com.cmdb.entity.ProveedorEntity;
 
@@ -10,7 +11,7 @@ public interface ProveedorDAO extends CreateDAO<ProveedorEntity>, RetrieveDAO<Pr
 	
 	List<ProveedorEntity> consultarPorNumeroDocumento(String numeroDocumento);
 	
-	ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento);
+	ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento, UUID identificador);
 	
 	
 }

@@ -42,7 +42,7 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		
 		validarNumeroDocumento(data.getNumeroDocumento());
 			
-		validarProveedorMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador());
+		validarProveedorMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador(), data.getIdentificador());
 		
 		validarNombre(data.getNombre());
 		
@@ -61,9 +61,9 @@ public final class RegistrarProveedor implements UseCaseWithoutReturn<ProveedorD
 		
 	}
 	
-	private final void validarProveedorMismoNumeroDocumentoMismoTipoDocumento(final String numeroDocumento, int identificadorDocumento) {
+	private final void validarProveedorMismoNumeroDocumentoMismoTipoDocumento(final String numeroDocumento, int identificadorDocumento, UUID identificador) {
 		
-		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(numeroDocumento, identificadorDocumento);
+		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(numeroDocumento, identificadorDocumento,identificador);
 		
 		if(proveedorExiste != null) {
 			

@@ -413,8 +413,17 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00198, "No se encontró el proveedor con el numero de documento proporcionado."));
 		mensajes.put(CodigoMensaje.M00199.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00199, "No se encontró ninguna entidad Proveedor con el numero de documento: " ));
+		mensajes.put(CodigoMensaje.M00200.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00200, "El número de documento es nulo o vacío en el método execute de ConsultarPorIdCliente." ));
+		mensajes.put(CodigoMensaje.M00201.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00201, "El tipo de documento es nulo o vacío en el método execute de ConsultarPorIdTipoDocumentoCliente." ));
+		mensajes.put(CodigoMensaje.M00202.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00202, "No se encontró el cliente con el numero de documento proporcionado." ));
+		mensajes.put(CodigoMensaje.M00203.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00203, "No se encontró ninguna entidad Cliente en con el numero de documento: " ));
+		mensajes.put(CodigoMensaje.M00204.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00204, "el DAOfactory para consultar el cliente por su número de identificación llegó nulo..."));
 
-		
 	}
 	
 		

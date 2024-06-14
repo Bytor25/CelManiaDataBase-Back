@@ -160,18 +160,19 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	@Override
 	public void mofidicar(ProveedorEntity data) {
 		
-		System.out.println(data.getTelefono());
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
 	    sentenciaSql.append("UPDATE proveedores SET ");
 	    sentenciaSql.append("tipo_documento = ?, nombre = ?, telefono = ? ");
-	    sentenciaSql.append("WHERE numero_documento = ?");
+	    sentenciaSql.append("WHERE numero_documento = ? AND identificador = ?");
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, data.getTipoDocumento().getIdentificador());
 	        sentenciaSqlPreparada.setString(2, data.getNombre());
 	        sentenciaSqlPreparada.setLong(3, data.getTelefono());
 	        sentenciaSqlPreparada.setString(4, data.getNumeroDocumento());
+	        sentenciaSqlPreparada.setObject(5, data.getIdentificador());
+	        
 
 	        sentenciaSqlPreparada.executeUpdate();
 
@@ -273,7 +274,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	}
 
 	@Override
-	public ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento) {
+	public ProveedorEntity consultarPorNumeroDocumentoTipoDocumento(String numeroDocumento, int identificadorDocumento, UUID identificador) {
 		
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
@@ -283,13 +284,14 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	                .append("FROM proveedores P ")
 	                .append("INNER JOIN tipos_documentos TD ")
 	                .append("ON P.tipo_documento = TD.identificador ")
-	                .append("WHERE P.numero_documento = ? AND P.tipo_documento = ?");
+	                .append("WHERE P.numero_documento = ? AND P.tipo_documento = ? AND P.identificador <> ?");
 
 	    ProveedorEntity proveedor = null;
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
 	        sentenciaSqlPreparada.setObject(2, identificadorDocumento);
+	        sentenciaSqlPreparada.setObject(3, identificador);
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            if (resultado.next()) {

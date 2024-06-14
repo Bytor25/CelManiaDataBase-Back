@@ -1,6 +1,7 @@
 package co.com.cmdb.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,12 +99,12 @@ public class ClienteController {
 	
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteResponse> actualizar(@PathVariable String id, @RequestBody ClienteDTO clienteDto) {
+    public ResponseEntity<ClienteResponse> actualizar(@PathVariable UUID id, @RequestBody ClienteDTO clienteDto) {
         var httpStatusCode = HttpStatus.ACCEPTED;
         var clienteResponse = new ClienteResponse();
 
         try {
-            clienteDto.setNumeroDocumento(id);
+            clienteDto.setIdentificador(id);
             var facade = new ActualizarClientesFacade();
             facade.execute(clienteDto);
             var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00069);
@@ -171,7 +172,7 @@ public class ClienteController {
 
             var resultado = facade.execute(clienteDto);
             clienteResponse.setDatos(List.of(resultado)); 
-            var mensajeUsuario = "";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
             clienteResponse.getMensajes().add(mensajeUsuario);
 
         } catch (final CMDBExceptions excepcion) {

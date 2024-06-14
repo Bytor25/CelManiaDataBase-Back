@@ -1,6 +1,7 @@
 package co.com.cmdb.data.dao.entity;
 
 import java.util.List;
+import java.util.UUID;
 
 import co.com.cmdb.entity.ClienteEntity;
 
@@ -12,7 +13,7 @@ public interface ClienteDAO extends CreateDAO<ClienteEntity>, RetrieveDAO<Client
 	
 	boolean existeTelefono(long telefono, String numeroDocumento);
 	
-	ClienteEntity consultarPoridTipoDocumento(String numeroDocumento, int identificadorDocumento);
+	ClienteEntity consultarPoridTipoDocumento(String numeroDocumento, int identificadorDocumento, UUID identificador);
 	
 	
 }

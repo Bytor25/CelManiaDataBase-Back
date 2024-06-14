@@ -1,5 +1,7 @@
 package co.com.cmdb.business.usecase.impl.cliente;
 
+import java.util.UUID;
+
 import co.com.cmdb.business.assembler.entity.impl.TipoDocumentoAssemblerEntity;
 import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
@@ -32,6 +34,7 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 	public void execute(ClienteDomain data) {
 		
 		validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
+		validarClienteMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador(),data.getIdentificador());
 		
 		validarNombre(data.getNombre());
 		
@@ -46,12 +49,24 @@ public class ActualizarCliente implements UseCaseWithoutReturn<ClienteDomain>{
 		validarClienteMismoNumeroTelefono(data.getNumeroDocumento(),data.getTelefono());
 		
 		
-		var clienteEntity = ClienteEntity.build().setNumeroDocumento(data.getNumeroDocumento())
+		var clienteEntity = ClienteEntity.build().setIdentificador(data.getIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
 				.setApellidos(data.getApellidos()).setCorreo(data.getCorreo()).setTelefono(data.getTelefono()).setEstado(data.isEstado());
 		
 		factory.getClienteDAO().mofidicar(clienteEntity);
 		
+	}
+	
+	private final void validarClienteMismoNumeroDocumentoMismoTipoDocumento(final String valor, final int identificadorDocumento, final UUID identificador) {
+		
+		ClienteEntity clienteExiste = factory.getClienteDAO().consultarPoridTipoDocumento(valor, identificadorDocumento, identificador);
+		
+		if(clienteExiste != null) {
+			
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00012);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00107);
+			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
+		}
 	}
 	
 	

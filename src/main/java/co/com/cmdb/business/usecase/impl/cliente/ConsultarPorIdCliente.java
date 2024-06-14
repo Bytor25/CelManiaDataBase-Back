@@ -6,6 +6,8 @@ import co.com.cmdb.business.assembler.entity.impl.ClienteAssemblerEntity;
 import co.com.cmdb.business.domain.ClienteDomain;
 import co.com.cmdb.business.usecase.UseCaseWithReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
@@ -16,8 +18,8 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, L
 	public ConsultarPorIdCliente(final DAOFactory factory) {
 		if (factory == null) {
 			
-			var mensajeUsuario = "";
-			var mensajeTecnico = "";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00006);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00204);
 			
 			throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
 		}
@@ -28,8 +30,8 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, L
     public List<ClienteDomain> execute(final ClienteDomain data) {
 	
         if (TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
-            var mensajeUsuario = "El número de documento no puede ser nulo.";
-            var mensajeTecnico = "El número de documento es nulo o vacío en el método execute de ConsultarPorIdCliente.";
+        	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00045);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00200);
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
         }
 
@@ -38,8 +40,8 @@ public class ConsultarPorIdCliente implements UseCaseWithReturn<ClienteDomain, L
         var resultadoEntity = factory.getClienteDAO().consultarPorid(clienteEntityFilter.getNumeroDocumento());
 
         if (resultadoEntity == null) {
-            var mensajeUsuario = "No se encontró el cliente con el ID proporcionado.";
-            var mensajeTecnico = "No se encontró ninguna entidad Cliente con el ID: " + clienteEntityFilter.getNumeroDocumento();
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00202);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00203) + clienteEntityFilter.getNumeroDocumento();
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
         }
 

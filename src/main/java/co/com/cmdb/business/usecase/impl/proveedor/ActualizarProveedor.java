@@ -1,5 +1,7 @@
 package co.com.cmdb.business.usecase.impl.proveedor;
 
+import java.util.UUID;
+
 import co.com.cmdb.business.assembler.entity.impl.TipoDocumentoAssemblerEntity;
 import co.com.cmdb.business.domain.ProveedorDomain;
 import co.com.cmdb.business.usecase.UseCaseWithoutReturn;
@@ -38,7 +40,7 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		validarExisteTipoDocumento(data.getTipoDocumento().getIdentificador());
 		
 			
-		validarProveedorMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador());
+		validarProveedorMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(),data.getTipoDocumento().getIdentificador(), data.getIdentificador());
 		
 		validarNombre(data.getNombre());
 		
@@ -47,7 +49,7 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		validarProveedorMismoNumeroTelefono(data.getNumeroDocumento(), data.getTelefono());
 		
 		
-	var proveedorEntity = ProveedorEntity.build().setNumeroDocumento(data.getNumeroDocumento())
+	var proveedorEntity = ProveedorEntity.build().setIdentificador(data.getIdentificador()).setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
 				.setTelefono(data.getTelefono());
 		
@@ -57,9 +59,9 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		
 	}
 	
-	private final void validarProveedorMismoNumeroDocumentoMismoTipoDocumento(final String numeroDocumento, int identificadorDocumento) {
+	private final void validarProveedorMismoNumeroDocumentoMismoTipoDocumento(final String numeroDocumento, int identificadorDocumento, UUID identificador) {
 		
-		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(numeroDocumento, identificadorDocumento);
+		ProveedorEntity proveedorExiste = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(numeroDocumento, identificadorDocumento, identificador);
 		
 		if(proveedorExiste != null) {
 			

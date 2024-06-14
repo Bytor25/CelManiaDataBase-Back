@@ -41,7 +41,7 @@ public class ConsultarPorNDTDProveedor implements UseCaseWithReturn<ProveedorDom
 
         var ProveedorEntityFilter = ProveedorAssemblerEntity.getInstance().toEntity(data);
         
-        var resultadoEntity = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(data.getNumeroDocumento(), data.getTipoDocumento().getIdentificador());
+        var resultadoEntity = factory.getProveedorDAO().consultarPorNumeroDocumentoTipoDocumento(data.getNumeroDocumento(), data.getTipoDocumento().getIdentificador(), data.getIdentificador());
 
         if (resultadoEntity == null) {
             var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00198);

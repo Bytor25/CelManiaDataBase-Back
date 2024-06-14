@@ -42,7 +42,7 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 			
 			validarNumeroDocumento(data.getNumeroDocumento());
 			
-			validarClienteMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(), data.getTipoDocumento().getIdentificador());
+			validarClienteMismoNumeroDocumentoMismoTipoDocumento(data.getNumeroDocumento(), data.getTipoDocumento().getIdentificador(), data.getIdentificador());
 			
 			validarNombre(data.getNombre());
 			
@@ -67,9 +67,9 @@ public final class RegistrarCliente implements UseCaseWithoutReturn<ClienteDomai
 	}
 	
 	
-	private final void validarClienteMismoNumeroDocumentoMismoTipoDocumento(final String valor, final int identificadorDocumento) {
+	private final void validarClienteMismoNumeroDocumentoMismoTipoDocumento(final String valor, final int identificadorDocumento, final UUID identificador) {
 		
-		ClienteEntity clienteExiste = factory.getClienteDAO().consultarPoridTipoDocumento(valor, identificadorDocumento);
+		ClienteEntity clienteExiste = factory.getClienteDAO().consultarPoridTipoDocumento(valor, identificadorDocumento, identificador);
 		
 		if(clienteExiste != null) {
 			

@@ -71,11 +71,12 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 
 	@Override
 	public void mofidicar(ClienteEntity data) {
+		
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
 	    sentenciaSql.append("UPDATE clientes SET ");
 	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, correo = ?, telefono = ? ");
-	    sentenciaSql.append("WHERE numero_documento = ?");
+	    sentenciaSql.append("WHERE numero_documento = ? AND identificador = ?");
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
 	        sentenciaSqlPreparada.setObject(1, data.getTipoDocumento().getIdentificador());
@@ -84,6 +85,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	        sentenciaSqlPreparada.setString(4, data.getCorreo());
 	        sentenciaSqlPreparada.setLong(5, data.getTelefono());
 	        sentenciaSqlPreparada.setString(6, data.getNumeroDocumento());
+	        sentenciaSqlPreparada.setObject(7, data.getIdentificador());
 
 	        sentenciaSqlPreparada.executeUpdate();
 
@@ -332,7 +334,8 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
         return false;
     }
 	@Override
-	public ClienteEntity consultarPoridTipoDocumento(String numeroDocumento, int identificadorDocumento) {
+	public ClienteEntity consultarPoridTipoDocumento(String numeroDocumento, int identificadorDocumento, UUID identificador) {
+		
 		  
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
@@ -342,7 +345,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	                .append("FROM clientes C ")
 	                .append("INNER JOIN tipos_documentos TD ")
 	                .append("ON C.tipo_documento = TD.identificador ")
-	                .append("WHERE C.numero_documento = ? AND C.tipo_documento = ?");
+	                .append("WHERE C.numero_documento = ? AND C.tipo_documento = ? AND C.identificador <> ?");
 
 	    ClienteEntity cliente = null;
 
@@ -350,6 +353,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	    	
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
 	        sentenciaSqlPreparada.setObject(2, identificadorDocumento);
+	        sentenciaSqlPreparada.setObject(3, identificador);
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
 	            if (resultado.next()) {

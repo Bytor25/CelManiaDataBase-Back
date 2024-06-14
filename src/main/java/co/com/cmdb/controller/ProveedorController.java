@@ -1,6 +1,7 @@
 package co.com.cmdb.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,11 +99,11 @@ public class ProveedorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ProveedorResponse> actualizar(@PathVariable String id, @RequestBody ProveedorDTO proveedorDto) {
+	public ResponseEntity<ProveedorResponse> actualizar(@PathVariable UUID id, @RequestBody ProveedorDTO proveedorDto) {
 		var httpStatusCode = HttpStatus.ACCEPTED;
 		var proveedorResponse = new ProveedorResponse();
 		try {
-			proveedorDto.setNumeroDocumento(id);
+			proveedorDto.setIdentificador(id);
 			var facade = new ActualizarProveedorFacade();
 			
 			facade.execute(proveedorDto);
