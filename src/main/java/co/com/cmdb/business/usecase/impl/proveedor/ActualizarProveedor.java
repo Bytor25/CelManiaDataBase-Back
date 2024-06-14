@@ -49,7 +49,7 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		
 	var proveedorEntity = ProveedorEntity.build().setNumeroDocumento(data.getNumeroDocumento())
 				.setTipoDocumento(TipoDocumentoAssemblerEntity.getInstance().toEntity(data.getTipoDocumento())).setNombre(data.getNombre())
-				.setTelefono(data.getTelefono()).setEstado(data.isEstado());
+				.setTelefono(data.getTelefono());
 		
 		
 			factory.getProveedorDAO().mofidicar(proveedorEntity);

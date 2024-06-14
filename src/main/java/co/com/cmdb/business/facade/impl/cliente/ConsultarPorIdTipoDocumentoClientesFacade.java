@@ -18,7 +18,6 @@ public class ConsultarPorIdTipoDocumentoClientesFacade implements FacadeWithRetu
 		daoFactory = DAOFactory.getFactory();
 	}
 	
-
 	@Override
 	public ClienteDTO execute(ClienteDTO dto) {
         daoFactory.iniciarTransaccion();

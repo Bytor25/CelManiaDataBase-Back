@@ -74,7 +74,7 @@ public final class ClientePostgresSqlDAO extends SqlConnection implements Client
 	    final StringBuilder sentenciaSql = new StringBuilder();
 
 	    sentenciaSql.append("UPDATE clientes SET ");
-	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, correo = ?, telefono = ?, estado = ? ");
+	    sentenciaSql.append("tipo_documento = ?, nombre = ?, apellidos = ?, correo = ?, telefono = ? ");
 	    sentenciaSql.append("WHERE numero_documento = ?");
 
 	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {

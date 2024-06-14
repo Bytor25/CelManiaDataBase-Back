@@ -1,5 +1,7 @@
 package co.com.cmdb.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.cmdb.business.facade.impl.proveedor.ActualizarProveedorFacade;
 import co.com.cmdb.business.facade.impl.proveedor.ConsultarPorIdProveedoresFacade;
+import co.com.cmdb.business.facade.impl.proveedor.ConsultarPorNDTDProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.ConsultarProveedoresFacade;
 import co.com.cmdb.business.facade.impl.proveedor.RegistrarProveedoresFacade;
 import co.com.cmdb.controller.response.ProveedorResponse;
@@ -19,6 +23,7 @@ import co.com.cmdb.crosscutting.exceptions.CMDBExceptions;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
 import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.dto.ProveedorDTO;
+import co.com.cmdb.dto.TipoDocumentoDTO;
 
 @RestController
 @RequestMapping("/api/v1/proveedores")
@@ -30,7 +35,6 @@ public class ProveedorController {
 	public ProveedorDTO dummy() {
 		
 		return ProveedorDTO.build();
-	
 	}
 	
 	@GetMapping
@@ -99,6 +103,9 @@ public class ProveedorController {
 		var proveedorResponse = new ProveedorResponse();
 		try {
 			proveedorDto.setNumeroDocumento(id);
+			var facade = new ActualizarProveedorFacade();
+			
+			facade.execute(proveedorDto);
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00077);
 			proveedorResponse.getMensajes().add(mensajeUsuario);
 
@@ -147,11 +154,46 @@ public class ProveedorController {
 
 	    return new ResponseEntity<>(proveedorResponse, httpStatusCode);
 	}
-
 	
+	@GetMapping("/{id}/{tipoDocumento}")
+	public ResponseEntity<ProveedorResponse> consultarPorNumeroDocumentoTipoDocumento(@PathVariable String id, @PathVariable int tipoDocumento){
 		
-		
+	    var httpStatusCode = HttpStatus.ACCEPTED;
+	    var proveedorResponse = new ProveedorResponse();
+
+	    try {
+	        var proveedorDto = ProveedorDTO.build();
+	        var tipoDocumentoDto = TipoDocumentoDTO.build();
+	        
+	        tipoDocumentoDto.setIdentificador(tipoDocumento);
+	        proveedorDto.setNumeroDocumento(id).setTipoDocumento(tipoDocumentoDto);
+	        
+	        var facade = new ConsultarPorNDTDProveedoresFacade();
+
+	        var resultado = facade.execute(proveedorDto);
+	        proveedorResponse.setDatos(List.of(resultado)); 
+	        
+	        var mensajeUsuario = "";
+	        proveedorResponse.getMensajes().add(mensajeUsuario);
+
+	    } catch (final CMDBExceptions excepcion) {
+	        httpStatusCode = HttpStatus.BAD_REQUEST;
+	        proveedorResponse.getMensajes().add(excepcion.getMensajeUsuario());
+	        excepcion.printStackTrace();
+
+	    } catch (final Exception excepcion) {
+	        httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	        var mensajeUsuario = "";
+	        proveedorResponse.getMensajes().add(mensajeUsuario);
+	        excepcion.printStackTrace();
+	    }
+
+	    return new ResponseEntity<>(proveedorResponse, httpStatusCode);
+	
+	}
 }
+		
+		
 	
 
 		

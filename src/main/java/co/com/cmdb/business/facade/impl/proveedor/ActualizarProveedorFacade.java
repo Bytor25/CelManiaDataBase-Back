@@ -30,7 +30,6 @@ public class ActualizarProveedorFacade implements FacadeWithoutReturn<ProveedorD
 			
 		}catch(final CMDBExceptions excepcion) {
 			daoFactory.cancelarTransaccion();
-			
 			throw excepcion;
 			
 		}catch(final Exception excepcion) {

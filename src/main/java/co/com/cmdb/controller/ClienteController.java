@@ -155,6 +155,7 @@ public class ClienteController {
     
     @GetMapping("/{id}/{tipoDocumento}")
     public ResponseEntity<ClienteResponse> consultarPorIdTipoDocumento(@PathVariable String id, @PathVariable int tipoDocumento){
+    	
         var httpStatusCode = HttpStatus.ACCEPTED;
         var clienteResponse = new ClienteResponse();
 
@@ -162,14 +163,15 @@ public class ClienteController {
         	
         	var tipoDocumentoDto = TipoDocumentoDTO.build();
         	tipoDocumentoDto.setIdentificador(tipoDocumento);
-            var clienteDto = ClienteDTO.build().setTipoDocumento(tipoDocumentoDto);
-            clienteDto.setNumeroDocumento(id);
+        	
+            var clienteDto = ClienteDTO.build();
+            clienteDto.setNumeroDocumento(id).setTipoDocumento(tipoDocumentoDto);
             
             var facade = new ConsultarPorIdTipoDocumentoClientesFacade();
 
             var resultado = facade.execute(clienteDto);
             clienteResponse.setDatos(List.of(resultado)); 
-            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00079);
+            var mensajeUsuario = "";
             clienteResponse.getMensajes().add(mensajeUsuario);
 
         } catch (final CMDBExceptions excepcion) {

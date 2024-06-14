@@ -73,7 +73,7 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 		 
 		final StringBuilder sentenciaSql = new StringBuilder();
 
-        sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.numero_documento as numeroDocumento, TD.nombre as nombreTipoId, P.nombre as nombreProveedor, P.telefono as telefonoProveedor ");
+        sentenciaSql.append("SELECT P.identificador as identificadorProveedor, P.numero_documento as numeroDocumento, P.tipo_documento as identificadorDocumento, TD.nombre as nombreTipoId, P.nombre as nombreProveedor, P.telefono as telefonoProveedor ");
         sentenciaSql.append("FROM proveedores P ");
         sentenciaSql.append("INNER JOIN tipos_documentos TD ");
         sentenciaSql.append("ON P.tipo_documento = TD.identificador ");
@@ -108,6 +108,13 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	        parametros.add(data.getTipoDocumento().getNombre());
 	    }
 
+	    if (!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento()) && 
+	    		!ObjectHelper.getObjectHelper().isNull(data.getTipoDocumento().getIdentificador()) && 
+	    		data.getTipoDocumento().getIdentificador() != 0) {
+	    	
+	        sentenciaSql.append(" AND P.tipo_documento = ?");
+	        parametros.add(data.getTipoDocumento().getIdentificador());
+	    }
 
         final List<ProveedorEntity> proveedores = new ArrayList<>();
         
@@ -127,6 +134,8 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
                 proveedor.setTelefono(resultado.getLong("telefonoProveedor"));
                 TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
                 tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+                tipoDocumento.setIdentificador(resultado.getInt("identificadorDocumento"));
+                
                 proveedor.setTipoDocumento(tipoDocumento);
 
                 proveedores.add(proveedor);
@@ -144,15 +153,39 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
             throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
         }
         
-	    
-
         return proveedores;
 	
 	}
 
 	@Override
 	public void mofidicar(ProveedorEntity data) {
-		// TODO Auto-generated method stub
+		
+		System.out.println(data.getTelefono());
+	    final StringBuilder sentenciaSql = new StringBuilder();
+
+	    sentenciaSql.append("UPDATE proveedores SET ");
+	    sentenciaSql.append("tipo_documento = ?, nombre = ?, telefono = ? ");
+	    sentenciaSql.append("WHERE numero_documento = ?");
+
+	    try (final PreparedStatement sentenciaSqlPreparada = getConexion().prepareStatement(sentenciaSql.toString())) {
+	        sentenciaSqlPreparada.setObject(1, data.getTipoDocumento().getIdentificador());
+	        sentenciaSqlPreparada.setString(2, data.getNombre());
+	        sentenciaSqlPreparada.setLong(3, data.getTelefono());
+	        sentenciaSqlPreparada.setString(4, data.getNumeroDocumento());
+
+	        sentenciaSqlPreparada.executeUpdate();
+
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "hola";
+	        var mensajeTecnico = "hola";
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+
+	    } catch (final Exception excepcion) {
+	    	
+	        var mensajeUsuario = "hola";
+	        var mensajeTecnico = "hola";
+	        throw new DataCMDBException(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
 		
 	}
 
@@ -207,9 +240,8 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	        sentenciaSqlPreparada.setObject(1, numeroDocumento);
 
 	        try (final ResultSet resultado = sentenciaSqlPreparada.executeQuery()) {
-	            if (resultado.next()) {
+	            while(resultado.next()) {
 	            	
-	            
 	            	
 	                ProveedorEntity proveedor = ProveedorEntity.build();
 	                
@@ -221,9 +253,8 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
 	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
 	                proveedor.setTipoDocumento(tipoDocumento);
+	                
 	                proveedores.add(proveedor);
-
-
 	            }
 	        }
 	    } catch (final SQLException excepcion) {
@@ -273,6 +304,8 @@ public class ProveedorPostgresSqlDAO extends SqlConnection implements ProveedorD
 	                
 	                TipoDocumentoEntity tipoDocumento = TipoDocumentoEntity.build();
 	                tipoDocumento.setNombre(resultado.getString("nombreTipoId"));
+	                tipoDocumento.setIdentificador(resultado.getInt("identificadorTipoDocumento"));
+	                
 	                proveedor.setTipoDocumento(tipoDocumento);
 
 
