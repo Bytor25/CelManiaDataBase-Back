@@ -35,8 +35,8 @@ public class ConsultarPorIdProveedoresFacade implements FacadeWithReturn<Proveed
 
         } catch (final Exception excepcion) {
             daoFactory.cancelarTransaccion();
-            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00101);
-            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00102);
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00175);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00176);
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario, excepcion);
 
         } finally {

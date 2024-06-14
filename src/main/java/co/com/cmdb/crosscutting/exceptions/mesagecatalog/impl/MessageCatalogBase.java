@@ -82,7 +82,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00032.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00032, "Se ha presentado un problema tratando de consultar la informacion del proveedor..."));
 		mensajes.put(CodigoMensaje.M00033.getIdentificador(),
-				new Mensaje(CodigoMensaje.M00033, "Se ha presentado un problema INESPERADO tratando de consultar el cliente."));
+				new Mensaje(CodigoMensaje.M00033, "Se ha presentado un problema INESPERADO tratando de consultar el proveedor."));
 		mensajes.put(CodigoMensaje.M00034.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00034, "Ya existe un proveedor con el nombre ... asociada con el tipo de documento"));
 		mensajes.put(CodigoMensaje.M00035.getIdentificador(),
@@ -218,7 +218,7 @@ public final class MessageCatalogBase implements MessageCatalog {
 		mensajes.put(CodigoMensaje.M00100.getIdentificador(), 
 				new Mensaje(CodigoMensaje.M00100, "Se ha presentado un problema INESPERADO con una excepción de tipo Exception tratando de consultar un proveedor por su número de documento y tipo de documento ... en la tabla proveedores de la base de datos POSTGRESS SQL. Para más detalles, revise de forma completa la excepción raíz presentada"));
 		mensajes.put(CodigoMensaje.M00101.getIdentificador(), 
-				new Mensaje(CodigoMensaje.M00101, "Se ha presemtado un problema tratando de consultar el cliente por ID."));
+				new Mensaje(CodigoMensaje.M00101, "Se ha presentado un problema tratando de consultar el cliente por ID."));
 		mensajes.put(CodigoMensaje.M00102.getIdentificador(), 
 				new Mensaje(CodigoMensaje.M00102, "Error técnico al ejecutar el caso de uso ConsultarPorIdCliente."));
 		mensajes.put(CodigoMensaje.M00103.getIdentificador(),
@@ -357,8 +357,66 @@ public final class MessageCatalogBase implements MessageCatalog {
 				new Mensaje(CodigoMensaje.M00169, "No fue posible el registro del proveedor debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
 		mensajes.put(CodigoMensaje.M00170.getIdentificador(),
 				new Mensaje(CodigoMensaje.M00170, "No fue posible el registro del proveedor debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
-	
+		mensajes.put(CodigoMensaje.M00171.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00171, "Se ha presentado un problema tratando de actualizar la informacion del proveedor..."));
+		mensajes.put(CodigoMensaje.M00172.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00172, "Se ha presentado un problema INESPERADO tratando de actualizar el proveedor"));
+		mensajes.put(CodigoMensaje.M00173.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00173, "Se ha presentado un problema tratando de consultar el proveedor por numero de documento y tipo de documento."));
+		mensajes.put(CodigoMensaje.M00174.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00174, "Error técnico al ejecutar el caso de uso ConsultarPorNDTDProveedoresFacade."));
+		mensajes.put(CodigoMensaje.M00175.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00175, "Se ha presentado un problema tratando de consultar el proveedor por numero de id."));
+		mensajes.put(CodigoMensaje.M00176.getIdentificador(), 
+				new Mensaje(CodigoMensaje.M00176, "Error técnico al ejecutar el caso de uso ConsultarPorIdProveedoresFacade."));
+		mensajes.put(CodigoMensaje.M00177.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00177, "Se ha producido un problema tratando de llevar a cabo la actualización del proveedor"));
+		mensajes.put(CodigoMensaje.M00178.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00178, "El dao factory para consultar el proveedor llegó nulo"));
+		mensajes.put(CodigoMensaje.M00179.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00179, "Ya existe un proveedor asociado al mismo número de documento y tipo de documento ingresados"));
+		mensajes.put(CodigoMensaje.M00180.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00180, "No fue posible actualizar el proveedor debido a que ya existe un proveedor con el mismo número de documento y tipo de documento ingresados"));
+		mensajes.put(CodigoMensaje.M00181.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00181, "No fue posible actualizar el proveedor debido a que el número de teléfono ya está en uso"));
+		mensajes.put(CodigoMensaje.M00182.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00182, "No fue posible actualizar el proveedor debido a que el campo de nombre llegó vacío"));
+		mensajes.put(CodigoMensaje.M00183.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00183, "No fue posible actualizar el proveedor debido a que el nombre ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00184.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00184, "No fue posible actualizar el proveedor debido a que el campo de teléfono llegó vacío"));
+		mensajes.put(CodigoMensaje.M00185.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00185, "No fue posbile actualizar el proveedor debido a que el teléfono ingresado no se encuentra en el rango permitido"));
+		mensajes.put(CodigoMensaje.M00186.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00186, "No fue posible actualizar el proveedor debido a que el teléfono ingresado no se encuentra en el formato permitido"));
+		mensajes.put(CodigoMensaje.M00187.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00187, "No fue posible actualizar el proveedor debido a que el teléfono ingresado no se encuentra dentro del rango definido"));
+		mensajes.put(CodigoMensaje.M00188.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00188, "No fue posible la actualización del proveedor debido a que el Tipo de documento seleccionado no se encuentra registrado en la base de datos POSTGRE SQL"));
+		mensajes.put(CodigoMensaje.M00189.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00189, "El número de documento no puede ser nulo."));
+		mensajes.put(CodigoMensaje.M00190.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00190, "El número de documento es nulo o vacío en el método execute de ConsultarPorIdProveedor."));
+		mensajes.put(CodigoMensaje.M00191.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00191, "No se encontró el proveedor con el ID proporcionado."));
+		mensajes.put(CodigoMensaje.M00192.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00192, "No se encontró ninguna entidad Proveedor con el ID: "));
+		mensajes.put(CodigoMensaje.M00193.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00193, "El número de documento no puede ser nulo."));
+		mensajes.put(CodigoMensaje.M00194.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00194, "El número de documento es nulo o vacío en el método execute de ConsultarPorNDTDProveedor."));
+		mensajes.put(CodigoMensaje.M00195.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00195, "El tipo de documento no puede ser nulo."));
+		mensajes.put(CodigoMensaje.M00196.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00196,"El tipo de documento es nulo o vacío en el método execute de ConsultarPorNDTDProveedor."));
+		mensajes.put(CodigoMensaje.M00198.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00198, "No se encontró el proveedor con el numero de documento proporcionado."));
+		mensajes.put(CodigoMensaje.M00199.getIdentificador(),
+				new Mensaje(CodigoMensaje.M00199, "No se encontró ninguna entidad Proveedor con el numero de documento: " ));
+
+		
 	}
+	
 		
 
 	@Override

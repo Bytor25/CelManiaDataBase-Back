@@ -21,8 +21,8 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
     	
     	if(ObjectHelper.getObjectHelper().isNull(factory)) {
     		
-    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00040);
-    		var mensajeTecnico = "";
+    		var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00177);
+    		var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00178);
     		
     		throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
     		
@@ -63,8 +63,8 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		
 		if(proveedorExiste != null) {
 			
-			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00148);
-			var mensajeTecnico = "";
+			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00179);
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00180);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			
@@ -78,7 +78,7 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		if(factory.getProveedorDAO().existeTelefono(valor, numeroDocumento)) {
 			
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00156);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00181);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 		}
 	}
@@ -87,13 +87,13 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
     	
         if (ObjectHelper.getObjectHelper().isNull(valor) || valor.trim().isEmpty()) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00158);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00182);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
         if (!validarLongitud(valor, 1, 60)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00160);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00183);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         
@@ -105,22 +105,22 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
     	
         if (valor == 0) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00162);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00184);
         	throw new BusinessCMDBException(mensajeUsuario,mensajeTecnico);
         }
         if (!validarLongitud(numeroTelefono,1,10)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00164);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00185);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!TextHelper.validarSoloNumeros(numeroTelefono)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00166);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00186);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
         if(!LongHelper.validarRango(valor)) {
         	var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00168);
-        	var mensajeTecnico = "";
+        	var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00187);
         	throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
         }
     	
@@ -140,7 +140,7 @@ public final class ActualizarProveedor implements UseCaseWithoutReturn<Proveedor
 		if(tipoDocumentoResultado.isEmpty() || TipoDocumento == 0) {
 			
 			var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00132);
-			var mensajeTecnico = "";
+			var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00188);
 			
 			throw new BusinessCMDBException(mensajeUsuario, mensajeTecnico);
 			

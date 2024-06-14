@@ -6,6 +6,8 @@ import co.com.cmdb.business.assembler.entity.impl.ProveedorAssemblerEntity;
 import co.com.cmdb.business.domain.ProveedorDomain;
 import co.com.cmdb.business.usecase.UseCaseWithReturn;
 import co.com.cmdb.crosscutting.exceptions.custom.BusinessCMDBException;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.MessageCatalogStrategy;
+import co.com.cmdb.crosscutting.exceptions.mesagecatalog.data.CodigoMensaje;
 import co.com.cmdb.crosscutting.helpers.TextHelper;
 import co.com.cmdb.data.dao.factory.DAOFactory;
 
@@ -28,8 +30,8 @@ public class ConsultarPorIdProveedor implements UseCaseWithReturn<ProveedorDomai
     public List<ProveedorDomain> execute(final ProveedorDomain data) {
 	
         if (TextHelper.isNullOrEmpty(data.getNumeroDocumento())) {
-            var mensajeUsuario = "El número de documento no puede ser nulo.";
-            var mensajeTecnico = "El número de documento es nulo o vacío en el método execute de ConsultarPorIdProveedor.";
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00189);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00190);
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
         }
 
@@ -38,8 +40,8 @@ public class ConsultarPorIdProveedor implements UseCaseWithReturn<ProveedorDomai
         var resultadoEntity = factory.getProveedorDAO().consultarPorNumeroDocumento(proveedorEntityFilter.getNumeroDocumento());
 
         if (resultadoEntity == null) {
-            var mensajeUsuario = "No se encontró el proveedor con el ID proporcionado.";
-            var mensajeTecnico = "No se encontró ninguna entidad Proveedor con el ID: " + proveedorEntityFilter.getNumeroDocumento();
+            var mensajeUsuario = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00191);
+            var mensajeTecnico = MessageCatalogStrategy.getContenidoMensaje(CodigoMensaje.M00192)+ proveedorEntityFilter.getNumeroDocumento();
             throw new BusinessCMDBException(mensajeTecnico, mensajeUsuario);
         }
 
