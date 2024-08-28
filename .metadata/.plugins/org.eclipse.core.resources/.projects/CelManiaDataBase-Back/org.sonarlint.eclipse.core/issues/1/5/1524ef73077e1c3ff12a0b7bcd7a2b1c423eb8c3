@@ -1,0 +1,28 @@
+
+ç	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.b d940f4d743f91bcc6708c5cb40c6de44h
+ê
+java:S1192ƒ"[Define a constant instead of duplicating this literal "identificadorTipoDocumento" 3 times.b 71fe2dbf139668f13d9e4a2099b73b16h
+É
+java:S1192ª"NDefine a constant instead of duplicating this literal "nombreCliente" 3 times.b 2cf744ecabbdad2ba3ef78066b74fd36h
+å
+java:S1192∫"WDefine a constant instead of duplicating this literal "numeroDocumentoCliente" 3 times.b 2b1e454a2f05ec102d7413207712beb0h
+É
+java:S1192Ω"NDefine a constant instead of duplicating this literal "correoCliente" 3 times.b 81a3c0b4a7f95529226e263d326c194eh
+É
+java:S1192ø"NDefine a constant instead of duplicating this literal "estadoCliente" 3 times.b 17e21e9a7024ef5779d6210c74a93117h
+ä
+java:S1192π"UDefine a constant instead of duplicating this literal "identificadorCliente" 3 times.b ab1724a5acb2e0a09e471c0cc86f5bc0h
+î
+java:S1192r"`Define a constant instead of duplicating this literal "INNER JOIN tipos_documentos TD " 3 times.b 555c34d6c8aa1499f70958cb513421aah
+Ö
+java:S1192æ"PDefine a constant instead of duplicating this literal "telefonoCliente" 3 times.b bb91aca5815aba888eed4f1d46e59442h
+Ü
+java:S1192º"QDefine a constant instead of duplicating this literal "apellidosCliente" 3 times.b 007488ea5cdf7b281ac617fbb8630792h
+Ç
+java:S1192√"MDefine a constant instead of duplicating this literal "nombreTipoId" 3 times.b ade7c584b38d85e310cc3a83c251864fh
+Ö
+java:S1192q"QDefine a constant instead of duplicating this literal "FROM clientes C " 3 times.b e128a915b95eb060d2b322ef7143a79ch
+Ü
+java:S3776k"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.b fb176f9d5d65e664811a5bc03e697999h
+˙
+java:S6541k"≈A "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 83 to 64, Complexity from 17 to 14, Nesting Level from 3 to 2, Number of Variables from 15 to 6.b fb176f9d5d65e664811a5bc03e697999h
